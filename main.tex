@@ -72,9 +72,11 @@ Forecasting-based models try to predict a future subsequence of the time series 
 
 Reconstruction-based models attempt to recreate the input timeseries based on the values of past points or windows. These models use architectures like autoencoders (AE) and Generative Adversarial Networks (GANs). Anomalies are identified using the reconstruction error between the predicted series and the original series. The advantage of reconstruction-based models over forecasting ones is that they adapt better to rapid changes in a timeseries, which may cause it to become unpredictable. This happens because reconstruction models have access to the current timeseries data, which is not available in forecasting models \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024}. This better precision comes with a delay in the detection time of an anomaly, but, in general, these models are preferred over forecasting models.
 
-Representation-based focus on learning meaningful representations of the data that can be used in downstream tasks, like anomaly detection.  These models use advanced architectures like transformers and self-supervised learning to extract high-level features from the data. The learned representations are often used in conjunction with simpler models (e.g., clustering or density-based methods) to identify anomalies. The downside of these models is that they are computationally expensive to train, often needing a large amount of data.
+Representation-based models focus on learning meaningful representations of the data that can be used in downstream tasks, like anomaly detection.  These models use advanced architectures like transformers and self-supervised learning to extract high-level features from the data. The learned representations are often used in conjunction with simpler models (e.g., clustering or density-based methods) to identify anomalies. The downside of these models is that they are computationally expensive to train, often needing a large amount of data.
 
 An important point to highlight is that the majority of the models described above are unsupervised models. An unsupervised model is a model that can learn patterns from data without the need for a labeled dataset. This flexibility is desired because of the inherently unlabeled nature of historical data and the unpredictability of anomalies, which makes it harder to define an anomaly, especially if anomalies are rare. In this work, the focus will be on unsupervised reconstruction models.
+
+Another important point to note is that, as will be detailed in Sections \ref{sec-track-quality-accel} and \ref{sec-methodology}, the model proposed in this thesis is not designed specifically for anomaly detection. Instead, its primary objective is to learn how to reconstruct track irregularities from acceleration data. Despite that, the main idea that motivates the model's development is closely related to anomaly detection. For this reason, a review of anomaly detection methods was included.
 
 \section{Basics of Deep Learning Models}
 
@@ -329,6 +331,8 @@ where $\alpha_l \in \mathrm{R}^1$ is the weight of the l-th vector. Figure \ref{
 \end{figure}
 
 \section{Transformers}
+
+
 
 \section{Reconstruction-Based Models}
 
