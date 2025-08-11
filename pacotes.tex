@@ -1,0 +1,233 @@
+% Aqui você pode adicionar seus pacotes específicos para uso em seu trabalho.
+% Em PACOTES PESSOAIS insira os pacotes que desejar.
+% ----------------------------------------------------------
+% PACOTES BÁSICOS (ESSENCIAIS AO MODELO)
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color,xcolor}		% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+% ----------------------------------------------------------
+% ----------------------------------------------------------
+% PACOTES PARA GLOSSÁRIO
+\usepackage[subentrycounter,seeautonumberlist,nonumberlist=true]{glossaries}
+% para usar o xindy ao invés do makeindex:
+%\usepackage[xindy={language=portuguese},subentrycounter,seeautonumberlist,nonumberlist=true]{glossaries}
+% ----------------------------------------------------------
+% ----------------------------------------------------------
+% PACOTES DE CITAÇÕES (PRINCIPAIS PACOTES DO MODELO)
+\usepackage[brazilian]{backref}		% Paginas com as citações na bibl
+\usepackage[alf,
+	    abnt-repeated-author-omit=yes,
+	    abnt-etal-list=0]{abntex2cite}		% Citações padrão ABNT
+\makeatletter
+\@ifpackageloaded{tocbibind}{}{\let\tocbibind\relax}
+\makeatother
+
+% É possível utilizar o sistema numérico de chamada, alterando a opção 'alf' para 'num'.
+% Outros estilos bibliográficos podem ser usados. Se este for o caso, comente o pacote acima
+% e utilize, por exemplo, o comando abaixo
+% \bibliographystyle{acm}
+% Consulte outros estilos de bibliografia consultando o manual de estilos bibliográficos do
+% BibTeX em 'http://www.bibtex.org/'
+% ----------------------------------------------------------
+% ----------------------------------------------------------
+% PACOTES ADICIONAIS (usados apenas no âmbito do Modelo Canônico do abnteX2)
+\usepackage{lipsum}			% para geração de dummy text
+% ----------------------------------------------------------
+% ----------------------------------------------------------
+% PACOTES PESSOAIS (USADOS PELO AUTOR -- acrescente aqui seus pacotes)
+% ----------------------------------------------------------
+\usepackage[portuguese,onelanguage]{algorithm2e}	% para inserir algoritmos (longend,vlined)
+\usepackage{float}
+% \usepackage{amsbsy}			% para símbolos matemáticos em negrito
+% \usepackage{amscd}			% para diagramas
+% \usepackage{amsfonts}			% fontes AMS
+% \usepackage{amsmath}			% facilidades matemáticas
+% \usepackage{amssymb}			% para os símbolos mais antigos
+% \usepackage{amstext}			% para fragmentos tipo texto em modo matemático
+\usepackage{amsthm}			% para teoremas
+\usepackage{hyperref}			% Amplo suporte para hipertexto em LaTeX
+\usepackage{cleveref}			% Referência cruzada inteligente
+\usepackage{dsfont}			% para o estilo de conjuntos de números $\mathds{R}$
+% \usepackage{ifthen}			% comandos de condição em LaTeX
+\usepackage{listings}           	% para inserir códigos de outras linguagens de programação
+% \usepackage{lscape}             	% para imprimir alguma página no formato paisagem
+\usepackage{mathabx}			% conjunto de simbolos matemáticos
+% \usepackage{mathrsfs}			% suporte para fontes RSFS
+% \usepackage{pdfpages}           	% para inserir páginas PDF no texto
+
+% \usepackage{verbatim}
+% ----------------------------------------------------------
+\usepackage{lastpage}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{graphics} 
+\usepackage{ifthen}
+\usepackage{keyval}
+\usepackage{trig}
+\usepackage{tabu}
+\usepackage{varwidth}
+% Indenta o primeiro parágrafo de cada seção.
+\usepackage{indentfirst}
+\usepackage{lscape}
+\usepackage{array}
+% Controle das cores.
+\usepackage[usenames,dvipsnames]{xcolor}
+
+% Inclusão de gráficos.
+\usepackage{graphicx}
+
+% Inclusão de páginas em PDF diretamente no documento (para uso nos apêndices).
+\usepackage{pdfpages}
+
+% Para melhorias de justificação.
+\usepackage{microtype}
+
+% Para referencias inteligentes
+\usepackage[brazilian]{cleveref}
+
+\usepackage[linesnumbered, [linesnumbered,ruled, vline,commentsnumbered]{algorithm2e}
+% Citações padrão ABNT.
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}	
+%\usepackage[num]{abntex2cite}	
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}		% Usado sem a opção hyperpageref de backref.
+\renewcommand{\backref}{}										% Texto padrão antes do número das páginas.
+\renewcommand*{\backrefalt}[4]{									% Define os textos da citação.
+	\ifcase #1
+		Nenhuma citação no texto.
+	\or
+		Citado na página #2.
+	\else
+		Citado #1 vezes nas páginas #2.
+	\fi}
+
+% \rm is deprecated and should not be used in a LaTeX2e document
+% http://tex.stackexchange.com/questions/151897/always-textrm-never-rm-a-counterexample
+\renewcommand{\rm}{\textrm}
+
+% Pacotes não incluídos no template abntex2. 
+% Podem ser comentados caso não queira utilizá-los.
+
+% Inclusão de símbolos não padrão.
+\usepackage{amssymb}
+\usepackage{eurosym}
+
+% Para utilizar \eqref para referenciar equações.
+\usepackage{amsmath}
+
+% Permite mostrar figuras muito largas em modo paisagem com \begin{sidewaysfigure} ao invés de \begin{figure}.
+\usepackage{rotating}
+
+% Permite customizar listas enumeradas/com marcadores.
+\usepackage{enumitem}
+\usepackage{enumerate}
+% Permite inserir hiperlinks com \url{}.
+\usepackage{bigfoot}
+\usepackage{hyperref}
+
+% Permite usar o comando \hl{} para evidenciar texto com fundo amarelo. Útil para chamar atenção a itens a fazer.
+\usepackage{soulutf8}
+
+% Colorinlistoftodos package: to insert colored comments so authors can collaborate on the content.
+%\usepackage[colorinlistoftodos, textwidth=20mm, textsize=footnotesize]{todonotes}
+%\newcommand{\aluno}[1]{\todo[author=\textbf{Aluno},color=green!30,caption={},inline]{#1}}
+%\newcommand{\professor}[1]{\todo[author=\textbf{Professor},color=red!30,caption={},inline]{#1}}
+
+
+
+% Permite inserir espaço em branco condicional (incluído no texto final só se necessário) em macros.
+\usepackage{xspace}
+
+% Permite incluir listagens de código com o comando \lstinputlisting{}.
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\renewcommand{\lstlistingname}{Listagem}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\lstset{
+	basicstyle=\scriptsize,
+	breaklines=true,
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray}, 
+	rulecolor=\color{black},
+	showstringspaces=false,
+	tabsize=2,
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=%
+    {é}{{\'{e}}}1
+    {è}{{\`{e}}}1
+    {ê}{{\^{e}}}1
+    {ë}{{\¨{e}}}1
+    {É}{{\'{E}}}1
+    {Ê}{{\^{E}}}1
+    {û}{{\^{u}}}1
+    {ù}{{\`{u}}}1
+    {â}{{\^{a}}}1
+    {à}{{\`{a}}}1
+    {á}{{\'{a}}}1
+    {ã}{{\~{a}}}1
+    {Á}{{\'{A}}}1
+    {Â}{{\^{A}}}1
+    {Ã}{{\~{A}}}1
+    {ç}{{\c{c}}}1
+    {Ç}{{\c{C}}}1
+    {õ}{{\~{o}}}1
+    {ó}{{\'{o}}}1
+    {ô}{{\^{o}}}1
+    {Õ}{{\~{O}}}1
+    {Ó}{{\'{O}}}1
+    {Ô}{{\^{O}}}1
+    {î}{{\^{i}}}1
+    {Î}{{\^{I}}}1
+    {í}{{\'{i}}}1
+    {Í}{{\~{Í}}}1
+}
+
+
+\newcommand{\latex}{\LaTeX\xspace}
+\newcommand{\istar}{\textit{i}$^\star$\xspace}
+\newcommand{\java}{Java\texttrademark\xspace}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{nomencl}
+
+\usepackage{siunitx}
+%\usepackage[table,xcdraw]{xcolor}
+
+
+\usepackage{comment}
+
+\usepackage{paralist}
+
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+\usepackage{media9}
+\usepackage{pdfpages}
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+
+
+\usepackage{algpseudocode}
+
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{ragged2e}
+% \usepackage{breqn}

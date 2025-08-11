@@ -1,0 +1,16 @@
+*.aux
+*.bbl
+*.blg
+*.lof
+*.lot
+*.toc
+*.out
+*.bcf
+*.loa
+*.log
+*.brf
+*.ist
+*.lol
+*.glo
+*.idx
+*.json
