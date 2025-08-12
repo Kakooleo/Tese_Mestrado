@@ -3,7 +3,7 @@
 
 In recent years, rapid technological advancements have led to a significant increase in the volume of data collected and generated from diverse sources such as sensors, databases, and files \cite{attoh2017big}. This large volume of data is now commonly referred to as Big Data. A substantial portion of Big Data consists of data points collected in sequential time steps, also known as time series. Analyzing time series data presents a complex set of challenges \cite{Tsai_Lai_Chao_Vasilakos_2015}. 
 
-One of the most studied problems in this area is anomaly detection. It consists of identifying outliers or abnormal patterns within data and has a variety of applications, from financial systems and medical diagnosis to urban management and fault detection \cite{Blázquez-García_Conde_Mori_Lozano_2021,Choi_Yi_Park_Yoon_2021,Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024,Samariya_Thakkar_2021}. 
+One of the most studied problems in this area is anomaly detection. It consists of identifying outliers or abnormal patterns within data and has a variety of applications, from financial systems and medical diagnosis to urban management and fault detection \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021,Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024,Samariya_Thakkar_2021}. 
 
 The following sections will dive deeper into what the concept of a time series is, what  the different natures of anomalies in data are, and some of the models used to detect these anomalies.
 
@@ -11,13 +11,13 @@ The following sections will dive deeper into what the concept of a time series i
 
 A time series (TS) can be defined as a set of points indexed sequentially over time and is often divided into univariate and multivariate. A univariate TS is a set of real values from a single variable that changes over time $\textbf{X} = \{x_t\}$ for $t$ $\in$ $T$, where T is the total time. On the other hand, a multivariate TS is a set of real values from multiple variables that change over time, i.e., $\textbf{X} = \{\textbf{x}_t\}$ for $t$ $\in$ $T$, where $\textbf{x}_t$ is a k-dimensional vector defined by $\textbf{x}_t = (x_{1t}, ..., x_{kt})$ and each $x_{it}$ is a univariate TS. 
 
-A subsequence of length $n \leq T$ can be defined as $\textbf{S} = \{\textbf{x}_{p:p+n}\}$ from the time series $\textbf{X}$, where $p \in T$ and $p \leq T-n+1$ \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024, Blázquez-García_Conde_Mori_Lozano_2021}. 
+A subsequence of length $n \leq T$ can be defined as $\textbf{S} = \{\textbf{x}_{p:p+n}\}$ from the time series $\textbf{X}$, where $p \in T$ and $p \leq T-n+1$ \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024, Blazquez-Garcia_Conde_Mori_Lozano_2021}. 
 
 Time series data exhibit dependencies that vary based on their type. In univariate time series, temporal dependency occurs when the value at time $t$, $x_t$, is influenced by its preceding values, $x_{p:t}$. In multivariate time series, in addition to temporal dependencies, there are spatial dependencies, representing the correlations between different variables within the same time step \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024}.
 
 \subsection{Time Series Anomalies}
 
-According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that deviates greatly from the general distribution of data. These outliers can be a single observation or a subsequence of the whole time series. Building on this, \cite{Blázquez-García_Conde_Mori_Lozano_2021} divides anomalies into three main categories:
+According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that deviates greatly from the general distribution of data. These outliers can be a single observation or a subsequence of the whole time series. Building on this, \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021} divides anomalies into three main categories:
 
 \begin{enumerate}
     \item \textit{Point Anomalies}: A point outlier can be defined as a single observation that deviates from the global behavior (global anomaly) or from the behavior of it's neighborhood (local anomaly). This type of anomaly can be identified using equation \ref{eq_point_anomaly}
@@ -42,21 +42,21 @@ According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that dev
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/point_anomaly.png}
-    \caption{\cite{Blázquez-García_Conde_Mori_Lozano_2021}}
+    \caption{\cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
     \label{fig:point_anomaly}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/subseq_anomaly.png}
-    \caption{\cite{Blázquez-García_Conde_Mori_Lozano_2021}}
+    \caption{\cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
     \label{fig:subsequence_anomaly}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/TS_anomaly.png}
-    \caption{\cite{Blázquez-García_Conde_Mori_Lozano_2021}}
+    \caption{\cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
     \label{fig:Time_series_anomaly}
 \end{figure}
 
@@ -84,7 +84,7 @@ Before diving deeper into anomaly detection models, the fundamental concepts of 
 
 \subsection{Neural Networks} \label{sec-Neural_networks}
 
-Neural networks are the most basic structure in deep learning. It is inspired by the way the human brain works \cite{AGATONOVICKUSTRIN2000717,Alzubaidi_Zhang_Humaidi_Al-Dujaili_Duan_Al-Shamma_Santamaría_Fadhel_Al-Amidie_Farhan_2021}. These networks are composed of thousands, or even millions, of interconnected units called perceptrons, which mimic the behavior of biological neurons. In a neural network, these perceptrons are arranged into multiple layers, as shown in Figure \ref{fig:neural_network-a}. In this illustration, each circle represents a single perceptron. 
+Neural networks are the most basic structure in deep learning. It is inspired by the way the human brain works \cite{AGATONOVICKUSTRIN2000717,Alzubaidi_Zhang_Humaidi_Al_Dujaili_Duan_Al_Shamma_Santamaria_Fadhel_Al_Amidie_Farhan_2021}. These networks are composed of thousands, or even millions, of interconnected units called perceptrons, which mimic the behavior of biological neurons. In a neural network, these perceptrons are arranged into multiple layers, as shown in Figure \ref{fig:neural_network-a}. In this illustration, each circle represents a single perceptron. 
 
 The neural network is divided into three main components: 
 \begin{itemize}
@@ -176,11 +176,11 @@ Despite its effectiveness, the classical backpropagation algorithm has some prob
 %Escrever sobre treinamento, dps backpropagation e adam, CNN, LSTM, transformers.
 Convolutional neural networks (CNN) achieved great popularity in modern machine learning, gaining large popularity with the \cite{NIPS2012_c399862d} paper. In this work, the authors proposed a deep CNN that won the ImageNet LSVRC-2010 contest, outperforming second place by a large margin. 
 
-A CNN, similarly to the neural network, was inspired by the biological neurons, but, different from the conventional neural network, where all the neurons are connected and interact with all neurons in adjacent layers, the CNN employs a sparse architecture, i.e., the neurons are connected only to a local region of the input. This sparsity reduces the amount of training parameters, which reduces the computational cost and speeds up the training process \cite{Alzubaidi_Zhang_Humaidi_Al-Dujaili_Duan_Al-Shamma_Santamaría_Fadhel_Al-Amidie_Farhan_2021, 9451544}. 
+A CNN, similarly to the neural network, was inspired by the biological neurons, but, different from the conventional neural network, where all the neurons are connected and interact with all neurons in adjacent layers, the CNN employs a sparse architecture, i.e., the neurons are connected only to a local region of the input. This sparsity reduces the amount of training parameters, which reduces the computational cost and speeds up the training process \cite{Alzubaidi_Zhang_Humaidi_Al_Dujaili_Duan_Al_Shamma_Santamaria_Fadhel_Al_Amidie_Farhan_2021, 9451544}. 
 
 CNNs are widely used in computer vision to process and analyze 2D images and are used to solve a variety of image-related problems, like classification and object detection. While this section focuses on explaining CNN concepts with the assumption of a 2D input, it is important to note that the principles discussed are equally applicable to 1D inputs, like in a timeseries.
 
-The basic block of a CNN is the convolution operation. A convolution can be defined as the dot product between an input $x$ of shape $(m,m,r)$, where $m$ is the height, which is the same as the width, and $r$ is the depth, also called the channel number, and $k$ convolutional filters, called kernels. A kernel is a grid of weights, with shape $(n,n, q)$, where $n < m$ and $q \leq r$, that convolves with the input, producing, each, an output of size $(m-n-1)$, called the feature maps \cite{Alzubaidi_Zhang_Humaidi_Al-Dujaili_Duan_Al-Shamma_Santamaría_Fadhel_Al-Amidie_Farhan_2021}. These kernels compute the pass value similarly to the 
+The basic block of a CNN is the convolution operation. A convolution can be defined as the dot product between an input $x$ of shape $(m,m,r)$, where $m$ is the height, which is the same as the width, and $r$ is the depth, also called the channel number, and $k$ convolutional filters, called kernels. A kernel is a grid of weights, with shape $(n,n, q)$, where $n < m$ and $q \leq r$, that convolves with the input, producing, each, an output of size $(m-n-1)$, called the feature maps \cite{Alzubaidi_Zhang_Humaidi_Al_Dujaili_Duan_Al_Shamma_Santamaria_Fadhel_Al_Amidie_Farhan_2021}. These kernels compute the pass value similarly to the 
 \begin{equation}
     h^k = f\left(W^k * x + b_k\right)
 \end{equation}
@@ -220,7 +220,7 @@ One of the most widely used types is max pooling, which selects the maximum valu
 
 \section{Recurrent Neural Networks} \label{section-RNN}
 
-Recurrent Neural Networks (RNNs) are a type of artificial neural network specifically designed to work with sequential data, such as time series, speech recognition, text generation, and language modeling \cite{schmidt2019recurrentneuralnetworksrnns,fang-wei,Alzubaidi_Zhang_Humaidi_Al-Dujaili_Duan_Al-Shamma_Santamaría_Fadhel_Al-Amidie_Farhan_2021}. The main difference between an RNN and the networks discussed in Sections \ref{sec-Neural_networks} and \ref{section-CNN} is how data is processed inside the RNN. In the MLP and the CNN networks, it is assumed that each input is independent from each other, which can be a valid assumption when dealing with images, but might be a severe limitation when dealing with sequential data, like weather data, where, for example, the current temperature depends on the last few measurements. 
+Recurrent Neural Networks (RNNs) are a type of artificial neural network specifically designed to work with sequential data, such as time series, speech recognition, text generation, and language modeling \cite{schmidt2019recurrentneuralnetworksrnns,fang-wei,Alzubaidi_Zhang_Humaidi_Al_Dujaili_Duan_Al_Shamma_Santamaria_Fadhel_Al_Amidie_Farhan_2021}. The main difference between an RNN and the networks discussed in Sections \ref{sec-Neural_networks} and \ref{section-CNN} is how data is processed inside the RNN. In the MLP and the CNN networks, it is assumed that each input is independent from each other, which can be a valid assumption when dealing with images, but might be a severe limitation when dealing with sequential data, like weather data, where, for example, the current temperature depends on the last few measurements.
 
 RNNs deal with this kind of problem by introducing a cycle in their architecture  allows information to persist across time steps \cite{schmidt2019recurrentneuralnetworksrnns}, as shown in Figure \ref{fig:RNN-struct}. The key idea is to add a hidden-to-hidden weight matrix $\boldsymbol{W}_{hh}$ that carries information from the previous hidden state $\boldsymbol{H}_{t-1}$ in the computation of the current hidden state $\boldsymbol{H}_t$. 
 
@@ -332,7 +332,7 @@ where $\alpha_l \in \mathrm{R}^1$ is the weight of the l-th vector. Figure \ref{
 
 \section{Transformers}
 
-
+The transformer architecture was introduced by \cite{vaswani2023attentionneed} and, since then, has gained widespread popularity in various fields, such as natural language processing (NLP), computer vision (CV) and time series analysis \cite{lin2021surveytransformers,wen2023transformerstimeseriessurvey}. It is built upon the attention mechanism, shown in Section \ref{sec-attention}, which makes it particularly effective in modeling long range dependencies in sequential data \cite{wen2023transformerstimeseriessurvey}. Since the \cite{vaswani2023attentionneed} paper, a variety of transformers architectures have been proposed to improve the original transformer, as shown in \cite{lin2021surveytransformers}. However, this section will focus on the vanilla Transformer.
 
 \section{Reconstruction-Based Models}
 
@@ -354,9 +354,56 @@ INSERIR FIGURA AQUI
 
 %TODO: Adicionar as seguintes seções futuramente: railway geometry and dynamics, railway defects, railway data collection and maintenance
 
-\section{Railway Track Irregularities} \label{sec-track-defects}
+\section{Track Irregularities Standards} \label{sec-track-defects}
 
-Railway track defects 
+Railway track irregularities are deviations from the ideal track geometry that can affect the safety and comfort of train operations \cite{Sansinena26032025}. So, to ensure safe and efficient railway operations, a continuous assessment of track condition is necessary to support planning of maintenance actions. For this reason, different countries have established standards that quantify the acceptable limits for these irregularities. In subsections \ref{sec-FRA_Standard} and \ref{sec-Brazil-Standard}, two of these standards will be presented: the Federal Railroad Administration (FRA) standard, used in the United States, and the Brazilian standard, used in Brazil.
+
+\subsection{FRA Standard} \label{sec-FRA-Standard}
+
+Railway track irregularities are normally modeled as being random and, for this reason, are typically described by a Power Spectral Density (PSD) function. Countries like USA, China, Britain and Germany adopted this approach to describe track irregularities \cite{PIRES2021107806,Berawi2013ImprovingRT}. The PSD function parameters were estimated from measured data and, therefore, represent the average irregularity observed in each respective railway network.
+
+FRA classifies tracks into nine categories based on their condition, assigning a PSD function to each category. Categories 1 to 6 are designed for ordinary tracks, while categories 7 to 9 are intended for high-speed tracks. Due to equipment limitations, the FRA standard can only describe irregularities with wavelengths between 1.524 m to 304.8 m \cite{Berawi2013ImprovingRT}.
+
+The PSD formulas are given by Equations \ref{eq:FRA-vertical}, \ref{eq:FRA-lateral} and \ref{eq:FRA-gauge}:
+
+\begin{equation}
+    S_{av}(\Omega) = \frac{k \cdot A_v \cdot \Omega_c^2}{\Omega^2 \cdot \left(\Omega^2 + \Omega_c^2\right)}
+    \label{eq:FRA-vertical}
+\end{equation}
+
+\begin{equation}
+    S_{al}(\lambda) = \frac{k \cdot A_a \cdot \Omega_c^2}{\Omega^2 \cdot \left(\Omega^2 + \Omega_c^2\right)}
+    \label{eq:FRA-lateral}
+\end{equation}
+
+\begin{equation}
+    S_{gauge/cl}(\lambda) = \frac{4 \cdot k \cdot A_v \cdot \Omega_c^2}{\left(\Omega^2 + \Omega_c^2\right) \cdot \left(\Omega^2 + \Omega_s^2\right)}
+    \label{eq:FRA-gauge}
+\end{equation}
+where $S_{av}(\Omega)$ is the vertical alignment PSD, $S_{al}(\Omega)$ is the lateral alignment PSD, and $S_{gauge/cl}(\Omega)$ is the gauge or the superelevation PSD, all expressed in $[cm^2 / (rad/m)]$. The variable $\Omega$ is the spatial wavenumber, while $\Omega_c$ and $\Omega_s$ are the critical wavenumbers, all in $[rad/m]$. The variable $k$ is a constant, and $A_v$ and $A_a$ are the roughness coefficients related to the line grade, expressed in $[cm^2 \cdot rad /m]$. Table \ref{tab:FRA-PSD-parameters} summarizes the parameters for each track class.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c c c c c c c}
+\hline
+\multirow{2}{*}{Class} & \multicolumn{2}{c}{Max velocity (km/h)} & \multicolumn{4}{c}{Parameters} \\ \cline{2-7}
+ & Freight transportation & Passengers & $A_v$ (cm$^2$ rad/m) & $A_a$ (cm$^2$ rad/m) & $\Omega_c^2$ (rad/m) & $\Omega_s^2$ (rad/m) \\
+\hline
+1 & 16  & 24  & 1.2107 & 3.3634 & 0.6046 & 0.8245 \\
+2 & 40  & 48  & 1.0181 & 1.2107 & 0.9308 & 0.8245 \\
+3 & 64  & 97  & 0.6816 & 0.4128 & 0.8520 & 0.8245 \\
+4 & 97  & 129 & 0.5376 & 0.3027 & 1.1312 & 0.8245 \\
+5 & 129 & 145 & 0.2095 & 0.0762 & 0.8209 & 0.8245 \\
+6 & 177 & 177 & 0.0339 & 0.0339 & 0.4380 & 0.8245 \\
+\hline
+\end{tabular}
+\caption{Summary of the parameters for each track class. \cite{PIRES2021107806}}
+\label{tab:FRA-PSD-parameters}
+\end{table}
+
+One important point to highlight is that track condition in USA have very similar conditions to those in Brazil. For this reason, the FRA standard can be used to describe track irregularities in Brazil \cite{PIRES2021107806}.
+
+\subsection{Brazil Standard} \label{sec-Brazil-Standard}
 
 \section{Assessing Railway Track Condition} \label{sec-assessing-railway-track}
 
@@ -447,9 +494,9 @@ The authors fitted two models to the maximum simulated accelerations: a linear r
 
 As stated in Section \ref{sec-assessing-railway-track}, continuous measurements of track irregularities are an important factor in ensuring safety and comfort during railway operations. Traditionally, TGCs were used to assess track irregularities by directly measuring the track geometry. However, due to their high cost, constant inspection of the railway is not possible. 
 
-An alternative to this approach is to use an IRV equipped with sensors that can measure the dynamic response of the vehicle due to track excitations. Normally, in this setup, accelerometers are mounted on various one or more components of the train, such as the axlebox, the bogie, or the car body, depending on the objective of the measurement and the maintenance costs of the sensors \cite{vibration7040049,Sansiñena26032025}. 
+An alternative to this approach is to use an IRV equipped with sensors that can measure the dynamic response of the vehicle due to track excitations. Normally, in this setup, accelerometers are mounted on various one or more components of the train, such as the axlebox, the bogie, or the car body, depending on the objective of the measurement and the maintenance costs of the sensors \cite{vibration7040049,Sansinena26032025}. 
 
-In \cite{Sansiñena26032025} authors presented a review of research papers that proposed methods for estimating track irregularities using acceleration data. They divided the methods into three main categories:
+In \cite{Sansinena26032025} authors presented a review of research papers that proposed methods for estimating track irregularities using acceleration data. They divided the methods into three main categories:
 \begin{itemize}
     \item Model-driven methods;
     \item Data-driven methods;
@@ -467,7 +514,7 @@ For instance, in \cite{DEROSA2019606} the authors used a 3D multibody model that
     \label{fig:DeRosa_Results}
 \end{figure}
 
-Data-driven methods, on the other hand, do not consider a mathematical model of the system, relying only on data processing to reconstruct or identify the irregularities. These methods typically utilize traditional machine learning algorithms or, more recently, deep learning architectures. Such approaches are generally more robust when dealing with real-world data, as they can learn from noisy and complex signals. This robustness, however, comes with a price, as they need a larger amount of data to be trained, especially in the case of deep learning \cite{Sansiñena26032025}. 
+Data-driven methods, on the other hand, do not consider a mathematical model of the system, relying only on data processing to reconstruct or identify the irregularities. These methods typically utilize traditional machine learning algorithms or, more recently, deep learning architectures. Such approaches are generally more robust when dealing with real-world data, as they can learn from noisy and complex signals. This robustness, however, comes with a price, as they need a larger amount of data to be trained, especially in the case of deep learning \cite{Sansinena26032025}. 
 
 In \cite{vibration7040049} the authors propose a method of estimating railway track irregularities from car body vibration data. They first created a multibody simulation in SIMPACK. After that, they generated 12 different track irregularities, ranging from a good condition to a degraded condition, using FRA PSD formula and converted the generated profiles into 10 meters long track irregularity sections using the 10 m-chord versine method. This transformation is shown in Figure \ref{fig:Tsunashina_data_process}.
 
@@ -572,7 +619,7 @@ Gaussian SVM & 92.9 & 68.1 & 77.8 & 72.6 & 0.69 \\
 % \end{table}
 
 
-\section{Identifying Track Defects Using IRVs} \label{sec-IRV-track-defect-identification}
+%\section{Identifying Track Defects Using IRVs} \label{sec-IRV-track-defect-identification}
 
 \chapter{Methodology} \label{sec-methodology}
 
