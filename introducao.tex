@@ -4,36 +4,14 @@
 \addcontentsline{toc}{chapter}{Introduction}
 % ----------------------------------------------------------
 
-Este documento e seu código-fonte são exemplos de referência de uso da classe
-\textsf{abntex2} e do pacote \textsf{abntex2cite}. O documento exemplifica a elaboração 
-de trabalho acadêmico (teses e dissertações) produzido conforme a \textbf{Informação 
-CCPG/001/2015} (que trata das \emph{Normas para impressão de teses/dissertações} da 
-UNICAMP). Encorajamos o leitor a consultar a Informação CCPG/001/2015 \cite{CCPG:001:2015}
-antes de iniciar as alterações neste documento e seu código-fonte.
+Railways are one of the most important modes of transportation worldwide. It is known for its efficiency, cost-effectiveness, and ability to move large volumes of goods and passengers over long distances. According to the Internacional Railway Union (UIC), in 2024 railways transported more than 24 billion passengers and over 9 billion tons of freight \cite{Railway_data_2024}. Given this scale, it is crucial to ensure the safety and reliability of the railway infrastructure, which can be achieved through regular maintenance and monitoring of the tracks.  
 
-A elaboração deste modelo teve como base uma customização do ``Modelo Canônico de
-Trabalho Acadêmico com \abnTeX'' \cite{abntex2modelo} para que as normas presentes na
-Informação CCPG/001/2015 fossem respeitadas. O modelo original produzido pela equipe 
-\abnTeX\ cumpre as seguintes normas ABNT:
-\begin{enumerate}
- \item \textbf{ABNT NBR 14724:2011}: Informação e documentação - Trabalhos 
-    acadêmicos - Apresentação;
- \item \textbf{ABNT NBR 10520:2002}: Informação e documentação - Citações;
- \item \textbf{ABNT NBR 6034:2004}: Informação e documentação - Índice - Apresentação;
- \item \textbf{ABNT NBR 6028:2003}: Informação e documentação - Resumo - Apresentação;
- \item \textbf{ABNT NBR 6027:2012}: Informação e documentação - Sumário - Apresentação;
- \item \textbf{ABNT NBR 6024:2012}: Informação e documentação - Numeração progressiva 
-    das seções de um documento - Apresentação
- \item \textbf{ABNT NBR 6023:2002}: Informação e documentação - Referência - Elaboração.
-\end{enumerate}
+The monitoring of railway tracks aims to identify potential irregularities and defects that require maintenance. Track irregularities are deviations from the ideal geometry of the track that can affect the comfort and safety of train operations. They are caused by various factors, such as wear and tear, that degrade the track condition. In severe cases, they can cause accidents, such as a derailment. Traditionally, monitoring of railway tracks has been done using a Track Geometry Car (TCG) that measures directly the track geometry. This process is usually done monthly, due to its high operational cost and time requirements, as it requires the railway operation to halt services during inspections that can take several hours depending on the length of the track measured.
 
-Este documento deve ser utilizado como complemento dos manuais do \abnTeX\ 
-\cite{abntex2classe,abntex2cite,abntex2cite-alf} e da classe \textsf{memoir} \cite{memoir}.
+An alternative approach for monitoring railway track is to use an Instrumented Railway Vehicle (IRV), equipped with a series of sensors, that collects data while the train is in operation. The IRV measures the dynamic response of the wagon, for example, the acceleration in the axlebox, due to track excitations. This method is less expensive and can be done more frequently, as it collects data from a moving vehicle. However, it comes with a trade-off as the collected data is not the geometry of the track, but the dynamic response of the wagon, which needs to be mapped to track irregularities.
 
-A leitura do teor desde documento (tanto o PDF quando os arquivos que compõem seu código-fonte),
-bem como do arquivo \textsf{LEIAME.txt} é altamente recomendada para melhor entendimento da 
-dinâmica de funcionamento da classe \textsf{abntex2} e do pacote \textsf{abntex2cite}. Seus
-principais comandos e usos estão exemplificados no decorrer do texto, bem como outras informações
-relevantes para a escrita de seu trabalho acadêmico.
+Several techniques have been proposed for this maping, such as the Kalman filter or traditional machine learning methods. These methods aim to reconstruct the track irregularities from the data collected by the IRV, but often face limitations when dealing with complex and noisy data. To deal with this, deep learning techniques have been increasingly applied, as they offer more robust solutions to noisy data.
 
-USAR https://www.tandfonline.com/doi/full/10.1080/00423114.2025.2483972 para pegar algumas informações interessantes.
+This thesis proposes a deep learning model capable of reconstructing railway track irregularities from acceleration measurements obtained through simulations and real-world data. The study considers the effects of train velocity and wagon mass on the measured responses, proposing correction methodologies to minimize their influence. By integrating validated multibody simulations with advanced learning algorithms, the proposed approach aims to develop a machine learning model that is capable of being trained in simulated data and work with real data without the need of retraining. 
+
+This work is organized as follows: Section \ref{sec2_revisao_lit} presents a literature review on the topic of railway track monitoring, focusing on the methods used to reconstruct track irregularities from acceleration data. Section \ref{sec-methodology} describes the methodology used in this study, including the defined parameters of the simulation and the machine learning model used. Section \ref{sec-Results} presents the results obtained, and Section \ref{sec-conclusion} concludes the work, discussing its contributions and future work.

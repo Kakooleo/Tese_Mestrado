@@ -448,7 +448,38 @@ where $S_{av}(\Omega)$ is the vertical alignment PSD, $S_{al}(\Omega)$ is the la
 
 One important point to highlight is that track condition in USA have very similar conditions to those in Brazil. For this reason, the FRA standard can be used to describe track irregularities in Brazil \cite{PIRES2021107806}.
 
-\subsection{Brazil Standard} \label{sec-Brazil-Standard}
+\subsection{Brazilian Standard} \label{sec-Brazil-Standard}
+
+The Brazilian Standard ABNT NBR 16387 \cite{abnt:nbr16387:2020} specifies the geometrical limits for various railway track parameters, as presented in Table \ref{tab:track_geometry_limits}. It is important to note that these limits are related to the track irregularity profile but are not identical to it. To obtain the corresponding value for each geometry parameter, a specific function must be applied to the irregularity profile, converting it into a value that can be directly compared to the standard's limits. This procedure will later be used to label the track profiles, with irregularities exceeding the limits classified as defects.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{5cm}|c|c|c|c|c|c|}
+\hline
+\textbf{Description of track geometry parameter} & \textbf{Gauge} & \textbf{(0--15) km/h} & \textbf{(16--40) km/h} & \textbf{(41--64) km/h} & \textbf{(65--95) km/h} & \textbf{(96--128) km/h} \\ \hline
+
+\multicolumn{7}{|l|}{\textbf{Gauge}} \\ \hline
+\textbf{Open gauge limit} (Static gauge) & Meter & 1035 mm & 1032 mm & 1032 mm & 1025 mm & 1013 mm \\ \hline
+\textbf{Closed gauge limit} (Static gauge) & Meter & 987 mm & 987 mm & 987 mm & 987 mm & 987 mm \\ \hline
+\textbf{Rapid gauge variation in 5 m} (Static gauge) & Meter & 34 mm & 31 mm & 23 mm & 18 mm & 13 mm \\ \hline
+
+\multicolumn{7}{|l|}{\textbf{Crosslevel}} \\ \hline
+\textbf{Crosslevel variation every 2 m} (Tangent) & Meter & 47 mm & 34 mm & 21 mm & 7 mm & 6 mm \\ \hline
+\textbf{Crosslevel variation every 2 m} (Curve) & Meter & 18 mm & 14 mm & 11 mm & 5 mm & 3 mm \\ \hline
+\textbf{Crosslevel variation every 10 m} & Meter & 53 mm & 37 mm & 33 mm & 31 mm & 30 mm \\ \hline
+
+\multicolumn{7}{|l|}{\textbf{Alignment}} \\ \hline
+\textbf{Curve misalignment in 10 m:} Maximum horizontal offset between adjacent points measured every 2.5 m at the mid-chord of 10 m & Meter & 31 mm & 24 mm & 18 mm & 13 mm & 8 mm \\ \hline
+\textbf{Tangent alignment defect:} Maximum horizontal offset between adjacent points measured every 2.5 m at the mid-chord of 10 m & Meter & 31 mm & 24 mm & 18 mm & 13 mm & 8 mm \\ \hline
+
+\multicolumn{7}{|l|}{\textbf{Curvature}} \\ \hline
+\textbf{Maximum superelevation in curve} & Meter & 100 mm & 100 mm & 100 mm & 100 mm & 100 mm \\ \hline
+\end{tabular}%
+}
+\caption{Limit values for the track geometry parameters. \cite{abnt:nbr16387:2020}}
+\label{tab:track_geometry_limits}
+\end{table}
 
 \section{Assessing Railway Track Condition} \label{sec-assessing-railway-track}
 
@@ -461,9 +492,9 @@ TGCs are equipped with sophisticated systems that directly measure the geometry 
     \item Low inspection frequency: normally, the TGC measures the condition of the track monthly, due to its high cost, which is a problem if a fault appears between inspections.
 \end{itemize}
 
-To overcome the limitations in TCGs, an alternative approach was developed using IRVs equipped with sensors that measure the vehicle's dynamic response due to track excitations. The underlying principle behind IRVs is that the vehicle's vibrations are deeply correlated to track excitations \cite{PIRES2024107191,Tsunashima-2019}, and an irregularity in the track will cause an anomalous dynamic response from the vehicle, which can be identified in the sensors' readings. 
+To overcome the limitations in TGCs, an alternative approach was developed using IRVs equipped with sensors that measure the vehicle's dynamic response due to track excitations. The underlying principle behind IRVs is that the vehicle's vibrations are deeply correlated to track excitations \cite{PIRES2024107191,Tsunashima-2019}, and an irregularity in the track will cause an anomalous dynamic response from the vehicle, which can be identified in the sensors' readings.
 
-Using IRVs instead of the TCGs has several advantages, such as \cite{PIRES2024107191,GHIASI2025109516,Hironori_ONO202322-00239}:
+Using IRVs instead of the TGCs has several advantages, such as \cite{PIRES2024107191,GHIASI2025109516,Hironori_ONO202322-00239}:
 \begin{itemize}
     \item No disruptions: the operation is not halted during the measurements, since data can be collected during normal train services, which reduces the costs with logistics;
     \item Real time data collection: data is collected in real time, which speeds up possible defect detections;
@@ -474,7 +505,7 @@ Despite that, it is important to highlight that data collection using IRVs also 
 \begin{itemize}
     \item High amount of data: the amount of data collected during IRV operation can be huge. This data needs to be carefully processed to obtain good quality data;
     \item Domain problem: different operations conditions, such as the wagon mass or velocity, can affect the dynamic response of the vehicle, so data collected from a one part of the track can be inherently different from another part;
-    \item Correlation: since the measurements are done indirectly, they need to be correlated to the track condition, which can be a complex task that often needs the use of deep learning models;
+    \item Difficult Correlation: since the measurements are done indirectly, they need to be correlated to the track condition, which can be a complex task that often needs the use of deep learning models;
     \item Data imbalance: since fault measurements are much more uncommon than normal measurements, the machine learning model needs to deal with class imbalance.
 \end{itemize}
 
@@ -610,11 +641,35 @@ Tsunashima and Yagura argue that for the majority of the sections, the GPR predi
     \label{fig:Tsunashina_Results}
 \end{figure}
 
+To address this model issue, \cite{Hao02012023} proposes a deep learning approach to reconstruct the track irregularity from vertical and lateral carbody acceleration measurements. The authors used a Chinese dataset composed of acceleration measurements collected in three high-speed Chinese railway lines. In the dataset, they also had access to the measured geometry of the track. Since they aimed to reconstruct irregularities with wavelengths between 3 m and 120 m, they applied a pass-band filter to remove components with wavelengths outside this range. They also decided to scale the data using a min-max scaler, although the authors are not clear if they do that to the entire dataset or if they apply it to each time window individually. Finally, since their data is measured with velocities between 40 and 310 km/h, they decided to give the vehicle speed as an input for the model.
+
+The proposed a model that combines an attention mechanism with a 1D CNN layer and a GRU layer, allowing the model to capture both spatial and temporal dependencies in the data. The model architecture is shown in Figure \ref{fig:Hao_model}. The model receives vertical and lateral carbody acceleration, along with velocity, as inputs. The output was the vertical profile, that have wavelengths between 3 and 120 m, and the long-wave vertical profile, with wavelengths between 42 and 120 m. Figure \ref{fig:Hao_Results} shows the reconstruction results compared with two simplified versions of the model and with the original measurements.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/Hao (2023)/Model_arch.png}
+    \caption{Model architecture utilized to reconstruct the track irregularity. \cite{Hao02012023}.}
+    \label{fig:Hao_model}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/Hao (2023)/Hao_results.png}
+    \caption{Reconstruction results comparing the proposed model (red) with two simpler models (blue and green) and the original measurement (black). \cite{Hao02012023}}
+    \label{fig:Hao_Results}
+\end{figure}
+
+The results show that the proposed approach achieved reconstructions much closer to the real measurements than the model-driven approach and a Gaussian Process Regression model, demonstrating its robustness in handling real-world noisy data. However, the model uses vehicle speed as an input, which may not be optimal. In this thesis, it is proposed instead to use corrected acceleration values.
+
+Finally, hybrid methods combine the approaches of model-driven and data-driven methods, but the contents of these works are outside the scope of this thesis.
+
+\section{Thresholding Acceleration Data} \label{sec-thresholding-acceleration}
+
 In \cite{DeRosa2021}, the authors try to develop a threshold to detect not safe railway track irregularities. In the paper, the authors propose a machine learning-based classification model that divides the data into two classes based on the standard deviation of the lateral and roll bogie frame accelerations. Class 1 corresponds to normal conditions, i.e., track irregularities below a defined threshold that do not require maintenance, while Class 2 corresponds to sections with irregularities exceeding that threshold, thus requiring maintenance intervention. 
 
 The authors use a dataset composed of real measurements collected onboard the high-speed TGC, operating at 300 km/h, that was also equipped with accelerometers located on the carbody, the bogie frames and the wheelsets, and a set of simulated data generated using a validated multibody dynamics model. From real data, the athor applies a pass-band filter in the range of 3 to 27 Hz and then computed the standard deviation of the signals over 100-meter-long track length. The simulation data was obtained considering a straight track, with a vehicle with speed of 300 km/h and for three different cases of track irregularities: considering only the lateral irregularity, considering only the cross level irregularity, and considering both at the same time. The authors didn't consider vertical irregularities in their simulation. For each case, they ran the simulation 10 times. The standard deviation was computed similarly to the real data. Figure \ref{fig:DeRosa-dataset} shows the whole dataset, where the red lines shown the standard defined limits for the standard deviation.
 
-Using this dataset, the authors then fitted the data three classifiers: a decision tree, a linear Support vector Machine (SVM) and a Gaussian SVM. Results are shown in Table \ref{Table:DeRosa-2021-Results}. The authors state that 
+Using this dataset, the authors then fitted the data three classifiers: a decision tree, a linear Support vector Machine (SVM) and a Gaussian SVM. Results are shown in Figure \ref{fig:DeRosa-2021-Results}. The authors, then, discuss the performance of each classifier, but, more importantly for this work, they show the possibility of defining a threshold in the standard deviation of acceleration data to classify the track condition. In this thesis, it will be tested if this threshold method can also be used in direct acceleration data instead of the standard deviation.
 
 \begin{figure}[H]
     \centering
@@ -623,22 +678,29 @@ Using this dataset, the authors then fitted the data three classifiers: a decisi
     \label{fig:DeRosa-dataset}
 \end{figure}
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{l c c c c c}
-\hline
- & Accuracy (\%) & Precision (\%) & Recall (\%) & $F_1$ score (\%) & Kappa \\
-\hline
-Decision tree & 87.6 & 49.6 & 92.1 & 64.4 & 0.58 \\
-Linear SVM & 92.9 & 70.3 & 71.4 & 70.9 & 0.67 \\
-Gaussian SVM & 92.9 & 68.1 & 77.8 & 72.6 & 0.69 \\
-\hline
-\end{tabular}
-\vspace{0.5em}
-\small SVM: support vector machine.
-\caption{Summary of classifier performances in the testing phase.}
-\label{Table:DeRosa-2021-Results}
-\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/DeRosa (2021)/Results.png}
+    \caption{Classification results of the three classifiers on the test set. $\boldsymbol{(a)}$ the decision boundary for the decision tree. $\boldsymbol{(b)}$ the decision boundary for the linear SVM. $\boldsymbol{(c)}$ the decision boundary for the Gaussian SVM. \cite{DeRosa2021}}
+    \label{fig:DeRosa-2021-Results}
+\end{figure}
+
+% \begin{table}[ht]
+% \centering
+% \begin{tabular}{l c c c c c}
+% \hline
+%  & Accuracy (\%) & Precision (\%) & Recall (\%) & $F_1$ score (\%) & Kappa \\
+% \hline
+% Decision tree & 87.6 & 49.6 & 92.1 & 64.4 & 0.58 \\
+% Linear SVM & 92.9 & 70.3 & 71.4 & 70.9 & 0.67 \\
+% Gaussian SVM & 92.9 & 68.1 & 77.8 & 72.6 & 0.69 \\
+% \hline
+% \end{tabular}
+% \vspace{0.5em}
+% \small SVM: support vector machine.
+% \caption{Summary of classifier performances in the testing phase.}
+% \label{Table:DeRosa-2021-Results}
+% \end{table}
 
 
 % \begin{figure}[H]
@@ -735,5 +797,14 @@ The machine learning model to be used in this thesis needs to satisfy a set of r
 Based on these requirements, the chosen approach is to use a deep learning model that utilizes the methods described in Section \ref{sec-model-basics}, as it is the most robust approach for handling complex data. This outputs of this model will be then compared to the geometric limits in the Brazilian standard to develop a threshold for maintenance planning based on acceleration data.
 
 \section{Flowchart} \label{sec-flowchart}
+
+Figure \ref{fig:flowchart} presents the flowchart of the proposed methodology. The Figure illustrates the step-by-step process, starting from the creation and validation of the SIMPACK simulation, through the generation of the dataset with different velocities, wagon masses and track irregularities, to the correction of the acceleration data and the training of the machine learning model. Finally, it shows the comparison of the reconstructed profiles to the standard limits. From this comparison, a threshold on acceleration is obtained to identify potential track defects.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap3_Methodology/Flowchart/Flowchart.png}
+    \caption{Flowchart of the proposed methodology.}
+    \label{fig:flowchart}
+\end{figure}
 
 \chapter{Results} \label{sec-Results}

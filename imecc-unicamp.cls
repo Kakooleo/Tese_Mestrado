@@ -47,7 +47,7 @@ Estadual de Campinas baseado em abnTeX2]
 \newcommand{\fichacatalograficaname}{Ficha catalográfica}
 % ---
 \addto\captionsenglish{
-    \renewcommand{\orientadorname}{Supervisor}
+    \renewcommand{\orientadorname}{Orientador}
     \renewcommand{\coorientadorname}{Co-supervisor}
     \renewcommand{\primeirafolhaname}{First page}
     \renewcommand{\fichacatalograficaname}{Catalographic data}
@@ -482,8 +482,8 @@ Estadual de Campinas baseado em abnTeX2]
         \begin{minipage}[c]{.5\textwidth}
             \SingleSpacing
 	    \ifthenelse{\boolean{ABNTEXotherlanguage}}{%
-		\imprimirtipotrabalho\ apresentada ao Instituto de Matemática, Estatística %
-		e Computação Científica da Universidade Estadual de Campinas como parte dos %
+		\imprimirtipotrabalho\ apresentada à Faculdade de Engenharia Mecânica %
+		da Universidade Estadual de Campinas como parte dos %
 		requisitos exigidos para a obtenção do título de %
 		\ifthenelse{\equal{\imprimircurso}{\empty}}%
 		    {\imprimirtitulacao}%
@@ -506,8 +506,8 @@ Estadual de Campinas baseado em abnTeX2]
 		    signed between UNICAMP and the \imprimiruniversidadecotutela\ (\imprimirpaiscotutela).}%
 		    {.}
 	    }{%
-		\imprimirtipotrabalho\ apresentada ao Instituto de Matemática, Estatística %
-		e Computação Científica da Universidade Estadual de Campinas como parte dos %
+		\imprimirtipotrabalho\ apresentada à Faculdade de Engenharia Mecânica %
+    da Universidade Estadual de Campinas como parte dos %
 		requisitos exigidos para a obtenção do título de %
 		\ifthenelse{\equal{\imprimircurso}{\empty}}%
 		    {\imprimirtitulacao}%
