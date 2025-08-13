@@ -218,7 +218,7 @@ One of the most widely used types is max pooling, which selects the maximum valu
     \label{fig:pooling-example}
 \end{figure}
 
-\section{Recurrent Neural Networks} \label{section-RNN}
+\subsection{Recurrent Neural Networks} \label{section-RNN}
 
 Recurrent Neural Networks (RNNs) are a type of artificial neural network specifically designed to work with sequential data, such as time series, speech recognition, text generation, and language modeling \cite{schmidt2019recurrentneuralnetworksrnns,fang-wei,Alzubaidi_Zhang_Humaidi_Al_Dujaili_Duan_Al_Shamma_Santamaria_Fadhel_Al_Amidie_Farhan_2021}. The main difference between an RNN and the networks discussed in Sections \ref{sec-Neural_networks} and \ref{section-CNN} is how data is processed inside the RNN. In the MLP and the CNN networks, it is assumed that each input is independent from each other, which can be a valid assumption when dealing with images, but might be a severe limitation when dealing with sequential data, like weather data, where, for example, the current temperature depends on the last few measurements.
 
@@ -244,7 +244,7 @@ The main problem in the original RNN architecture arises during the training pha
 
 This inherent problem motivated the introduction of more complex architectures, such as the LSTM networks. These networks will be explained in more detail in \ref{sec-LSTM}, but they mitigate the vanishing gradient problem, which caused the original RNNs to be barely used in today's research \cite{fang-wei,GAO2019279}.
 
-\section{LSTM} \label{sec-LSTM}
+\subsection{LSTM} \label{sec-LSTM}
 
 Long Short-Term Memory (LSTM) units were introduced by Hochreiter and Schmidhuber in 1997 \cite{Hochreiter} and were specifically designed to deal with the vanishing gradient problem. Differently from vanilla RNNs, which struggle to retain information over long sequences, LSTM cells are specifically designed to capture long-term dependencies by preserving information across many time steps \cite{ALSELWI2024102068,schmidt2019recurrentneuralnetworksrnns}.
 
@@ -295,7 +295,7 @@ where $\otimes$ denotes the element-wise multiplication. Finally, the LSTM unit 
 
 It is important to notice the hidden state $\boldsymbol{H}_t$ is used as the output of the LSTM cell and, together with the memory state $\boldsymbol{C}_t$, is used in the computation of the next time step.
 
-\section{Attention}
+\subsection{Attention} \label{sec-attention}
 
 Attention is an important concept in deep learning that was first introduced by \cite{bahdanau2016neuralmachinetranslationjointly} in a machine translation problem and gained widespread popularity with the famous paper "Attention Is All You Need" proposed by \cite{vaswani2023attentionneed}, where the authors proposed the transformer architecture. Inspired by the human attention of selectively focusing on relevant information, attention mechanisms enable neural networks to assign different weights to different parts of the input, allowing the model to concentrate on the most important elements of the data. This selective focus not only improves the model's interpretability but also makes it possible to handle large amounts of information more efficiently, reducing computational overhead \cite{NIU202148}.
 
@@ -330,9 +330,46 @@ where $\alpha_l \in \mathrm{R}^1$ is the weight of the l-th vector. Figure \ref{
     \label{fig:Attention-struct}
 \end{figure}
 
-\section{Transformers}
-
+\subsection{Transformers}
+(REVISAR AQUI)
 The transformer architecture was introduced by \cite{vaswani2023attentionneed} and, since then, has gained widespread popularity in various fields, such as natural language processing (NLP), computer vision (CV) and time series analysis \cite{lin2021surveytransformers,wen2023transformerstimeseriessurvey}. It is built upon the attention mechanism, shown in Section \ref{sec-attention}, which makes it particularly effective in modeling long range dependencies in sequential data \cite{wen2023transformerstimeseriessurvey}. Since the \cite{vaswani2023attentionneed} paper, a variety of transformers architectures have been proposed to improve the original transformer, as shown in \cite{lin2021surveytransformers}. However, this section will focus on the vanilla Transformer.
+
+The vanilla transformer architecture is a sequence to sequence model composed of an encoder and a decoder. The encoder maps an input sequence $\boldsymbol{X} = (x_1,...,x_n)$ to a latent space $\boldsymbol{Z} = (z_1,...,z_n)$. The decoder then utilizes this latent space to generate an output sequence $\boldsymbol{Y} = (y_1,...,y_m)$ one step at a time. The model is also auto-regressive, using the previously generated output to generate the next output \cite{vaswani2023attentionneed}. Figure \ref{fig:Transformer-arch} shows the architecture of the transformer model.
+
+The encoder is composed of a stack of L identical blocks. Each block is composed by two sub-layers: a multi-head attention and a feed-forward network. The multi-head attention sublayer is composed of H attention blocks, that use different projection matrices $\boldsymbol{W}_K$, $\boldsymbol{W}_V$ and $\boldsymbol{W}_Q$ to compute the key, value and query vectors, respectively. The output of each attention block is then concatenated and multiplied by a matrix $\boldsymbol{W}^O$, as shown in Equation \ref{eq:Transformer-MHA}:
+\begin{equation}
+    \text{MultiHead}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) = \left(\text{head}_1;...;\text{head}_H\right) \cdot \boldsymbol{W}^O 
+    \label{eq:Transformer-MHA}
+\end{equation}
+where $\text{head}_i = \text{Attention}(\boldsymbol{Q}\boldsymbol{W}_{i}^{Q}, \boldsymbol{K}\boldsymbol{W}_{i}^{K}, \boldsymbol{V}\boldsymbol{W}_{i}^{V})$ is the i-th attention head, and $\text{Attention}$ is the attention function defined in Section \ref{sec-attention}. 
+
+The output of the multi-head attention is then added to the input using a residual connection, followed by layer normalization, as shown in Equation \ref{eq:MHA-output}:
+\begin{equation}
+    \boldsymbol{H}' = \text{LayerNorm}(\text{MultiHead}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) + \boldsymbol{X})
+\end{equation}
+where $\boldsymbol{X}$ is the input to the multi-head attention sublayer and $\text{LayerNorm}$ is the layer normalization function. After that, this output is passed through a position-wise feed-forward network with two layers, as shown in Equation \ref{eq:Transformer-FFN}:
+\begin{equation}
+    \text{FFN}(\boldsymbol{H}') = \text{ReLU}(\boldsymbol{H}'\boldsymbol{W}_1 + \boldsymbol{b}_1)\boldsymbol{W}_2 + \boldsymbol{b}_2
+    \label{eq:Transformer-FFN}
+\end{equation}
+
+The decoder has a similar architecture to the encoder. It has L stacked blocks, but each block is composed of three sub-layers: a masked multi-head attention layer, a multi-head attention layer, and a feed-forward network. The masked multi-head attention layer works similarly to the multi-head attention, but the self-attention is masked to prevent the model from attending to future tokens in the sequence, ensuring that the prediction for a given token only depends on the previous tokens \cite{lin2021surveytransformers}. Another difference is in the second multi-head attention layer, which uses the output of the encoder $\boldsymbol{Z}$ to project the key and value vectors of the attention.
+
+Finally, one important point to highlight is the positional encoding layer. In vanilla transformers the model does not have access to the order of the sequence. To deal with this, the authors propose adding a positional encoding to the input. They do so using the sine and cosine functions:
+\begin{equation}
+    PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)
+\end{equation}
+\begin{equation}
+    PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)
+\end{equation}
+where $i$ is the dimension, $pos$ is the token position and $d_{model}$ is the model dimension.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/model_basics/Transformers/transformer_arch.png}
+    \caption{\cite{lin2021surveytransformers}}
+    \label{fig:Transformer-arch}
+\end{figure}
 
 \section{Reconstruction-Based Models}
 
@@ -341,9 +378,12 @@ Reconstruction-based models are a class of machine learning models that are desi
 The main idea behind these networks is to train them to accurately reconstruct normal data, which is presumed to be the majority of the available data. This is usually done by minimizing a reconstruction loss, such as the Mean Squared Error (MSE), during the training phase. 
 
 During the test phase, the model encounters anomalous data, which it has not been trained to reconstruct, causing the reconstruction error to increase greatly compared to the error of normal data, as the model fails to reconstruct abnormal patterns. This way, an anomaly can be identified by thresholding the reconstruction error. Inputs with low reconstruction error will be classified as normal, and inputs with reconstruction error greater than the threshold will be classified as anomalous.
+(REVISAR AQUI)
+There are a variety of reconstruction-based models. In \cite{en17102340} authors proposed an autoencoder composed of multiple LSTM cells to identify anomalies in electrical motors vibrations. They use the MSE loss function to train the model to reconstruct normal vibration patterns and, by thresholding the reconstruction error, they were able to identify anomalies in data.
 
-There are a variety os reconstructions-based models, in Sections \ref{subsec-AE} and 
-TODO: terminar de escrever sobre os modelos, escrever sobre defeitos, escrever sobre remocao do efeito de velocidade
+In \cite{XIE2023120725} the authors developed a model that combines convolutional layers, LSTM layers and a variational autoencoder to detect anomalies in multivariate time series. They computed correlation matrices between the variables to use as an input for the model and used a loss function that combines the MSE loss to the Kullback-Leibler divergence to train the model, achieving state-of-the-art results in three different datasets.
+
+Another example is the model proposed in \cite{tuli2022tranaddeeptransformernetworks} where authors utilized the transformer architecture to detect anomalies. The model works on two phases: on the first phase the model tries to reconstruct the input sequence, obtaining a reconstruction error. From this, the model computes the focus score that highlight areas with bigger reconstruction errors. In the second phase, it then computes a focus score from the reconstruction error. The focus score is used by the attention mechanism to focus on areas where the reconstruction error was bigger, allowing the model to potentially identify anomalies in these areas. It then tries to reconstruct the input sequence using this newly highlighted areas. This approach allowed authors to beat state-of-the-art models in six different datasets.
 
 \section{Railway Components}
 
@@ -356,7 +396,7 @@ INSERIR FIGURA AQUI
 
 \section{Track Irregularities Standards} \label{sec-track-defects}
 
-Railway track irregularities are deviations from the ideal track geometry that can affect the safety and comfort of train operations \cite{Sansinena26032025}. So, to ensure safe and efficient railway operations, a continuous assessment of track condition is necessary to support planning of maintenance actions. For this reason, different countries have established standards that quantify the acceptable limits for these irregularities. In subsections \ref{sec-FRA_Standard} and \ref{sec-Brazil-Standard}, two of these standards will be presented: the Federal Railroad Administration (FRA) standard, used in the United States, and the Brazilian standard, used in Brazil.
+Railway track irregularities are deviations from the ideal track geometry that can affect the safety and comfort of train operations \cite{Sansinena26032025}. So, to ensure safe and efficient railway operations, a continuous assessment of track condition is necessary to support planning of maintenance actions. For this reason, different countries have established standards that quantify the acceptable limits for these irregularities. In subsections \ref{sec-FRA-Standard} and \ref{sec-Brazil-Standard}, two of these standards will be presented: the Federal Railroad Administration (FRA) standard, used in the United States, and the Brazilian standard, used in Brazil.
 
 \subsection{FRA Standard} \label{sec-FRA-Standard}
 
@@ -383,7 +423,6 @@ The PSD formulas are given by Equations \ref{eq:FRA-vertical}, \ref{eq:FRA-later
 where $S_{av}(\Omega)$ is the vertical alignment PSD, $S_{al}(\Omega)$ is the lateral alignment PSD, and $S_{gauge/cl}(\Omega)$ is the gauge or the superelevation PSD, all expressed in $[cm^2 / (rad/m)]$. The variable $\Omega$ is the spatial wavenumber, while $\Omega_c$ and $\Omega_s$ are the critical wavenumbers, all in $[rad/m]$. The variable $k$ is a constant, and $A_v$ and $A_a$ are the roughness coefficients related to the line grade, expressed in $[cm^2 \cdot rad /m]$. Table \ref{tab:FRA-PSD-parameters} summarizes the parameters for each track class.
 
 \begin{table}[H]
-\centering
 \begin{tabular}{c c c c c c c}
 \hline
 \multirow{2}{*}{Class} & \multicolumn{2}{c}{Max velocity (km/h)} & \multicolumn{4}{c}{Parameters} \\ \cline{2-7}
@@ -488,6 +527,25 @@ The authors fitted two models to the maximum simulated accelerations: a linear r
     \includegraphics[width=12cm]{Cap2_LitReview/Vel_effect/results_bia.png}
     \caption{\cite{Balouchi02092021}}
     \label{fig:vel_effect_balouchi}
+\end{figure}
+
+In the two papers presented above, the authors show the importance of correcting the acceleration measurements acquired at different velocities, as variations in speed alter the dynamic response of the train. However, their correction only considers the effect of the velocity and not the effect of the mass, as these studies were performed in a passenger car. As will be shown in Section \ref{sec-mass-effect-measurement}, for freight wagon, the mass of the train might also affect the dynamics of the system.
+
+\section{Mass Effect on Train Dynamics} \label{sec-mass-effect-measurement}
+
+When analyzing the data collected by an IRV in a Brazilian railway, described in detail in \cite{PIRES2024107191}, it was noticed that the mass of the wagon influences the relationship between acceleration growth and velocity. This phenomenon is illustrated in Figure \ref{fig:mass_effect}, which shows the 99th percentile of the absolute maximum vertical acceleration as a function of the velocity class. Each velocity class corresponds to data points that have a velocity between an 1 m/s interval. For example, the velocity class $7 < v < 8$ corresponds to all data points whose velocity is between 7 m/s and 8 m/s.
+
+In the Figure, data points are colored according to the wagon mass class. The unloaded class corresponds to an empty wagon, i.e, that is not transporting any material, the loaded class corresponds to a wagon fully loaded with iron ore, and the $1/4$ to $3/4$ classes correspond to wagons that were either partially loaded or carrying lighter materials such as coal. One point to highlight, is that it was used the 99th percentile instead of the maximum value because the dataset consists of real-world measurements, which are prone to noise and outliers.
+
+As shown in the Figure, different wagon masses produce distinct acceleration growth behavior: the unloaded wagon exhibits the lowest acceleration growth, the $1/4$ loaded wagon shows a slightly higher growth, and the $2/4$, $3/4$, and fully loaded wagons display similar growth patterns.
+
+These observations highlight the need to further investigate the correlation between wagon mass and acceleration behavior for freight operations.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/Mass_effect/Mass_effect.jpeg}
+    \caption{Caption}
+    \label{fig:mass_effect}
 \end{figure}
 
 \section{Assessing Track Quality from Acceleration Data} \label{sec-track-quality-accel}
