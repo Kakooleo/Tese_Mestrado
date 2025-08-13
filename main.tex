@@ -42,25 +42,25 @@ According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that dev
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/point_anomaly.png}
-    \caption{\cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
+    \caption{Example of point anomalies in time series data, highlighting local (O1) and global outliers (O2). \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
     \label{fig:point_anomaly}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/subseq_anomaly.png}
-    \caption{\cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
+    \caption{Example of subsequence anomalies, showing local (O1) and global (O2) deviations in time series data. \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
     \label{fig:subsequence_anomaly}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/TS_anomaly.png}
-    \caption{\cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
+    \caption{Example of a time series anomaly in a multivariate dataset, where variable 4 significantly deviates from others. \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
     \label{fig:Time_series_anomaly}
 \end{figure}
 
-\section{Time Series Anomaly Detection Models}
+\section{Time Series Anomaly Detection Models} \label{sec-model-basics}
 
 Since the 1960s, many models for anomaly detection have been proposed, ranging from statistical models to recent deep learning models. The common main idea behind all of those is to identify low probability, i.e. low density, regions, classifying points in those areas as anomalies \cite{Samariya_Thakkar_2021}. 
 
@@ -113,16 +113,16 @@ However, in its basic form, a perceptron can only solve linearly separable probl
     \centering
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=7cm]{Cap2_LitReview/model_basics/Neural_networks/neural_network.png}
-        \caption{\cite{P._2025}}
+        \caption{}
         \label{fig:neural_network-a}
     \end{subfigure}
     \hspace{0.2cm}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/model_basics/Neural_networks/perceptron.png}
-        \caption{\cite{Weaver_2024}}
+        \caption{}
         \label{fig:neural_network-b}
     \end{subfigure}
-    \caption{Caption}
+    \caption{Structure of a neural network: $\boldsymbol{(a)}$ fully connected perceptrons arranged in layers, and $\boldsymbol{(b)}$ perceptron with activation function ($\boldsymbol{(a)}$ \cite{P._2025}; $\boldsymbol{(b)}$ \cite{Weaver_2024}).}
     \label{fig:neural_network}
 \end{figure}
 
@@ -190,7 +190,7 @@ where $W^k$ is the vector of weights from the kernel, $f$ is an activation funct
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{Cap2_LitReview/model_basics/Convolutional_NN/conv2d.png}
-    \caption{\cite{Riebesell_2022}}
+    \caption{Illustration of the convolution operation in a convolutional neural network. \cite{Riebesell_2022}}
     \label{fig:conv-example}
 \end{figure}
 
@@ -214,7 +214,7 @@ One of the most widely used types is max pooling, which selects the maximum valu
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{Cap2_LitReview/model_basics/Convolutional_NN/Schematic-representation-of-a-convolution-and-pooling-layer-in-a-CNN.png}
-    \caption{\cite{Verschoof-van}}
+    \caption{Example of max pooling operation in a convolutional neural network. \cite{Verschoof-van}}
     \label{fig:pooling-example}
 \end{figure}
 
@@ -236,7 +236,7 @@ An important observation is that it is not necessary to explicitly include all p
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{Cap2_LitReview/model_basics/RNN/rnn.png}
-    \caption{Adapted from \cite{schmidt2019recurrentneuralnetworksrnns}}
+    \caption{Architecture of a recurrent neural network showing the recurrent connections between hidden states. Adapted from \cite{schmidt2019recurrentneuralnetworksrnns}}
     \label{fig:RNN-struct}
 \end{figure}
 
@@ -261,7 +261,7 @@ The forget and input gates are responsible for updating the cell state, which ac
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{Cap2_LitReview/model_basics/LSTM/LSTM_Arch.png}
-    \caption{Adapted from \cite{WEI2021453}}
+    \caption{Structure of an LSTM cell with input, forget, and output gates. Adapted from \cite{WEI2021453}}
     \label{fig:LSTM-struct}
 \end{figure}
 
@@ -326,15 +326,15 @@ where $\alpha_l \in \mathrm{R}^1$ is the weight of the l-th vector. Figure \ref{
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/model_basics/Attention/attention-struct.png}
-    \caption{\cite{NIU202148}}
+    \caption{Diagram of the attention mechanism showing query, key, value vectors, and the computation of the context vector. \cite{NIU202148}}
     \label{fig:Attention-struct}
 \end{figure}
 
 \subsection{Transformers}
-(REVISAR AQUI)
+
 The transformer architecture was introduced by \cite{vaswani2023attentionneed} and, since then, has gained widespread popularity in various fields, such as natural language processing (NLP), computer vision (CV) and time series analysis \cite{lin2021surveytransformers,wen2023transformerstimeseriessurvey}. It is built upon the attention mechanism, shown in Section \ref{sec-attention}, which makes it particularly effective in modeling long range dependencies in sequential data \cite{wen2023transformerstimeseriessurvey}. Since the \cite{vaswani2023attentionneed} paper, a variety of transformers architectures have been proposed to improve the original transformer, as shown in \cite{lin2021surveytransformers}. However, this section will focus on the vanilla Transformer.
 
-The vanilla transformer architecture is a sequence to sequence model composed of an encoder and a decoder. The encoder maps an input sequence $\boldsymbol{X} = (x_1,...,x_n)$ to a latent space $\boldsymbol{Z} = (z_1,...,z_n)$. The decoder then utilizes this latent space to generate an output sequence $\boldsymbol{Y} = (y_1,...,y_m)$ one step at a time. The model is also auto-regressive, using the previously generated output to generate the next output \cite{vaswani2023attentionneed}. Figure \ref{fig:Transformer-arch} shows the architecture of the transformer model.
+The vanilla transformer architecture is a sequence to sequence model composed of an encoder and a decoder. The encoder maps an input sequence $\boldsymbol{X} = (x_1,...,x_n)$ to a latent representation $\boldsymbol{Z} = (z_1,...,z_n)$. The decoder then utilizes this latent space to generate an output sequence $\boldsymbol{Y} = (y_1,...,y_m)$ one step at a time. The process is auto-regressive, meaning it uses the previously generated output to generate the next output \cite{vaswani2023attentionneed}. Figure \ref{fig:Transformer-arch} shows the architecture of the transformer model.
 
 The encoder is composed of a stack of L identical blocks. Each block is composed by two sub-layers: a multi-head attention and a feed-forward network. The multi-head attention sublayer is composed of H attention blocks, that use different projection matrices $\boldsymbol{W}_K$, $\boldsymbol{W}_V$ and $\boldsymbol{W}_Q$ to compute the key, value and query vectors, respectively. The output of each attention block is then concatenated and multiplied by a matrix $\boldsymbol{W}^O$, as shown in Equation \ref{eq:Transformer-MHA}:
 \begin{equation}
@@ -343,11 +343,12 @@ The encoder is composed of a stack of L identical blocks. Each block is composed
 \end{equation}
 where $\text{head}_i = \text{Attention}(\boldsymbol{Q}\boldsymbol{W}_{i}^{Q}, \boldsymbol{K}\boldsymbol{W}_{i}^{K}, \boldsymbol{V}\boldsymbol{W}_{i}^{V})$ is the i-th attention head, and $\text{Attention}$ is the attention function defined in Section \ref{sec-attention}. 
 
-The output of the multi-head attention is then added to the input using a residual connection, followed by layer normalization, as shown in Equation \ref{eq:MHA-output}:
+A residual connection and layer normalization follow the multi-head attention, as shown in Equation \ref{eq:MHA-output}:
 \begin{equation}
     \boldsymbol{H}' = \text{LayerNorm}(\text{MultiHead}(\boldsymbol{Q}, \boldsymbol{K}, \boldsymbol{V}) + \boldsymbol{X})
+    \label{eq:MHA-output}
 \end{equation}
-where $\boldsymbol{X}$ is the input to the multi-head attention sublayer and $\text{LayerNorm}$ is the layer normalization function. After that, this output is passed through a position-wise feed-forward network with two layers, as shown in Equation \ref{eq:Transformer-FFN}:
+where $\boldsymbol{X}$ is the input to the multi-head attention sublayer and $\text{LayerNorm}$ is the layer normalization function. The output $\boldsymbol{H}'$ is then processed by a position-wise feed-forward network with two fully connected layers: \ref{eq:Transformer-FFN}:
 \begin{equation}
     \text{FFN}(\boldsymbol{H}') = \text{ReLU}(\boldsymbol{H}'\boldsymbol{W}_1 + \boldsymbol{b}_1)\boldsymbol{W}_2 + \boldsymbol{b}_2
     \label{eq:Transformer-FFN}
@@ -355,7 +356,7 @@ where $\boldsymbol{X}$ is the input to the multi-head attention sublayer and $\t
 
 The decoder has a similar architecture to the encoder. It has L stacked blocks, but each block is composed of three sub-layers: a masked multi-head attention layer, a multi-head attention layer, and a feed-forward network. The masked multi-head attention layer works similarly to the multi-head attention, but the self-attention is masked to prevent the model from attending to future tokens in the sequence, ensuring that the prediction for a given token only depends on the previous tokens \cite{lin2021surveytransformers}. Another difference is in the second multi-head attention layer, which uses the output of the encoder $\boldsymbol{Z}$ to project the key and value vectors of the attention.
 
-Finally, one important point to highlight is the positional encoding layer. In vanilla transformers the model does not have access to the order of the sequence. To deal with this, the authors propose adding a positional encoding to the input. They do so using the sine and cosine functions:
+Finally, one important point to highlight is the positional encoding layer. In vanilla transformers, the model does not have access to the order of the sequence. To deal with this, the authors propose adding a positional encoding to the input. They do so using the sine and cosine functions:
 \begin{equation}
     PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)
 \end{equation}
@@ -367,7 +368,7 @@ where $i$ is the dimension, $pos$ is the token position and $d_{model}$ is the m
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/model_basics/Transformers/transformer_arch.png}
-    \caption{\cite{lin2021surveytransformers}}
+    \caption{Architecture of the vanilla Transformer model, with encoder and decoder components. \cite{lin2021surveytransformers}}
     \label{fig:Transformer-arch}
 \end{figure}
 
@@ -378,21 +379,23 @@ Reconstruction-based models are a class of machine learning models that are desi
 The main idea behind these networks is to train them to accurately reconstruct normal data, which is presumed to be the majority of the available data. This is usually done by minimizing a reconstruction loss, such as the Mean Squared Error (MSE), during the training phase. 
 
 During the test phase, the model encounters anomalous data, which it has not been trained to reconstruct, causing the reconstruction error to increase greatly compared to the error of normal data, as the model fails to reconstruct abnormal patterns. This way, an anomaly can be identified by thresholding the reconstruction error. Inputs with low reconstruction error will be classified as normal, and inputs with reconstruction error greater than the threshold will be classified as anomalous.
-(REVISAR AQUI)
-There are a variety of reconstruction-based models. In \cite{en17102340} authors proposed an autoencoder composed of multiple LSTM cells to identify anomalies in electrical motors vibrations. They use the MSE loss function to train the model to reconstruct normal vibration patterns and, by thresholding the reconstruction error, they were able to identify anomalies in data.
 
-In \cite{XIE2023120725} the authors developed a model that combines convolutional layers, LSTM layers and a variational autoencoder to detect anomalies in multivariate time series. They computed correlation matrices between the variables to use as an input for the model and used a loss function that combines the MSE loss to the Kullback-Leibler divergence to train the model, achieving state-of-the-art results in three different datasets.
+There are a variety of reconstruction-based models. In \cite{en17102340}, the authors proposed an autoencoder composed of multiple LSTM cells to identify anomalies in electrical motors vibrations. The model was trained using the MSE loss function to reconstruct normal vibration patterns, and anomalies were detected by applying a threshold to the reconstruction error.
 
-Another example is the model proposed in \cite{tuli2022tranaddeeptransformernetworks} where authors utilized the transformer architecture to detect anomalies. The model works on two phases: on the first phase the model tries to reconstruct the input sequence, obtaining a reconstruction error. From this, the model computes the focus score that highlight areas with bigger reconstruction errors. In the second phase, it then computes a focus score from the reconstruction error. The focus score is used by the attention mechanism to focus on areas where the reconstruction error was bigger, allowing the model to potentially identify anomalies in these areas. It then tries to reconstruct the input sequence using this newly highlighted areas. This approach allowed authors to beat state-of-the-art models in six different datasets.
+In \cite{XIE2023120725}, the authors developed a model that combines convolutional layers, LSTM layers and a variational autoencoder to detect anomalies in multivariate time series. They computed correlation matrices between the variables to use as an input for the model and used a loss function that combines the MSE loss to the Kullback-Leibler divergence to train the model, achieving state-of-the-art results in three different datasets.
+
+Another example is the model proposed in \cite{tuli2022tranaddeeptransformernetworks} where authors utilized the transformer architecture to detect anomalies. The model works on two phases: in the first phase the model tries to reconstruct the input sequence, obtaining a reconstruction error. From this, the model computes the focus score that highlight areas with bigger reconstruction errors. In the second phase, the focus score is used by the attention mechanism to focus on areas where the reconstruction error was bigger, allowing the model to concentrate on these high-error regions and attempt a refined reconstruction. This approach allowed the authors to outperform state-of-the-art models on six different datasets.
 
 \section{Railway Components}
 
-The railway track consists of different interdependent components that are divided into two categories: the superstructure and the substructure. The former comprises the rails, fastenings, and sleepers, while the latter consists of the ballast, sub-ballast, and subgrade \cite{kaewunruen12008dynamic}, as shown in Figure ???. These two structures are separated by the sleeper-ballast interface and are essential for ensuring a safe and cost-effective transportation system capable of guiding vehicles and transmitting loads to the subgrade \cite{attoh2017big}.
+The railway track consists of different interdependent components that are divided into two categories: the superstructure and the substructure. The former comprises the rails, fastenings, and sleepers, while the latter consists of the ballast, sub-ballast, and subgrade \cite{kaewunruen12008dynamic}, as shown in Figure \ref{fig:Track-Components}. These two structures are separated by the sleeper-ballast interface and are essential for ensuring a safe and cost-effective transportation system capable of guiding vehicles and transmitting loads to the subgrade \cite{attoh2017big}.
 
-INSERIR FIGURA AQUI
-
-
-%TODO: Adicionar as seguintes seções futuramente: railway geometry and dynamics, railway defects, railway data collection and maintenance
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/Track Components/track_components.png}
+    \caption{Main railway track components, including superstructure and substructure. \cite{kaewunruen12008dynamic}}
+    \label{fig:Track-Components}
+\end{figure}
 
 \section{Track Irregularities Standards} \label{sec-track-defects}
 
@@ -422,11 +425,13 @@ The PSD formulas are given by Equations \ref{eq:FRA-vertical}, \ref{eq:FRA-later
 \end{equation}
 where $S_{av}(\Omega)$ is the vertical alignment PSD, $S_{al}(\Omega)$ is the lateral alignment PSD, and $S_{gauge/cl}(\Omega)$ is the gauge or the superelevation PSD, all expressed in $[cm^2 / (rad/m)]$. The variable $\Omega$ is the spatial wavenumber, while $\Omega_c$ and $\Omega_s$ are the critical wavenumbers, all in $[rad/m]$. The variable $k$ is a constant, and $A_v$ and $A_a$ are the roughness coefficients related to the line grade, expressed in $[cm^2 \cdot rad /m]$. Table \ref{tab:FRA-PSD-parameters} summarizes the parameters for each track class.
 
-\begin{table}[H]
+\begin{table}[h!]
+\centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{c c c c c c c}
 \hline
 \multirow{2}{*}{Class} & \multicolumn{2}{c}{Max velocity (km/h)} & \multicolumn{4}{c}{Parameters} \\ \cline{2-7}
- & Freight transportation & Passengers & $A_v$ (cm$^2$ rad/m) & $A_a$ (cm$^2$ rad/m) & $\Omega_c^2$ (rad/m) & $\Omega_s^2$ (rad/m) \\
+ & Freight & Passengers & $A_v$ (cm$^2$ rad/m) & $A_a$ (cm$^2$ rad/m) & $\Omega_c^2$ (rad/m) & $\Omega_s^2$ (rad/m) \\
 \hline
 1 & 16  & 24  & 1.2107 & 3.3634 & 0.6046 & 0.8245 \\
 2 & 40  & 48  & 1.0181 & 1.2107 & 0.9308 & 0.8245 \\
@@ -435,7 +440,8 @@ where $S_{av}(\Omega)$ is the vertical alignment PSD, $S_{al}(\Omega)$ is the la
 5 & 129 & 145 & 0.2095 & 0.0762 & 0.8209 & 0.8245 \\
 6 & 177 & 177 & 0.0339 & 0.0339 & 0.4380 & 0.8245 \\
 \hline
-\end{tabular}
+\end{tabular}%
+}
 \caption{Summary of the parameters for each track class. \cite{PIRES2021107806}}
 \label{tab:FRA-PSD-parameters}
 \end{table}
@@ -488,16 +494,16 @@ Both methods proved to be effective in mitigating the velocity effect, which red
     \centering
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Vel_effect/vel_profiles.png}
-        \caption{\cite{Hironori_ONO202322-00239}}
+        \caption{}
         \label{fig:vel_effect_ono-a}
     \end{subfigure}
     \hspace{0.3cm}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Vel_effect/accel_measurements.png}
-        \caption{\cite{Hironori_ONO202322-00239}}
+        \caption{}
         \label{fig:vel_effect_ono-b}
     \end{subfigure}
-    \caption{Caption}
+    \caption{Example of how velocity differences affect acceleration measurements on the same track segment. $\boldsymbol{(a)}$ shows the two velocity profiles, A and B. $\boldsymbol{(b)}$ illustrates the corresponding acceleration measurements for each profile. ($\boldsymbol{(a)}$ \cite{Hironori_ONO202322-00239}; $\boldsymbol{(b)}$ \cite{Hironori_ONO202322-00239})}
     \label{fig:vel_effect_ono}
 \end{figure}
 
@@ -505,16 +511,16 @@ Both methods proved to be effective in mitigating the velocity effect, which red
     \centering
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Vel_effect/before_correction.png}
-        \caption{\cite{Hironori_ONO202322-00239}}
+        \caption{}
         \label{fig:vel_correction_ono-a}
     \end{subfigure}
     \hspace{0.3cm}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Vel_effect/after_correction.png}
-        \caption{\cite{Hironori_ONO202322-00239}}
+        \caption{}
         \label{fig:vel_correction_ono-b}
     \end{subfigure}
-    \caption{Caption}
+    \caption{Reduction of false positives in anomaly detection after velocity correction. $\boldsymbol{(a)}$ shows the heatmap of the acceleration measurements before correction, while $\boldsymbol{(b)}$ shows the heatmap after correction. ($\boldsymbol{(a)}$ \cite{Hironori_ONO202322-00239}; $\boldsymbol{(b)}$ \cite{Hironori_ONO202322-00239})}
     \label{fig:vel_correction_ono}
 \end{figure}
 
@@ -525,7 +531,7 @@ The authors fitted two models to the maximum simulated accelerations: a linear r
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/Vel_effect/results_bia.png}
-    \caption{\cite{Balouchi02092021}}
+    \caption{Effect of train velocity on measured acceleration compared with simulation results and the linear and exponential model fitted to the maximum acceleration values with their corresponding $R^2$ values. \cite{Balouchi02092021}}
     \label{fig:vel_effect_balouchi}
 \end{figure}
 
@@ -543,8 +549,8 @@ These observations highlight the need to further investigate the correlation bet
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=12cm]{Cap2_LitReview/Mass_effect/Mass_effect.jpeg}
-    \caption{Caption}
+    \includegraphics[width=12cm]{Cap2_LitReview/Mass_effect/Mass_effect.jpg}
+    \caption{Effect of wagon mass on the relationship between acceleration and velocity for freight trains. The data points represent the 99th percentile of the absolute maximum vertical acceleration for each velocity class, colored by wagon mass class.}
     \label{fig:mass_effect}
 \end{figure}
 
@@ -568,7 +574,7 @@ For instance, in \cite{DEROSA2019606} the authors used a 3D multibody model that
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/DeRosa_Result_Real.png}
-    \caption{\cite{DEROSA2019606}}
+    \caption{Reconstruction of lateral irregularities using the Frequency Response Function method. \cite{DEROSA2019606}}
     \label{fig:DeRosa_Results}
 \end{figure}
 
@@ -582,14 +588,14 @@ Using these irregularity profiles, they ran simulations over a 1000 meters track
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/Tsunashina (2024)/data-process.png}
-    \caption{\cite{vibration7040049}}
+    \caption{Data processing pipeline for the creation of the simulated dataset. \cite{vibration7040049}}
     \label{fig:Tsunashina_data_process}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/Tsunashina (2024)/gpr.png}
-    \caption{\cite{vibration7040049}}
+    \caption{Track irregularity prediction using Gaussian Process Regression for different vehicle speeds. \cite{vibration7040049}}
     \label{fig:Tsunashina_GPR}
 \end{figure}
 
@@ -600,7 +606,7 @@ Tsunashima and Yagura argue that for the majority of the sections, the GPR predi
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/Tsunashina (2024)/Results.png}
-    \caption{\cite{vibration7040049}}
+    \caption{Regression results comparing predicted and actual track irregularities from real measurement data. \cite{vibration7040049}}
     \label{fig:Tsunashina_Results}
 \end{figure}
 
@@ -613,7 +619,7 @@ Using this dataset, the authors then fitted the data three classifiers: a decisi
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{Cap2_LitReview/Track_Quality_Accel/DeRosa (2021)/dataset.png}
-    \caption{\cite{DeRosa2021}}
+    \caption{Dataset distribution of standard deviation of the irregularities with defined safety thresholds. \cite{DeRosa2021}}
     \label{fig:DeRosa-dataset}
 \end{figure}
 
@@ -681,5 +687,53 @@ Gaussian SVM & 92.9 & 68.1 & 77.8 & 72.6 & 0.69 \\
 
 \chapter{Methodology} \label{sec-methodology}
 
+This chapter describes the methodology used to develop a machine learning model that is capable of reconstructing the track irregularities from acceleration data. It is organized as follows: Section \ref{sec-defining-problem} defines the problem to be solved, Section \ref{sec-vel-mass-correction} describes the simulation parameters for the velocity and mass correction, Section \ref{sec-ml-model} describes the machine learning model that will be used to reconstruct the track irregularities, and Section \ref{sec-flowchart} presents a flowchart of the step by step methodology.
+
+\section{Defining the Problem} \label{sec-defining-problem}
+
+In this thesis, the main objective is to develop a machine learning model that can reconstruct track irregularities from acceleration data. The reconstructed profiles can be then compared to the standard limits to support maintenance planning, or, in the case of an off limits irregularity, a defect can be identified and repaired before it causes a serious issue.
+
+To acquire data, a multibody simulation will be created in the software SIMPACK. First, the simulation model will be validated using real data from a section of track geometry measured by the TCG and the corresponding acceleration measurements collected by the IRV. The simulated wagon will replicate the IRV sensor configuration, described in detail in \cite{PIRES2024107191}, measuring the vertical acceleration on the side frames, the displacement of the secondary suspension and the triaxial carbody acceleration. Once the simulation is validated, a dataset will be generated containing the simulated sensor data for different track irregularities, velocities and for different wagon masses. This search space will be explained in more details in Section \ref{sec-vel-effect-measurement}.
+
+With this dataset, a study will be conducted to analyze the effect of the wagon mass and velocity on the acceleration measurements. The goal is to understand how these parameters affect the data and develop a correction method, using similar approaches described in Sections \ref{sec-vel-effect-measurement} and \ref{sec-mass-effect-measurement}, to correct the acceleration data.
+
+The corrected acceleration data will then be used to train a machine learning model for reconstructing track irregularities. Model performance will be evaluated using real-world data. Finally, a threshold will be defined on the reconstructed profiles to determine when maintenance is required, enabling condition-based planning based solely on acceleration measurements.
+
+\section{Velocity and Mass Correction} \label{sec-vel-mass-correction}
+
+As stated in Section \ref{sec-defining-problem} a SIMPACK simulation will run across a search space composed of different velocities, wagon masses and track irregularities. Table \ref{table:search_space} summarizes the parameter ranges. Each simulation will test one combination until all possibilities have been explored.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l}
+\hline
+\textbf{Parameter} & \textbf{Values} \\
+\hline
+Velocity (km/h) & 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65 \\
+Wagon mass (tons) & 0, 51, 102 \\
+Track irregularity & No irregularity, FRA 6, FRA 5, FRA 4, Real Irregularity \\
+\hline
+\end{tabular}
+\caption{Search space for the SIMPACK simulation.}
+\label{table:search_space}
+\end{table}
+
+The velocity range was defined to cover the typical train velocity operation in the railway. Wagon masses corresponds to the unloaded wagon class, the half loaded wagon and the fully loaded wagon class. The track irregularities were defined to cover a good track condition (FRA 6), a regular condition track (FRA 5) and a bad condition track (FRA 4). The real irregularity corresponds to a measured track geometry that contains some defects, such as a switch and some misalignments. The no irregularity serves as a baseline case to the study.
+
+From this generated data, an approach similar to \cite{Balouchi02092021} will be used to correct the measurements. In this method, a linear or quadratic regression model will be fitted to the absolute maximum acceleration data across different velocities and different wagon masses. The goal is to develop a correction method that is independent from the track irregularity. The final regression model will be evaluated on real world data.
+
+\section{Machine Learning Model} \label{sec-ml-model}
+
+The machine learning model to be used in this thesis needs to satisfy a set of requirements. These requirements are:
+\begin{itemize}
+    \item The model can not depend on labels, i.e., it needs to be an unsupervised model;
+    \item The model should consider input data as being sequential, i.e., it needs to take into consideration temporal correlations;
+    \item The model needs to be able to handle noisy data;
+    \item The model should be able to be trained on simulated data and perform well on real world data without the need of retraining.
+\end{itemize}
+
+Based on these requirements, the chosen approach is to use a deep learning model that utilizes the methods described in Section \ref{sec-model-basics}, as it is the most robust approach for handling complex data. This outputs of this model will be then compared to the geometric limits in the Brazilian standard to develop a threshold for maintenance planning based on acceleration data.
+
+\section{Flowchart} \label{sec-flowchart}
 
 \chapter{Results} \label{sec-Results}
