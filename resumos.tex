@@ -8,9 +8,9 @@
 % resumo em PORTUGUÊS (OBRIGATÓRIO)
 \begin{resumo}[Resumo]
  \begin{otherlanguage*}{brazil}
-    Esta tese propõe uma abordagem de aprendizado profundo para a reconstrução de irregularidades da via a partir de dados de aceleração. O estudo investiga primeiramente a influência da velocidade e da massa do vagão nas medições de aceleração, com o objetivo de normalizar os dados para diferentes condições operacionais. Em seguida, um modelo de aprendizado de máquina será treinado utilizando dados simulados para reconstruir as irregularidades da via, e o modelo será avaliado em um conjunto de dados real. Por fim, um método de limiarização será aplicado aos dados de aceleração para identificar trechos da via onde as irregularidades estimadas excedem os limites de segurança estabelecidos.
+    Esta tese propõe uma abordagem de deep learning para a reconstrução de irregularidades da via a partir de dados de aceleração. Esse trabalho investiga, primeiramente, a influência da velocidade e da massa do vagão nas medições de aceleração, com o objetivo de remover o efeito dessas condições de operação para aumentar a robustez do método. A partir desse estudo, um modelo de correção foi criado para corrigir dados de medição de vagões instrumentados. De posse dos dados corrigidos, um modelo de deep learning foi treinado com os dados corrigidos do vagão instrumentado da simulação para obter as irregularidades geométricas da via. Este modelo depois foi avaliado em um conjunto de dados reais de vagão instrumentado e irregularidades geométricas. Com as irregularidades reconstruídas, é possível identificar locais onde os limites de segurança geométricas foram ultrapassadas com base nos dados de aceleração. Consequentemente, os dados medidos pelo vagão instrumentado podem ser usados para identificar defeitos geométricos.
 
-    \textbf{Palavras-chave}: monitoramento de ferrovias; irregularidades da via; deep learning; machine learning; simulação de multicorpos; dados de aceleração; correção da velocidade; efeito da massa; thresholding.
+    \textbf{Palavras-chave}: monitoramento de vias ferroviárias; irregularidades geométricas da via; deep learning; machine learning; simulação de multicorpos; efeito da massa e velocidade;
  \end{otherlanguage*}
 \end{resumo}
 % -------------------------------------------------------------
@@ -18,9 +18,9 @@
 % resumo em INGLÊS (OBRIGATÓRIO)
 \begin{resumo}[Abstract]
  \begin{otherlanguage*}{english}
-    This thesis proposes a deep learning approach for the reconstruction of track irregularities from acceleration data. The study first investigates the influence of the velocity and wagon mass on the acceleration measurements with the goal of normalizing the data to different operational conditions. A machine learning model will be then trained using simulated data to reconstruct track irregularities and the model will be evaluated on a real dataset. Finally, a thresholding method will be applied to the acceleration data to identify sections of track where the estimated irregularities exceed the standard safety limits.
+    This thesis proposes a deep learning approach for the reconstruction of track irregularities from acceleration data. The study first investigates the influence of train speed and wagon mass on acceleration measurements, with the goal of removing the effect of these operational conditions to increase the robustness of the method. Based on this study, a correction model was developed to adjust measurement data from instrumented wagons. With the corrected data, a deep learning model was trained using the corrected simulation data from the instrumented wagon to obtain the geometric track irregularities. This model was then evaluated on a real dataset of instrumented wagon measurements and geometric irregularities. With the reconstructed irregularities, it becomes possible to identify locations where the geometric safety limits have been exceeded based on acceleration data. Consequently, the data measured by the instrumented wagon can be used to identify geometric defects.
 
-    \textbf{Keywords}: railway track monitoring; track irregularities; deep learning; machine learning; multibody simulation; acceleration data; velocity correction; mass effect; thresholding.
+    \textbf{Keywords}: railway track monitoring; track geometric irregularities; deep learning; machine learning; multibody simulation; effect of mass and speed.
  \end{otherlanguage*}
 \end{resumo}
 % -------------------------------------------------------------

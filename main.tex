@@ -17,46 +17,47 @@ Time series data exhibit dependencies that vary based on their type. In univaria
 
 \subsection{Time Series Anomalies}
 
-According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that deviates greatly from the general distribution of data. These outliers can be a single observation or a subsequence of the whole time series. Building on this, \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021} divides anomalies into three main categories:
+According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that deviates greatly from the general distribution of data. These outliers can be a single observation or a subsequence of the whole time series and they can be further classified as a local outlier, which deviates from the local behavior of the data, or a global outlier, which deviates from the global behavior of the data. Building on this, Blázquez-García et al. \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021} divides anomalies into three main categories:
 
 \begin{enumerate}
     \item \textit{Point Anomalies}: A point outlier can be defined as a single observation that deviates from the global behavior (global anomaly) or from the behavior of it's neighborhood (local anomaly). This type of anomaly can be identified using equation \ref{eq_point_anomaly}
     \begin{equation}
-        |x_t - \hat{x}_t| > t
+        |x_t - \hat{x}_t| > T
         \label{eq_point_anomaly}
     \end{equation}
-    where $\hat{x}_t$ is the expected result, $x$ is the original data point and $t$ is the threshold. If the difference is greater than the threshold $t$, then $x_t$ is identified as an anomaly. Figure \ref{fig:point_anomaly} shows an example of this anomaly, where O1 is a local outlier and O2 is a global anomaly.
+    where $\hat{x}_t$ is the expected result, $x$ is the original data point and $T$ is the threshold. If the difference is greater than the threshold $T$, then $x_t$ is identified as an anomaly. Figure \ref{fig:point_anomaly} shows an example of this anomaly, where O1 is a local outlier and O2 is a global anomaly.
 
-    \item \textit{Subsequence Anomaly}: A subsequence outlier refers to a consecutive portion of points from the time series whose joint behavior is abnormal. It is important to note that each of these data points alone doesn't need to a point anomaly, but together they form an anomaly. Similarly to the point outliers, the subsequence outliers can be global or local. These anomalies can be identified by the equation \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024}:
+    \item \textit{Subsequence Anomaly}: A subsequence outlier refers to a consecutive portion of points from the time series whose joint behavior is abnormal. It is important to note that each of these data points alone doesn't need to a point anomaly, but together they form an anomaly. Similarly to the point outliers, the subsequence outliers can be global or local. These anomalies can be identified by the equation \ref{eq_subsequence_anomaly} \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024}:
     \begin{equation}
-        diss\left(C, \hat{C}\right) > t
+        diss\left(C, \hat{C}\right) > T
+        \label{eq_subsequence_anomaly}
     \end{equation}
-    where $C$ is the the actual cycle or shape of the subsequence, $\hat{C}$ is the expected output, $t$ is the threshold and $diss$ is a function that computes the dissimilarity between the two subsequences, such as the cosine similarity. Figure \ref{fig:subsequence_anomaly} shows an example of this, where O1 is a local anomaly and O2 is a global anomaly.
+    where $C$ is the the actual cycle or shape of the subsequence, $\hat{C}$ is the expected output, $T$ is the threshold and $diss$ is a function that computes the dissimilarity between the two subsequences, such as the cosine similarity. Figure \ref{fig:subsequence_anomaly} shows an example of this, where O1 is a local anomaly and O2 is a global anomaly.
 
     \item \textit{Time Series Anomaly}: A time series anomaly is a entire timeseries that presents unusual behavior. Note that, this kind of anomaly can only be detected in multivariate time series. Figure \ref{fig:Time_series_anomaly} shows an example of this problem, where variable 4 behavior differs greatly from the other 3 variables.
 \end{enumerate}
 
-\cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024} highlights another anomaly that can only occur in multivariate time series: the intermetric anomaly. An intermetric anomaly can be defined as an anomalous behavior in the correlation between two variables.% An example of this is shown in Figure ?????. 
+Darban et al. \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024} highlights another anomaly that can only occur in multivariate time series: the intermetric anomaly. An intermetric anomaly can be defined as an anomalous behavior in the correlation between two variables.% An example of this is shown in Figure ?????.
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/point_anomaly.png}
-    \caption{Example of point anomalies in time series data, highlighting local (O1) and global outliers (O2). \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
+    \caption{Example of point anomalies in time series data, highlighting local (O1) and global outliers (O2) \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}.}
     \label{fig:point_anomaly}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/subseq_anomaly.png}
-    \caption{Example of subsequence anomalies, showing local (O1) and global (O2) deviations in time series data. \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
+    \caption{Example of subsequence anomalies, showing local (O1) and global (O2) deviations in time series data \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}.}
     \label{fig:subsequence_anomaly}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{Cap2_LitReview/TS_anomaly.png}
-    \caption{Example of a time series anomaly in a multivariate dataset, where variable 4 significantly deviates from others. \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}}
+    \caption{Example of a time series anomaly in a multivariate dataset, where Variable 4 significantly deviates from others \cite{Blazquez-Garcia_Conde_Mori_Lozano_2021}.}
     \label{fig:Time_series_anomaly}
 \end{figure}
 
@@ -64,15 +65,15 @@ According to \cite{Grubbs_1969} an anomaly can be defined as an outlier that dev
 
 Since the 1960s, many models for anomaly detection have been proposed, ranging from statistical models to recent deep learning models. The common main idea behind all of those is to identify low probability, i.e. low density, regions, classifying points in those areas as anomalies \cite{Samariya_Thakkar_2021}. 
 
-Statistical models, for example, use statistical tests, like the $\chi ^2$ test, to identify abnormal points. Clustering-based models use cluster analysis to label anomalies, using, for example, the distance from the centroid of normal points or the number of points in a cluster. Distance-based models use the distance between the current time window and its neighborhood to classify anomalies. Density-based approaches use the density of the data points to find anomalies \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024, Samariya_Thakkar_2021}. These methods described above are called traditional methods.
+Statistical models use statistical tests, like the $\chi^2$ test, to identify abnormal points. Clustering-based models use cluster analysis to label anomalies, using, for example, the distance from the centroid of normal points or the number of points in a cluster. Distance-based models use the distance between the current time window and its neighborhood to classify anomalies. Density-based approaches use the density of the data points to find anomalies \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024, Samariya_Thakkar_2021}. These methods described above are called traditional methods.
 
-In recent years, with the increase of computing power, deep learning models have become increasingly prominent in anomaly detection. Unlike the traditional methods, the main advantage of deep learning models is that they are capable of identifying complex temporal and spatial correlations between variables, especially in larger multidimensional datasets, without the need for a labeled dataset \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024, Choi_Yi_Park_Yoon_2021}. \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024} divides deep learning models into 3 main categories: forecasting-based models, reconstruction-based models, and representation-based models.
+In recent years, with the increase of computing power, deep learning models have become increasingly prominent in anomaly detection. Unlike the traditional methods, the main advantage of deep learning models is that they are capable of identifying complex temporal and spatial correlations between variables, especially in larger multidimensional datasets, without the need for a labeled dataset \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024, Choi_Yi_Park_Yoon_2021}. Darban et at. \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024} divides deep learning models into 3 main categories: forecasting-based models, reconstruction-based models, and representation-based models.
 
 Forecasting-based models try to predict a future subsequence of the time series using historical data. These models learn the patterns and trends within data to anticipate what is expected to occur. Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTMs) are examples of this category. Anomalous values are detected if they deviate greatly from what the model predicts.
 
 Reconstruction-based models attempt to recreate the input timeseries based on the values of past points or windows. These models use architectures like autoencoders (AE) and Generative Adversarial Networks (GANs). Anomalies are identified using the reconstruction error between the predicted series and the original series. The advantage of reconstruction-based models over forecasting ones is that they adapt better to rapid changes in a timeseries, which may cause it to become unpredictable. This happens because reconstruction models have access to the current timeseries data, which is not available in forecasting models \cite{Zamanzadeh_Darban_Webb_Pan_Aggarwal_Salehi_2024}. This better precision comes with a delay in the detection time of an anomaly, but, in general, these models are preferred over forecasting models.
 
-Representation-based models focus on learning meaningful representations of the data that can be used in downstream tasks, like anomaly detection.  These models use advanced architectures like transformers and self-supervised learning to extract high-level features from the data. The learned representations are often used in conjunction with simpler models (e.g., clustering or density-based methods) to identify anomalies. The downside of these models is that they are computationally expensive to train, often needing a large amount of data.
+Representation-based models focus on learning meaningful representations of the data that can be used in downstream tasks, like anomaly detection.  These models use advanced architectures like transformers and self-supervised learning to extract high-level features from the data. From this representation, it is easier to solve a specific task and use simpler models (e.g., clustering or density-based methods) to identify anomalies. The downside of these models is that they are computationally expensive to train, often needing a large amount of data.
 
 An important point to highlight is that the majority of the models described above are unsupervised models. An unsupervised model is a model that can learn patterns from data without the need for a labeled dataset. This flexibility is desired because of the inherently unlabeled nature of historical data and the unpredictability of anomalies, which makes it harder to define an anomaly, especially if anomalies are rare. In this work, the focus will be on unsupervised reconstruction models.
 
