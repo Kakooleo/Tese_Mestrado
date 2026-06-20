@@ -13,7 +13,7 @@ One of the most studied problems in this area is anomaly detection. It consists 
 
 The following sections will dive deeper into the concept of a time series, the different natures of anomalies in data, and some of the models used to detect these anomalies.
 
-\subsection{Time Series}
+\subsection{Time Series} \label{sec-time-series}
 
 A time series (TS) can be defined as a set of points indexed sequentially over time and is often divided into univariate and multivariate. A univariate TS is a set of real values from a single variable that changes over time $\textbf{X} = \{x_t\}$ for $t$ $\in$ $T$, where T is the total time. On the other hand, a multivariate TS is a set of real values from multiple variables that change over time, i.e., $\textbf{X} = \{\textbf{x}_t\}$ for $t$ $\in$ $T$, where $\textbf{x}_t$ is a k-dimensional vector defined by $\textbf{x}_t = (x_{1t}, ..., x_{kt})$ and each $x_{it}$ is a univariate TS. 
 
@@ -67,15 +67,25 @@ According to Grubbs \cite{Grubbs_1969} an anomaly can be defined as an outlier t
     \label{fig:Time_series_anomaly}
 \end{figure}
 
-\section{Time Series Signal Analysis} \label{sec-signal-analysis}
+\section{Basics of Signal Analysis} \label{sec-signal-analysis}
 
-In this section the basics of signal analysis will be presented. The main idea behind this section is to provide the theoretical background that will be used in the next chapters, specially when dealing with mass and velocity effects on acceleration data. (No futuro escrever melhor essa parte aqui, talvez seja interessante adicionar ou remover algumas sessoes se essas nao forem utilizadas pela tese.)
+In this section the basics of signal analysis will be presented. The main idea behind this section is to provide the theoretical background that will be used in the next chapters, specially when dealing with mass and velocity effects on acceleration data. 
 
-\subsection{Basics of Signal Analysis}
+\textcolor{red}{(No futuro escrever melhor essa parte aqui, talvez seja interessante adicionar ou remover algumas sessoes se essas nao forem utilizadas pela tese.)}
 
+\subsection{Types of Signals}
 
+In Section \ref{sec-time-series} a time sereis was defined as a sequence of data points indexed sequentially over time. A time series can be considered a signal, which is a function that conveys information about the behavior of a system, such as an acoustic wave from a speech, an eletronic wave carrying information of an image or, in our case, the output of an acceleromter sensor \cite{priemer1991introductory}. Signals can be classified into six different types depending on the level of complexity:
+\begin{enumerate}
+    \item \textbf{Type 1 Signal}: This type of signal represents a simple and deterministic sinusoidal wave, described by a constant frequency $f_c$, a constant amplitude and phase. This type of signal is shown 
+\end{enumerate}
 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{Cap2_LitReview/Signals/Types_of_signals/type_of_signal.png}
+    \caption{Types of Signals}
+    \label{fig:Types_of_Signals}
+\end{figure}
 
 \subsection{Fourier Transform}
 
