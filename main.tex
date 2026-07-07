@@ -73,23 +73,91 @@ In this section the basics of signal analysis will be presented. The main idea b
 
 \textcolor{red}{(No futuro escrever melhor essa parte aqui, talvez seja interessante adicionar ou remover algumas sessoes se essas nao forem utilizadas pela tese.)}
 
-\subsection{Types of Signals}
+\subsection{Types of Signals} \label{sec-types-signal}
 
-In Section \ref{sec-time-series} a time sereis was defined as a sequence of data points indexed sequentially over time. A time series can be considered a signal, which is a function that conveys information about the behavior of a system, such as an acoustic wave from a speech, an eletronic wave carrying information of an image or, in our case, the output of an acceleromter sensor \cite{priemer1991introductory}. Signals can be classified into six different types depending on the level of complexity:
+In Section \ref{sec-time-series} a time sereis was defined as a sequence of data points indexed sequentially over time. A time series can be considered a signal, which is a function that conveys information about the behavior of a system, such as an acoustic wave from a speech, an eletronic wave carrying information of an image or, in our case, the output of an acceleromter sensor \cite{priemer1991introductory}. Signals can be classified into six different types depending on the level of complexity \cite{Boashash2016ChapterITimeFrequency}:
 \begin{enumerate}
-    \item \textbf{Type 1 Signal}: This type of signal represents a simple and deterministic sinusoidal wave, described by a constant frequency $f_c$, a constant amplitude and phase. This type of signal is shown 
+    \item \textbf{Type 1 Signal}: This type of signal represents a simple and deterministic sinusoidal wave, described by a constant frequency $f_c$, a constant amplitude and phase. This type of signal is shown in Figure \ref{fig:type_signal-a}.
+    \item \textbf{Type 2 Signal}: This type of signal is a multicomponent signal, which is a liner combination of several type 1 sinusoidal waves, each with a different frequency, amplitude and phase. This type of signal is illustrated in Figure \ref{fig:type_signal-b}.
+    \item \textbf{Type 3 Signal}: This type of signal is comprised of a single component with constant amplitude and phase, but with a time-varying frequency $f_i(t)$. This type of signal is shown in Figure \ref{fig:type_signal-c}. One example of this is the frequency modulated (FM) signal used in telecommunication systems. The dominant frequency of this signal at time $t$ is called the instantaneous frequency (IF) and will be discussed in more detail in Section \ref{sec-IF}.
+    \item \textbf{Type 4 Signal}: This type of signal is a multicompening signal composed of multiple type 3 signals summed together, each with a different time-varying frequency, amplitude and phase. This type of signal is illustrated in Figure \ref{fig:type_signal-d}.
+    \item \textbf{Type 5 Signal}: A type 5 signal is a type 4 signal with an white noise added to the sum of the components and a white noise added to the amplitude of each component. This type of signal is shown in Figure \ref{fig:type_signal-e}. The first type of noise is called an additive noise, while the second is called a multiplicative noise. 
+    \item \textbf{Type 6 Signal}: The type 6 signal is a sinc function with additive withe noise added to it. Figure \ref{fig:type_signal-f} shows an example of this type of signal. This type of signal is the most important for this dissertation, as it reveals possible defects on the railway line.
 \end{enumerate}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{Cap2_LitReview/Signals/Types_of_signals/type_of_signal.png}
-    \caption{Types of Signals}
-    \label{fig:Types_of_Signals}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=7cm]{Cap2_LitReview/Signals/Types_of_signals/type_1_signal.png}
+        \caption{}
+        \label{fig:type_signal-a}
+    \end{subfigure}
+    \hspace{0.2cm}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=7cm]{Cap2_LitReview/Signals/Types_of_signals/type_2_signal.png}
+        \caption{}
+        \label{fig:type_signal-b}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=7cm]{Cap2_LitReview/Signals/Types_of_signals/type_3_signal.png}
+        \caption{}
+        \label{fig:type_signal-c}
+    \end{subfigure}
+    \hspace{0.2cm}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=7cm]{Cap2_LitReview/Signals/Types_of_signals/type_4_signal.png}
+        \caption{}
+        \label{fig:type_signal-d}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=7cm]{Cap2_LitReview/Signals/Types_of_signals/type_5_signal.png}
+        \caption{}
+        \label{fig:type_signal-e}
+    \end{subfigure}
+    \hspace{0.2cm}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=7cm]{Cap2_LitReview/Signals/Types_of_signals/type_6_signal.png}
+        \caption{}
+        \label{fig:type_signal-f}
+    \end{subfigure}
+    \caption{The six types of signals. \textbf{(a)} Type 1 signal represented by a single sinusoidal wave with constant frequency, amplitude and phase. \textbf{(b)} Type 2 signal represented by a linear combination of several type 1 signals. \textbf{(c)} Type 3 signal represented by a single component with constant amplitude and phase, but with a time-varying frequency. \textbf{(d)} Type 4 signal represented by a linear combination of several type 3 signals. \textbf{(e)} Type 5 signal represented by a type 4 signal with additive and multiplicative white noise. \textbf{(f)} Type 6 signal represented by a sinc function with additive white noise. \cite{Boashash2016ChapterITimeFrequency}.}
+    \label{fig:type_signal}
 \end{figure}
+
+It is important to highlight that an algorithm that extracts characteristics from a signal changes with the type of signal, meaning that an algorithm that works well for a type 1 signal might not work well for a type 4 signal \cite{Boashash2016ChapterITimeFrequency}.
 
 \subsection{Fourier Transform}
 
-I need to talk about fourier transforms here. Also maybe it is good to talk and explore the idea of representing our timeseries in terms of bessel functions. According to the book it is a good way of representing non-stationary signals (which is ours).
+In Section \ref{sec-types-signal}, the six different types of signals and their representation in the time domain were presented. However, signals can also be represented in the frequency domain. The Fourier Transform (FT) is a mathematical tool that maps a time-domain signal to its frequency-domain representation by decomposing it into its constituent frequency components. Formally, the FT is a linear operator defined on suitable function spaces. For example, if $f(t) \in L^1(\mathbb{R})$, where $L^1(\mathbb{R})$ denotes the Banach space of absolutely integrable functions, the Fourier Transform is defined as \cite{grochenig2001foundations}
+
+\begin{equation}
+    \mathcal{F}[f](\omega) = \int_{-\infty}^{\infty} f(t)e^{-2\pi i\omega t}\,dt,
+    \label{eq:FT}
+\end{equation}
+
+\noindent where $\omega$ denotes the frequency variable. Since the Fourier Transform is invertible on appropriate function spaces, the original time-domain signal can be recovered from its frequency-domain representation using the inverse Fourier Transform (IFT), defined as
+
+\begin{equation}
+    f(t) = \mathcal{F}^{-1}[F](t) =
+    \int_{-\infty}^{\infty} F(\omega)e^{2\pi i\omega t}\,d\omega,
+    \label{eq:IFT}
+\end{equation}
+
+\noindent where $F(\omega)=\mathcal{F}[f](\omega)$ is the Fourier Transform of $f(t)$. Notice that to get back the signal to the time domain, the IFT integrates over all frequencies, including negative ones. The mathematical explanation for this is that if $f(t)$ is a real-valued signal, then its FT satisfies the property $F(\omega) = {F^*(-\omega)}$, where ${F^*(\omega)}$ denotes the complex conjugate of $F(\omega)$, i.e., its FT has a Hermitian symmetry. This means that the negative frequencies are duplicates from the positive ones \cite{Boashash2016ChapterITimeFrequency}.
+
+Another important result to discuss is the Parseval's theorem. It states that if $f \in L^1 \cap L^2(\mathbb{R})$, then:
+
+\begin{equation}
+    E_s = \int_{-\infty}^{\infty} |f(t)|^2\,dt = \int_{-\infty}^{\infty} |\mathcal{F}[f](\omega)|^2\,d\omega
+    \label{eq:Parseval}
+\end{equation}
+
+\noindent where $E_s$ is the energy of the signal \cite{grochenig2001foundations}. This means that the energy of the signal is preserved by the FT, which allows for the identification of frequencies that contribute the most to the signal's energy. 
+
+\subsection{Instantaneous Frequency}\label{sec-IF}
+
 
 
 \section{Time Series Anomaly Detection Models} \label{sec-model-basics}
