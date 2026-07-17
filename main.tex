@@ -128,7 +128,7 @@ In Section \ref{sec-time-series} a time sereis was defined as a sequence of data
 
 It is important to highlight that an algorithm that extracts characteristics from a signal changes with the type of signal, meaning that an algorithm that works well for a type 1 signal might not work well for a type 4 signal \cite{Boashash2016ChapterITimeFrequency}.
 
-\subsection{Fourier Transform}
+\subsection{Fourier Transform}\label{sec-FT}
 
 In Section \ref{sec-types-signal}, the six different types of signals and their representation in the time domain were presented. However, signals can also be represented in the frequency domain. The Fourier Transform (FT) is a mathematical tool that maps a time-domain signal to its frequency-domain representation by decomposing it into its constituent frequency components. Formally, the FT is a linear operator defined on suitable function spaces. For example, if $f(t) \in L^1(\mathbb{R})$, where $L^1(\mathbb{R})$ denotes the Banach space of absolutely integrable functions, the Fourier Transform is defined as \cite{grochenig2001foundations}
 
@@ -156,9 +156,53 @@ Another important result to discuss is the Parseval's theorem. It states that if
 
 \noindent where $E_s$ is the energy of the signal \cite{grochenig2001foundations}. This means that the energy of the signal is preserved by the FT, which allows for the identification of frequencies that contribute the most to the signal's energy. 
 
+\subsection{Limitations of Time and Frequency Representations} \label{sec-lim-tf-r}
+
+As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time domain to the frequency domain. However, relying only on these two representations can be limiting, as the variable $t$ and $\omega$ are treated independently, i.e., to obtain one the other is integrated out, which causes the representations to be nonlocalized w.r.t. the excluded variable \cite{Boashash2016Chapter1TimeFrequency}. For example, taking the FT of a signal $f(t)$, the resulting frequency-domain representation $F(\omega)$ provides information about the frequency content of the signal but does not provide any information about when those frequencies occur in time. This limitation is particularly problematic for non-stationary signals, where the frequency content changes over time. This is clearly shown by Boashash \cite{Boashash2016ChapterITimeFrequency} using the following two signals:
+
+\begin{equation}
+    x_{1}(t) = \text{rect}\left(\frac{t-T/2}{T}\right)\cos \left[2\pi \left(f_0t + \alpha \frac{t^2}{2}\right)\right] + N_1(t)
+    \label{eq-xA}
+\end{equation}
+\begin{equation}
+    x_{2}(t) = \text{rect}\left(\frac{t-T/2}{T}\right)\frac{\sin\left(\pi B t\right)}{\pi B t} \cos \left(2\pi f_c t\right) + N_2(t)
+    \label{eq-xB}
+\end{equation}
+
+\noindent where $\text{rect}(\cdot)$ is the function
+\begin{equation}
+    \text{rect}(x) = \begin{cases}
+        1, & |x| \leq \frac{1}{2} \\
+        0, & |x| > \frac{1}{2}
+    \end{cases}
+\end{equation}
+
+\noindent $f_0$ is the initial frequency, $\alpha=B/T$ is the frequency sweep, $f_c = f_0 + B/2$ is the center of the bandwith, $N_1(t)$ and $N_2(t)$ are additive noise terms, and $T$ is the duration of the signals, such that $BT \gg 1$. The time representation and frequency representation of the $x_1$ and $x_2$ signal are shown in Figures \ref{fig:lim-tf-rep-a} and \ref{fig:lim-tf-rep-b}, respectively. As it can be seen, both have a similar frequency representations, but their time representations are very different. More than that, taking a look at the time representations, it is hard to identify which frequencies dominate at which time, or even if there is more than one frequency present. It is also difficult to identify the evolution of the frequencies over time, a characteristic of nonstationary signals. This is a limitation of the classical representations of the signal. In the Sections (that follow) [\textcolor{red}{colocar aqui as secoes depois}], a more complex time-frequency representation will be presented.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.98\textwidth}
+        \includegraphics[width=0.98\textwidth]{Cap2_LitReview/Signals/Lim_tf_rep/LFM_signal.png}
+        \caption{}
+        \label{fig:lim-tf-rep-a}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.98\textwidth}
+        \includegraphics[width=0.98\textwidth]{Cap2_LitReview/Signals/Lim_tf_rep/chirp_signal.png}
+        \caption{}
+        \label{fig:lim-tf-rep-b}
+    \end{subfigure}
+    \caption{Time and frequency representations of the signals defined in Equations \ref{eq-xA} and \ref{eq-xB}. \textbf{(a)} Time and frequency representations of the signal $x_1$. \textbf{(b)} Time and frequency representations of the signal $x_2$.}
+\end{figure}
+
+\subsection{Analytic Signals and the Hilbert Transform}\label{sec-analytic-signals}
+
+In Section \ref{sec-FT} 
+
 \subsection{Instantaneous Frequency}\label{sec-IF}
 
 
+\subsection{Spectral and Group Delay}\label{sec-spectral-group-delay}
 
 \section{Time Series Anomaly Detection Models} \label{sec-model-basics}
 
