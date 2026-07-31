@@ -158,7 +158,7 @@ Another important result to discuss is the Parseval's theorem. It states that if
 
 \subsection{Limitations of Time and Frequency Representations} \label{sec-lim-tf-r}
 
-As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time domain to the frequency domain. However, relying only on these two representations can be limiting, as the variable $t$ and $\omega$ are treated independently, i.e., to obtain one the other is integrated out, which causes the representations to be nonlocalized w.r.t. the excluded variable \cite{Boashash2016Chapter1TimeFrequency}. For example, taking the FT of a signal $f(t)$, the resulting frequency-domain representation $F(\omega)$ provides information about the frequency content of the signal but does not provide any information about when those frequencies occur in time. This limitation is particularly problematic for non-stationary signals, where the frequency content changes over time. This is clearly shown by Boashash \cite{Boashash2016ChapterITimeFrequency} using the following two signals:
+As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time domain to the frequency domain. However, relying only on these two representations can be limiting, as the variables $t$ and $\omega$ are treated independently, i.e., to obtain one, the other is integrated out, which causes the representations to be nonlocalized w.r.t. the excluded variable \cite{Boashash2016Chapter1TimeFrequency}. For example, taking the FT of a signal $f(t)$, the resulting frequency-domain representation $F(\omega)$ provides information about the frequency content of the signal but does not provide any information about when those frequencies occur in time. This limitation is particularly problematic for non-stationary signals, where the frequency content changes over time. This is clearly shown by Boashash \cite{Boashash2016ChapterITimeFrequency} using the following two signals:
 
 \begin{equation}
     x_{1}(t) = \text{rect}\left(\frac{t-T/2}{T}\right)\cos \left[2\pi \left(f_0t + \alpha \frac{t^2}{2}\right)\right] + N_1(t)
@@ -177,7 +177,7 @@ As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time 
     \end{cases}
 \end{equation}
 
-\noindent $f_0$ is the initial frequency, $\alpha=B/T$ is the frequency sweep, $f_c = f_0 + B/2$ is the center of the bandwith, $N_1(t)$ and $N_2(t)$ are additive noise terms, and $T$ is the duration of the signals, such that $BT \gg 1$. The time representation and frequency representation of the $x_1$ and $x_2$ signal are shown in Figures \ref{fig:lim-tf-rep-a} and \ref{fig:lim-tf-rep-b}, respectively. As it can be seen, both have a similar frequency representations, but their time representations are very different. More than that, taking a look at the time representations, it is hard to identify which frequencies dominate at which time, or even if there is more than one frequency present. It is also difficult to identify the evolution of the frequencies over time, a characteristic of nonstationary signals. This is a limitation of the classical representations of the signal. In the Sections (that follow) [\textcolor{red}{colocar aqui as secoes depois}], a more complex time-frequency representation will be presented.
+\noindent $f_0$ is the initial frequency, $\alpha=B/T$ is the frequency sweep, $f_c = f_0 + B/2$ is the center of the bandwidth, $N_1(t)$ and $N_2(t)$ are additive noise terms, and $T$ is the duration of the signals, such that $BT \gg 1$. The time and frequency representations of the $x_1$ and $x_2$ signal are shown in Figures \ref{fig:lim-tf-rep-a} and \ref{fig:lim-tf-rep-b}, respectively. As it can be seen, both have similar frequency representations, but their time representations are very different. Futhermore, taking a look at the time representations, it is hard to identify which frequencies dominate at which time, or even if there is more than one frequency present. It is also difficult to identify the evolution of the frequencies over time, a characteristic of nonstationary signals. This is a limitation of the classical representations of the signals. In the Sections (that follow) [\textcolor{red}{colocar aqui as secoes depois}], a more complex time-frequency representation will be presented.
 
 \begin{figure}[H]
     \centering
@@ -197,9 +197,90 @@ As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time 
 
 \subsection{Analytic Signals and the Hilbert Transform}\label{sec-analytic-signals}
 
-In Section \ref{sec-FT} 
+In Section \ref{sec-FT} it is discussed about negative frequencies and the Hermitian symmetry of real-valued signals. More than that, a signal $f(t)$ is said to be real if and only if:
+\begin{equation}
+    F(\omega) = {F^*(-\omega)}
+\end{equation}
+\noindent where $F(\omega)$ is the FT of $f(t)$. In this case, the negative part of the frequencies can be discarded withouth the loss of information. In fact, it allows the signal to be sampled at half the Nyquist rate \cite{WignerDistBoashash}. This duplication of information allows the negative frequencies to be discarded without losing of information, which forms an analytic signal. An analytic signal $z(t)$ is a complex-valued signal that contains only positive frequency components, that is:
+\begin{equation}
+    Z(\omega) = 0, \quad \text{for } \omega < 0
+\end{equation}
+
+Using this definition, it is possible to state the following theorem \cite{Boashash2016Chapter1TimeFrequency}:
+\begin{theorem}
+    Consider two real signals $s(t)$ and $y(t)$. The signal
+    \begin{equation}
+        z(t) = s(t) + iy(t)
+        \label{eq:analytic-conjugate}
+    \end{equation}
+    is analytic with real DC component if and only if
+    \begin{equation}
+        Y(\omega) = -i \text{sgn}(\omega) S(\omega)
+        \label{eq:FT-relations}
+    \end{equation}
+    where $S(\omega)$ and $Y(\omega)$ are the Fourier transforms of $s(t)$ and $y(t)$, respectively, and 
+    \begin{equation}
+        \text{sgn}(\omega) = \begin{cases}
+            1, & \omega > 0 \\
+            0, & \omega = 0 \\
+            -1, & \omega < 0
+        \end{cases}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+Assume $z(t)$ is analytic with a real DC component. Analyticity gives $Z(\omega) = S(\omega) + i\,Y(\omega) = 0$ for $\omega<0$, hence
+\begin{equation}
+Y(\omega) = i\,S(\omega), \qquad \omega<0. \label{eq:negfreq}
+\end{equation}
+For $\omega>0$, apply \eqref{eq:negfreq} at $-\omega<0$:
+\begin{equation}
+Y(-\omega) = i\,S(-\omega). \label{eq:negfreq-applied}
+\end{equation}
+Taking the complex conjugate of both sides,
+\begin{equation}
+Y^*(-\omega) = -i\,S^*(-\omega). \label{eq:conjugate}
+\end{equation}
+Using Hermitian symmetry $Y^*(-\omega) = Y(\omega)$ and $S^*(-\omega) = S(\omega)$ (valid since $y(t), s(t)$ are real),
+\begin{equation}
+Y(\omega) = -i\,S(\omega), \qquad \omega>0. \label{eq:posfreq}
+\end{equation}
+Since $y(t)$ is real, $Y(0) \in \mathbb{R}$; likewise $S(0)\in\mathbb{R}$. Hence
+\begin{equation}
+\mathrm{Im}\{Z(0)\} = \mathrm{Im}\{S(0) + i\,Y(0)\} = Y(0). \label{eq:imz0}
+\end{equation}
+The real-DC hypothesis $\mathrm{Im}\{Z(0)\}=0$ then forces
+\begin{equation}
+Y(0) = 0. \label{eq:zerofreq}
+\end{equation}
+Combining Equations \eqref{eq:negfreq}, \eqref{eq:posfreq}, and \eqref{eq:zerofreq} result in:
+\begin{equation}
+Y(\omega) = -i\,\mathrm{sgn}(\omega)\,S(\omega) \quad \text{for all } \omega. \qedhere
+\label{eq:final}
+\end{equation}
+\end{proof}
+
+If $y(t)$ nd $s(t)$ are related by Equation \ref{eq:FT-relations}, then $y(t)$ is called the Hilbert transform (HT) of $s(t)$ and denoted as:
+\begin{equation}
+    y(t) = \mathcal{H}\{s(t)\}.
+    \label{eq:HT}
+\end{equation}
+\noindent Using the HT, it is possible to construct the analytic signal $z(t)$:
+\begin{equation}
+    z(t) = s(t) + i\mathcal{H}\{s(t)\}.
+\end{equation}
+\noindent In this case,$z(t)$ is called the analytic associate of $s(t)$. 
+
+By taking the IFT of Equation \ref{eq:FT-relations}, combining it with Equation \ref{eq:HT} and using the convolution property of the FT, it is possible to show that the HT can be defined as:
+\begin{equation}
+    \mathcal{H}\{s(t)\} = \frac{1}{\pi t} * s(t) 
+    = \frac{1}{\pi} \text{p.v.} \int_{-\infty}^{\infty} \frac{s(\tau)}{t-\tau} d\tau
+    \label{eq:HT-definition}
+\end{equation} 
+
+The reasons for using $z(t)$ and the HT instead of $s(t)$ are \textcolor{red}{COLOCAR AQUI DPS}.
 
 \subsection{Instantaneous Frequency}\label{sec-IF}
+
 
 
 \subsection{Spectral and Group Delay}\label{sec-spectral-group-delay}

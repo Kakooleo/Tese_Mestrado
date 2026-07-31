@@ -19,27 +19,49 @@
 	% \fi}%
 % ---
 
+% % ----------------------------------------------------------
+% % \theoremstyle{plain}
+% \newtheorem{theorem}{Teorema}%[chapter]
+% \newtheorem{lemma}{Lema}%[chapter]
+% \providecommand*{\lemmaautorefname}{Lema}
+% \newtheorem{proposition}{Proposição}%[chapter]
+% \providecommand*{\propositionautorefname}{Proposição}
+% \newtheorem{corollary}{Corolário}%[chapter]
+% \providecommand*{\corollaryautorefname}{Corolário}
+% \newtheorem{conjecture}{Conjectura}%[chapter]
+% \providecommand*{\conjectureautorefname}{Conjectura}
+% \newtheorem{definition}{Definição}%[chapter]
+% \providecommand*{\definitionautorefname}{Definição}
+% \newtheorem{notation}{Notação}%[chapter]
+% \providecommand*{\notationautorefname}{Notação}
+% \newtheorem{remark}{Observação}%[chapter]
+% \providecommand*{\remarkautorefname}{Observação}
+% \newtheorem{example}{Exemplo}%[chapter]
+% \providecommand*{\exampleautorefname}{Exemplo}
+% \newtheorem{note}{Nota}%[chapter]
+% \providecommand*{\noteautorefname}{Nota}
 % ----------------------------------------------------------
 % \theoremstyle{plain}
-\newtheorem{theorem}{Teorema}%[chapter]
-\newtheorem{lemma}{Lema}%[chapter]
-\providecommand*{\lemmaautorefname}{Lema}
-\newtheorem{proposition}{Proposição}%[chapter]
-\providecommand*{\propositionautorefname}{Proposição}
-\newtheorem{corollary}{Corolário}%[chapter]
-\providecommand*{\corollaryautorefname}{Corolário}
-\newtheorem{conjecture}{Conjectura}%[chapter]
-\providecommand*{\conjectureautorefname}{Conjectura}
-\newtheorem{definition}{Definição}%[chapter]
-\providecommand*{\definitionautorefname}{Definição}
-\newtheorem{notation}{Notação}%[chapter]
-\providecommand*{\notationautorefname}{Notação}
-\newtheorem{remark}{Observação}%[chapter]
-\providecommand*{\remarkautorefname}{Observação}
-\newtheorem{example}{Exemplo}%[chapter]
-\providecommand*{\exampleautorefname}{Exemplo}
-\newtheorem{note}{Nota}%[chapter]
-\providecommand*{\noteautorefname}{Nota}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\providecommand*{\lemmaautorefname}{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\providecommand*{\propositionautorefname}{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\providecommand*{\corollaryautorefname}{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\providecommand*{\conjectureautorefname}{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\providecommand*{\definitionautorefname}{Definition}
+\newtheorem{notation}[theorem]{Notation}
+\providecommand*{\notationautorefname}{Notation}
+\newtheorem{remark}[theorem]{Remark}
+\providecommand*{\remarkautorefname}{Remark}
+\newtheorem{example}[theorem]{Example}
+\providecommand*{\exampleautorefname}{Example}
+\newtheorem{note}[theorem]{Note}
+\providecommand*{\noteautorefname}{Note}
+
 % ----------------------------------------------------------
 
 % ----------------------------------------------------------
