@@ -2,8 +2,40 @@
 
 %TODO: Fazer a demonstracao do update dos pesos da Neural network. Usar como base \cite{Roth_2016}
 
+\chapter{Proof of Analytic Signal Theorem} \label{appendix-b}
+
+\begin{proof}
+Assume $z(t)$ is analytic with a real DC component. Analyticity gives $Z(\omega) = S(\omega) + i\,Y(\omega) = 0$ for $\omega<0$, hence
+\begin{equation}
+Y(\omega) = i\,S(\omega), \qquad \omega<0. \label{eq:negfreq}
+\end{equation}
+For $\omega>0$, apply \eqref{eq:negfreq} at $-\omega<0$:
+\begin{equation}
+Y(-\omega) = i\,S(-\omega). \label{eq:negfreq-applied}
+\end{equation}
+Taking the complex conjugate of both sides,
+\begin{equation}
+Y^*(-\omega) = -i\,S^*(-\omega). \label{eq:conjugate}
+\end{equation}
+Using Hermitian symmetry $Y^*(-\omega) = Y(\omega)$ and $S^*(-\omega) = S(\omega)$ (valid since $y(t), s(t)$ are real),
+\begin{equation}
+Y(\omega) = -i\,S(\omega), \qquad \omega>0. \label{eq:posfreq}
+\end{equation}
+Since $y(t)$ is real, $Y(0) \in \mathbb{R}$; likewise $S(0)\in\mathbb{R}$. Hence
+\begin{equation}
+\mathrm{Im}\{Z(0)\} = \mathrm{Im}\{S(0) + i\,Y(0)\} = Y(0). \label{eq:imz0}
+\end{equation}
+The real-DC hypothesis $\mathrm{Im}\{Z(0)\}=0$ then forces
+\begin{equation}
+Y(0) = 0. \label{eq:zerofreq}
+\end{equation}
+Combining Equations \eqref{eq:negfreq}, \eqref{eq:posfreq}, and \eqref{eq:zerofreq} result in:
+\begin{equation}
+Y(\omega) = -i\,\mathrm{sgn}(\omega)\,S(\omega) \quad \text{for all } \omega. \qedhere
+\label{eq:final}
+\end{equation}
+\end{proof}
 
 
-%\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
-%c pretium ante justo a nulla curabitur tristique arcu eu metus}
+\chapter{Real Signals and TFDs} \label{appendix-c}
 

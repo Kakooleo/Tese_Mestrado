@@ -156,8 +156,27 @@ Another important result to discuss is the Parseval's theorem. It states that if
 
 \noindent where $E_s$ is the energy of the signal \cite{grochenig2001foundations}. This means that the energy of the signal is preserved by the FT, which allows for the identification of frequencies that contribute the most to the signal's energy. 
 
-\subsection{Power Spectrum Distribution} \label{sec-PSD}
 
+\subsection{Power Spectral Density} \label{sec-PSD}
+
+In Section \ref{sec-FT}, it is shown that taking the FT of a signal preserves the total energy of the signal, which allows for the identification of the frequencies that contribute the most to the signal's energy. However, this only applies to absolutely integrable functions, that is, functions whose total energy $E$ is finite. This does not hold, however, for a general stationary stochastic signal, whose energy is usually infinite \cite{kay1981spectrum}. In this case, it is more useful to analyze the distribution of power (energy per unit of time) across the frequency spectrum, which is captured by the Power Spectral Density (PSD).
+
+Formally, for a signal $x(t)$, the PSD is defined as \cite{youngworth2005overview}
+\begin{equation}
+    S_x(\omega) = \lim_{T \to \infty} \frac{1}{T} \, \left| X_T(\omega) \right|^2,
+    \label{eq:psd_definition}
+\end{equation}
+where $X_T(\omega)$ denotes the Fourier Transform of the signal truncated to an observation window of length $T$. This truncation is necessary so that the definition remains valid for signals that do not have a formal Fourier Transform.
+
+An important result is the Wiener--Khinchin theorem, which relates the PSD to the signal's autocorrelation function $R_x(\tau)$ \cite{kay1981spectrum},
+\begin{equation}
+    S_x(\omega) = \int_{-\infty}^{\infty} R_x(\tau) \, e^{-i 2\pi \omega \tau} \, d\tau,
+    \label{eq:wiener_khinchin}
+\end{equation}
+\noindent where $R_x(\tau)$ is defined as:
+\begin{equation}
+    R_x(\tau) = \mathbb{E}[x(t + \tau)x^*(t)].
+\end{equation}
 
 \subsection{Limitations of Time and Frequency Representations} \label{sec-lim-tf-r}
 
@@ -180,7 +199,7 @@ As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time 
     \end{cases}
 \end{equation}
 
-\noindent $f_0$ is the initial frequency, $\alpha=B/T$ is the frequency sweep, $f_c = f_0 + B/2$ is the center of the bandwidth, $N_1(t)$ and $N_2(t)$ are additive noise terms, and $T$ is the duration of the signals, such that $BT \gg 1$. The time and frequency representations of the $x_1$ and $x_2$ signal are shown in Figures \ref{fig:lim-tf-rep-a} and \ref{fig:lim-tf-rep-b}, respectively. As it can be seen, both have similar frequency representations, but their time representations are very different. Futhermore, taking a look at the time representations, it is hard to identify which frequencies dominate at which time, or even if there is more than one frequency present. It is also difficult to identify the evolution of the frequencies over time, a characteristic of nonstationary signals. This is a limitation of the classical representations of the signals. In the Sections (that follow) [\textcolor{red}{colocar aqui as secoes depois}], a more complex time-frequency representation will be presented.
+\noindent $f_0$ is the initial frequency, $\alpha=B/T$ is the frequency sweep, $f_c = f_0 + B/2$ is the center of the bandwidth, $N_1(t)$ and $N_2(t)$ are additive noise terms, and $T$ is the duration of the signals, such that $BT \gg 1$. The time and frequency representations of the $x_1$ and $x_2$ signal are shown in Figures \ref{fig:lim-tf-rep-a} and \ref{fig:lim-tf-rep-b}, respectively. As it can be seen, both have similar frequency representations, but their time representations are very different. Futhermore, taking a look at the time representations, it is hard to identify which frequencies dominate at which time, or even if there is more than one frequency present. It is also difficult to identify the evolution of the frequencies over time, a characteristic of nonstationary signals. This is a limitation of the classical representations of the signals. In the Section \ref{sec-tfd}, a more complex time-frequency representation will be presented.
 
 \begin{figure}[H]
     \centering
@@ -230,37 +249,8 @@ Using this definition, it is possible to state the following theorem \cite{Boash
         \end{cases}
     \end{equation}
 \end{theorem}
-\begin{proof}
-Assume $z(t)$ is analytic with a real DC component. Analyticity gives $Z(\omega) = S(\omega) + i\,Y(\omega) = 0$ for $\omega<0$, hence
-\begin{equation}
-Y(\omega) = i\,S(\omega), \qquad \omega<0. \label{eq:negfreq}
-\end{equation}
-For $\omega>0$, apply \eqref{eq:negfreq} at $-\omega<0$:
-\begin{equation}
-Y(-\omega) = i\,S(-\omega). \label{eq:negfreq-applied}
-\end{equation}
-Taking the complex conjugate of both sides,
-\begin{equation}
-Y^*(-\omega) = -i\,S^*(-\omega). \label{eq:conjugate}
-\end{equation}
-Using Hermitian symmetry $Y^*(-\omega) = Y(\omega)$ and $S^*(-\omega) = S(\omega)$ (valid since $y(t), s(t)$ are real),
-\begin{equation}
-Y(\omega) = -i\,S(\omega), \qquad \omega>0. \label{eq:posfreq}
-\end{equation}
-Since $y(t)$ is real, $Y(0) \in \mathbb{R}$; likewise $S(0)\in\mathbb{R}$. Hence
-\begin{equation}
-\mathrm{Im}\{Z(0)\} = \mathrm{Im}\{S(0) + i\,Y(0)\} = Y(0). \label{eq:imz0}
-\end{equation}
-The real-DC hypothesis $\mathrm{Im}\{Z(0)\}=0$ then forces
-\begin{equation}
-Y(0) = 0. \label{eq:zerofreq}
-\end{equation}
-Combining Equations \eqref{eq:negfreq}, \eqref{eq:posfreq}, and \eqref{eq:zerofreq} result in:
-\begin{equation}
-Y(\omega) = -i\,\mathrm{sgn}(\omega)\,S(\omega) \quad \text{for all } \omega. \qedhere
-\label{eq:final}
-\end{equation}
-\end{proof}
+
+The proof of this theorem is presented in Appendix \ref{appendix-b}.
 
 If $y(t)$ nd $s(t)$ are related by Equation \ref{eq:FT-relations}, then $y(t)$ is called the Hilbert transform (HT) of $s(t)$ and denoted as:
 \begin{equation}
@@ -280,7 +270,7 @@ By taking the IFT of Equation \ref{eq:FT-relations}, combining it with Equation 
     \label{eq:HT-definition}
 \end{equation} 
 
-The reasons for using $z(t)$ and the HT instead of $s(t)$ are \textcolor{red}{COLOCAR AQUI DPS}.
+The reasons for using $z(t)$ and the HT instead of $s(t)$ will be highlighted in Section \ref{sec-tfd}.
 
 \subsection{Instantaneous Frequency}\label{sec-IF}
 
@@ -306,14 +296,17 @@ This limitation motivates a reinterpretation of instantaneous frequency in terms
 
 \section{Time Frequency Distributions} \label{sec-tfd}
 
-In this section, the concept of time-frequency distributions (TFDs) will be introduced. TFDs are mathematical tools that provide a joint representation of a signal in both time and frequency domains simultaneously. This dual representation allows for a more comprehensive analysis of non-stationary signals, where the frequency content changes over time.
+In this section, it is presented some of the most important time-frequency distributions (TFDs). The core idea behind TFDs is to provide a joint representation of a signal such that the area under the TFD surface corresponds to the energy of the signal, that is, the TFD is an energy density function \cite{Boashash2016Chapter2HeuristicFormulation}. Ideally, for a monocomponent signal, the ideal FTD would concentrate all the energy of the signal along its IF \cite{stankovic2014instantaneous}. 
+
+\subsection{Wigner-Ville Distribution} \label{sec-WVD}
+
 
 \subsection{Short Time Fourier Transform} \label{sec-STFT}
+
 
 \subsection{Wavelet Transform} \label{sec-WT}
 
 
-\subsection{Wigner-Ville Distribution} \label{sec-WVD}
 
 \section{Time Series Anomaly Detection Models} \label{sec-model-basics}
 
