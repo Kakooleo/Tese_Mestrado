@@ -4,7 +4,7 @@ This chapter describes the methodology used in this work. It is organized as fol
 
 \section{Defining the Problem} \label{sec-defining-problem}
 
-In this thesis, the main objective is to develop a unsupervised machine learning model that can reconstruct track irregularities from acceleration data. The reconstructed profiles can be then compared to the standard limits to support maintenance planning, or, in the case of an off limits irregularity, a defect can be identified and repaired before it causes a serious issue.
+In this dissertation, the main objective is to develop a unsupervised machine learning model that can reconstruct track irregularities from acceleration data. The reconstructed profiles can be then compared to the standard limits to support maintenance planning, or, in the case of an off limits irregularity, a defect can be identified and repaired before it causes an issue. 
 
 Figure \ref{fig:flowchart} shows a flowchart of the step-by-step methodology that will be used to achieve this goal. 
 
@@ -21,7 +21,7 @@ The corrected acceleration data will then be used to train a machine learning mo
     \label{fig:flowchart}
 \end{figure}
 
-\section{Velocity and Mass Correction} \label{sec-vel-mass-correction}
+\section{Search Space of the SIMPACK Simulation} \label{sec-vel-mass-correction}
 
 As stated in Section \ref{sec-defining-problem} a SIMPACK simulation will run across a search space composed of different velocities, wagon masses and track irregularities. Table \ref{table:search_space} summarizes the parameter ranges. Each simulation will test one combination until all possibilities have been explored.
 

@@ -214,7 +214,7 @@ As discussed in Section \ref{sec-FT}, the FT can convert a signal from the time 
         \caption{}
         \label{fig:lim-tf-rep-b}
     \end{subfigure}
-    \caption{Time and frequency representations of the signals defined in Equations \ref{eq-xA} and \ref{eq-xB}. \textbf{(a)} Time and frequency representations of the signal $x_1$. \textbf{(b)} Time and frequency representations of the signal $x_2$.}
+    \caption{Time and frequency representations of the signals defined in Equations \ref{eq-xA} and \ref{eq-xB}. \textbf{(a)} Time and frequency representations of the signal $x_1$. \textbf{(b)} Time and frequency representations of the signal $x_2$. \cite{Boashash2016ChapterITimeFrequency}}
 \end{figure}
 
 \subsection{Analytic Signals and the Hilbert Transform}\label{sec-analytic-signals}
@@ -296,15 +296,29 @@ This limitation motivates a reinterpretation of instantaneous frequency in terms
 
 \section{Time Frequency Distributions} \label{sec-tfd}
 
-In this section, it is presented some of the most important time-frequency distributions (TFDs). The core idea behind TFDs is to provide a joint representation of a signal such that the area under the TFD surface corresponds to the energy of the signal, that is, the TFD is an energy density function \cite{Boashash2016Chapter2HeuristicFormulation}. Ideally, for a monocomponent signal, the ideal FTD would concentrate all the energy of the signal along its IF \cite{stankovic2014instantaneous}. 
+In this section, some of the most important time-frequency distributions (TFDs) are presented. The core idea behind TFDs is to provide a joint representation of a signal such that the area under the TFD surface corresponds to the energy of the signal, that is, the TFD is an energy density function \cite{Boashash2016Chapter2HeuristicFormulation}. For a monocomponent signal, the ideal TFD would concentrate all the energy of the signal along its IF \cite{stankovic1995analysis}. Mathematically, this can be expressed as:
+\begin{equation}
+    ITF(t, \Omega) = 2\pi A^q(t) \delta(\Omega - \phi'(t)) = A^q(t) \int_{-\infty}^{\infty} e^{i\phi'(t) \tau} e^{-i\Omega \tau} d\tau.
+    \label{eq:ITF}
+\end{equation}
+However, as will be shown in the next sections, in practice, the TFDs only approximate this ideal behavior, and the energy of the signal is spread around the IF.
 
-\subsection{Wigner-Ville Distribution} \label{sec-WVD}
+In Sections \ref{sec-STFT} and \ref{sec-WT}, the so-called linear TFDs will be presented. These TFDs try to represent the signal as a linear combination of elementary signals, called atoms, which are localized in time and frequency. In Section \ref{sec-WVD}, the quadratic TFDs will be presented. Quadratic TFDs distribute the energy of the signal in the time-frequency plane. As will be shown, these TFDs are all based on the Wigner-Ville distribution (WVD).
 
+Finally, another important point to highlight is that in the next sections the TFDs will be presented using the analytic conjugate of the signal, as using the real signal can lead to some problems. Check Appendix \ref{appendix-c} for more details.
 
-\subsection{Short Time Fourier Transform} \label{sec-STFT}
+\subsection{Short-Time Fourier Transform} \label{sec-STFT}
 
+Given a signal $s(t)$ and a real, even window function $w(t)$, the Short-Time Fourier Transform (STFT) is defined as \cite{grochenig2001foundations}:
+\begin{equation}
+    F^{w}_{s}(t, \omega) = \int_{-\infty}^{\infty} s(\tau) w(\tau - t) e^{-i2\pi \tau \omega} d\tau,
+\end{equation}
+The STFT 
 
 \subsection{Wavelet Transform} \label{sec-WT}
+
+
+\subsection{Quadratic Time-Frequency Distributions} \label{sec-WVD}
 
 
 
@@ -654,7 +668,7 @@ Railway track irregularities are deviations from the ideal track geometry that c
 
 \subsection{FRA Standard} \label{sec-FRA-Standard}
 
-Railway track irregularities are normally modeled as being random and, for this reason, are typically described by a Power Spectral Density (PSD) function. Countries like USA, China, Britain and Germany adopted this approach to describe track irregularities \cite{PIRES2021107806,Berawi2013ImprovingRT}. The PSD function parameters were estimated from measured data and, therefore, represent the average irregularity observed in each respective railway network.
+Railway track irregularities are normally modeled as being random and, for this reason, are typically described by a PSD function, see Section \ref{sec-PSD}. Countries like USA, China, Britain and Germany adopted this approach to describe track irregularities \cite{PIRES2021107806,Berawi2013ImprovingRT}. The PSD function parameters were estimated from measured data and, therefore, represent the average irregularity observed in each respective railway network.
 
 FRA classifies tracks into nine categories based on their condition, assigning a PSD function to each category. Categories 1 to 6 are designed for ordinary tracks, while categories 7 to 9 are intended for high-speed tracks. Due to equipment limitations, the FRA standard can only describe irregularities with wavelengths between 1.524 m to 304.8 m \cite{Berawi2013ImprovingRT}.
 
@@ -731,6 +745,15 @@ The Brazilian Standard ABNT NBR 16387/2020 \cite{abnt:nbr16387:2020} specifies t
 \caption{Limit values for the track geometry parameters. \cite{abnt:nbr16387:2020}}
 \label{tab:track_geometry_limits}
 \end{table}
+
+\section{How to Generate Track Irregularities from PSDs} \label{sec-track-irr-PSD}
+
+As stated in Section \ref{sec-FRA-Standard}, track irregularities are modeled as random processes described by a PSD function. The PSDs, however, does not describe the track irregularity profile directly, but rather the distribution of the energy of the signal over the spatial frequency $\Omega$. To obtain the track irregularity, it is used an approach called the spectral representation method \cite{HU1997105}, for more details see Appendix \ref{appendix-d}. The idea behind this method is to split the PSD into N grids that are spaced by $\Delta \Omega$ and, each grid is then represented by a cosine wave with frequency $\Omega_i$ and the track irregularity profile is then obtained by the sum:
+\begin{equation}
+    r(\chi) = \sum_{i=1}^{N} A_i \cos(\Omega_i \chi + \phi_i)
+    \label{eq:track_irregularity}
+\end{equation}
+where $\chi$ is the spatial coordinate, $A_i = \sqrt{2 S(\Omega_i) \Delta \Omega}$ is the amplitude of the i-th cosine wave, $\Omega_i$ is the spatial frequency, $\phi_i ~ \mathcal{U}(0, 2\pi)$ is a pseudo-random phase, and $S(\Omega_i)$ is the PSD function evaluated at $\Omega_i$. 
 
 \section{Assessing Railway Track Condition} \label{sec-assessing-railway-track}
 
