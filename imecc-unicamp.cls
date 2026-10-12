@@ -91,7 +91,7 @@ Estadual de Campinas baseado em abnTeX2]
 \newcommand{\cursootherlang}[1]{%
     \renewcommand{\imprimircursootherlang}{#1}}
 %
-% Comandos de dados - trabalho em outra língua
+% Comandos de dados - trabalho em outra pretextuallíngua
 \providecommand{\imprimirtypework}{}
 \newcommand{\typework}[1]{%
     \renewcommand{\imprimirtypework}{#1}}

@@ -753,7 +753,7 @@ As stated in Section \ref{sec-FRA-Standard}, track irregularities are modeled as
     r(\chi) = \sum_{i=1}^{N} A_i \cos(\Omega_i \chi + \phi_i)
     \label{eq:track_irregularity}
 \end{equation}
-where $\chi$ is the spatial coordinate, $A_i = \sqrt{2 S(\Omega_i) \Delta \Omega}$ is the amplitude of the i-th cosine wave, $\Omega_i$ is the spatial frequency, $\phi_i ~ \mathcal{U}(0, 2\pi)$ is a pseudo-random phase, and $S(\Omega_i)$ is the PSD function evaluated at $\Omega_i$. 
+where $\chi$ is the spatial coordinate, $A_i = \sqrt{2 S(\Omega_i) \Delta \Omega}$ is the amplitude of the i-th cosine wave, $\Omega_i$ is the spatial frequency, $\phi_i \sim \mathcal{U}(0, 2\pi)$ is a pseudo-random phase, and $S(\Omega_i)$ is the PSD function evaluated at $\Omega_i$. 
 
 \section{Assessing Railway Track Condition} \label{sec-assessing-railway-track}
 
@@ -856,6 +856,67 @@ These observations highlight the need to further investigate the correlation bet
     \caption{Effect of wagon mass on the relationship between acceleration and velocity for freight trains. The data points represent the 99th percentile of the absolute maximum vertical acceleration for each velocity class, colored by wagon mass class.}
     \label{fig:mass_effect}
 \end{figure}
+
+\textcolor{red}{TEM QUE VOLTAR NESSA SECAO E ADICIONAR REFERENCIAS.}
+
+\section{Normalization of Signals for Different Operational Conditions} \label{sec-signal-normalization}
+
+As discussed in Sections \ref{sec-vel-effect-measurement} and \ref{sec-mass-effect-measurement}, the different operational conditions cause variations in the dynamic responses measured by the IRV, like the increase of acceleration amplitude and the drift in the frequency spectrum. These variations in the measured signals can be problematic specially for machine learning models. For example, a model trained on data from a wagon moving near $65$ km/h might not be able to identify defects in the track when feeded with data from a wagon moving at $20$ km/h. For this reason, it is important to remove these variations caused by different operational conditions, which will allow the model to become more robust.
+
+There are an extensive literature on how to normalize signals for different operational conditions. In the next paragraphs, some of the methods are presented.
+
+In Urbanek et al. \cite{URBANEK201713}, the authors first defined what they call the generalized angular deterministic (GAD) signal. They considered a shaft with angular position $\phi(t)$, angular velocity $\dot{\phi}(t)$ and subject to a load $l(t)$. They assume that the change in operational conditions vary slowly and smoothly. Therefore, for a signal $x(t)$, sampled in equal angular increments $x(\varphi(t)) = x'(\phi)$, is defined as GAD with given period $\Phi$ when the function composition $(z \circ \varphi)(t)$ satisfies the following criteria:
+\begin{equation}
+    z(\varphi) = z(\varphi + \Phi)
+\end{equation}
+Using this definition, the authors proposed the following normalization method:
+\begin{equation}
+    z(\varphi) = \frac{x'(\varphi)}{g'_f(\varphi)}
+\end{equation}
+where $g'_f(\varphi)$ is the low-pass filtered version of $g(\varphi)$, with the later being the resampled version of $g(t) = |x(t)+i\mathcal{H}[x(t)]|$. To determine the cutoff frequency of the low-pass filter the authors the authors used the following formula:
+\begin{equation}
+    f = \text{max}\left(|\Delta_{\dot{\varphi}}|, |\Delta_{l}|\right)
+\end{equation}
+where $\Delta_{\dot{\varphi}}$ and $\Delta_{l}$ are given by:
+\begin{align}
+    \Delta_{\dot{\varphi}} &= \text{max}\left(\frac{d\dot{\varphi}(t)}{dt} \cdot \frac{1}{\dot{\varphi}(t)}\right) \\
+    \Delta_{l} &= \text{max}\left(\frac{dl(t)}{dt} \cdot \frac{1}{l(t)}\right)
+\end{align}
+Assuming that the load and speed variations are the only source of non-stationarity, the resulting signal $z(\varphi)$ is purely periodic. By also assuming that the STFT (see Section \ref{sec-STFT}) of $z(\varphi)$ is the same throughout the entire signal, the authors proposed an extension of the Discrete Randon Separation (DRS) \cite{ANTONI20051166} method using the formula:
+\begin{equation}
+    G(\Theta) = \frac{\left \langle Z(\Theta, \psi)Z^*(\Theta, \psi + \Phi) \right \rangle_\psi}{\left \langle |Z(\Theta, \psi)|^2 \right \rangle_\psi}
+\end{equation}
+where $Z(\Theta, \psi)$ is the STFT of $z(\varphi)$, $\langle \cdot \rangle_\psi$ is the average over $\psi$, and $G(\Theta)$ is the transfer function. The full procedure proposed by the authors is then:
+\begin{enumerate}
+    \item Resample the signal $x(t)$ to obtain $x'(\varphi)$;
+    \item Compute the GAD signal $z(\varphi)$;
+    \item Compute the transfer function $G(\Theta)$;
+    \item Convolve the transfer function $G(\Theta)$ with $x'(\varphi)$;
+    \item Return the signal to the time domain, giving the deterministica pat of the GAD. The residual is the random part.
+\end{enumerate}
+
+The authors then tested this method in 3 different case studies: for a simulated signal, for a signal acquired in a laboratory experiment and for a real-world signal acquired from a  industrial printing machine. For the sake of simplicity, it is shown only the results for the printing machine. Figure \ref{fig:Urbanek-Results-1} 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.99\textwidth}
+        \centering
+        \includegraphics[width=16cm]{Cap2_LitReview/Signal_normalization/Urbanek/Recon_signal.png}
+        \caption{}
+        \label{fig:Urbanek-Results-1-a}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.99\textwidth}
+        \centering
+        \includegraphics[width=16cm]{Cap2_LitReview/Signal_normalization/Urbanek/Rot_speed.png}
+        \caption{}
+        \label{fig:Urbanek-Results-1-b}
+    \end{subfigure}
+    \caption{The results of the proposed method for a real-world signal acquired from an industrial printing machine. \textbf{(a)} shows the original acceleration signal measured (blue) and the reconstructed GAD (green) and residual (red). \textbf{(b)} shows the rotational speed of the shaft during the measurement \cite{URBANEK201713}.}
+
+    \label{fig:Urbanek-Results-1}
+\end{figure}
+
 
 \section{Assessing Track Irregularities from Acceleration Data} \label{sec-track-quality-accel}
 

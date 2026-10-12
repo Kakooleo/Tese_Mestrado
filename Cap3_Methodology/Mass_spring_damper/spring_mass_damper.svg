@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600">
+  <title>Mass–spring–damper vehicle on an irregular railway track</title>
+  <desc>
+    Mass m supported by a spring of stiffness k and a viscous damper c
+    in parallel. The vehicle travels rightward at speed v.
+    The track imposes vertical base displacement u(t).
+  </desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"></path>
+    </marker>
+
+    <path id="rail" d="M70 480
+             C140 440 190 520 260 485
+             S365 444 450 444
+             S550 505 630 490
+             S780 440 920 475"></path>
+  </defs>
+
+  <rect width="1000" height="600" fill="white"></rect>
+
+  <!-- Reference level -->
+  <path d="M60 510 H935" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="9 7"></path>
+  <text x="72" y="546" fill="#64748b" font-family="Arial, sans-serif" font-size="19">
+    Reference track level
+  </text>
+
+  <!-- Irregular rail: upper surface and lower edge -->
+  
+  <use href="#rail" fill="none" stroke="#1e293b" stroke-width="5" stroke-linecap="round"></use>
+
+  <!-- Sprung mass -->
+  <rect x="290" y="95" width="320" height="120" rx="8" fill="#eaf1fb" stroke="#1e293b" stroke-width="4"></rect>
+  <text x="450" y="170" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="48" fill="#0f172a">m</text>
+
+  <!-- Spring -->
+  <path d="M365 215
+           V235
+           L347 245 L383 262
+           L347 279 L383 296
+           L347 313 L383 330
+           L365 340 V375" fill="none" stroke="#1e293b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path>
+  <text x="315" y="303" font-family="Georgia, serif" font-style="italic" font-size="37" fill="#0f172a">k</text>
+
+  <!-- Viscous damper: rod, piston, cylinder and lower connection -->
+  <g fill="none" stroke="#1e293b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M535 215 V288"></path>
+    <path d="M514 288 H556"></path>
+    <path d="M508 255 V340 H562 V255"></path>
+    <path d="M535 340 V375"></path>
+  </g>
+  <text x="586" y="303" font-family="Georgia, serif" font-style="italic" font-size="37" fill="#0f172a">c</text>
+
+  <!-- Common suspension base and idealized rolling contact -->
+  <path d="M325 375 H575 M450 375 V417" fill="none" stroke="#1e293b" stroke-width="5" stroke-linecap="round"></path>
+  <circle cx="450" cy="417" r="27" fill="white" stroke="#1e293b" stroke-width="4"></circle>
+  <circle cx="450" cy="417" r="5" fill="#1e293b"></circle>
+
+  <!-- Forward travel -->
+  <path d="M660 145 H830" fill="none" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow)"></path>
+  <text x="745" y="125" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="36" fill="#2563eb">v</text>
+
+  <!-- Imposed vertical displacement at the contact location -->
+  <circle cx="450" cy="444" r="5" fill="#2563eb"></circle>
+  <path d="M461 444 H697" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 6"></path>
+  <path d="M690 507 V447" fill="none" stroke="#2563eb" stroke-width="2.5" marker-start="url(#arrow)" marker-end="url(#arrow)"></path>
+  <rect x="710" y="452" width="95" height="43" rx="5" fill="white"></rect>
+  <text x="721" y="482" font-family="Georgia, serif" font-style="italic" font-size="33" fill="#2563eb">u(t)</text>
+
+</svg>
