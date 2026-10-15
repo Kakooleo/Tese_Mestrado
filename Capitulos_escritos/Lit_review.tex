@@ -857,7 +857,7 @@ These observations highlight the need to further investigate the correlation bet
     \label{fig:mass_effect}
 \end{figure}
 
-\textcolor{red}{TEM QUE VOLTAR NESSA SECAO E ADICIONAR REFERENCIAS.}
+\textcolor{red}{TEM QUE VOLTAR NESSA SECAO E ADICIONAR REFERENCIAS. SCHMIDT AND HEYNS TRAZEM ALGUMAS REFERENCIAS SOBRE. }
 
 \section{Normalization of Signals for Different Operational Conditions} \label{sec-signal-normalization}
 
@@ -873,7 +873,7 @@ Using this definition, the authors proposed the following normalization method:
 \begin{equation}
     z(\varphi) = \frac{x'(\varphi)}{g'_f(\varphi)}
 \end{equation}
-where $g'_f(\varphi)$ is the low-pass filtered version of $g(\varphi)$, with the later being the resampled version of $g(t) = |x(t)+i\mathcal{H}[x(t)]|$. To determine the cutoff frequency of the low-pass filter the authors the authors used the following formula:
+where $g'_f(\varphi)$ is the low-pass filtered version of $g(\varphi)$, with the later being the resampled version of $g(t) = |x(t)+i\mathcal{H}[x(t)]|$. To determine the cutoff frequency of the low-pass filter the authors used the following formula:
 \begin{equation}
     f = \text{max}\left(|\Delta_{\dot{\varphi}}|, |\Delta_{l}|\right)
 \end{equation}
@@ -882,7 +882,7 @@ where $\Delta_{\dot{\varphi}}$ and $\Delta_{l}$ are given by:
     \Delta_{\dot{\varphi}} &= \text{max}\left(\frac{d\dot{\varphi}(t)}{dt} \cdot \frac{1}{\dot{\varphi}(t)}\right) \\
     \Delta_{l} &= \text{max}\left(\frac{dl(t)}{dt} \cdot \frac{1}{l(t)}\right)
 \end{align}
-Assuming that the load and speed variations are the only source of non-stationarity, the resulting signal $z(\varphi)$ is purely periodic. By also assuming that the STFT (see Section \ref{sec-STFT}) of $z(\varphi)$ is the same throughout the entire signal, the authors proposed an extension of the Discrete Randon Separation (DRS) \cite{ANTONI20051166} method using the formula:
+Assuming that the load and speed variations are the only source of non-stationarity, the resulting signal $z(\varphi)$ is purely periodic. By also assuming that the STFT (see Section \ref{sec-STFT}) of $z(\varphi)$ is the same throughout the entire signal, the authors proposed an extension of the Discrete Random Separation (DRS) \cite{ANTONI20051166} method using the formula:
 \begin{equation}
     G(\Theta) = \frac{\left \langle Z(\Theta, \psi)Z^*(\Theta, \psi + \Phi) \right \rangle_\psi}{\left \langle |Z(\Theta, \psi)|^2 \right \rangle_\psi}
 \end{equation}
@@ -892,10 +892,10 @@ where $Z(\Theta, \psi)$ is the STFT of $z(\varphi)$, $\langle \cdot \rangle_\psi
     \item Compute the GAD signal $z(\varphi)$;
     \item Compute the transfer function $G(\Theta)$;
     \item Convolve the transfer function $G(\Theta)$ with $x'(\varphi)$;
-    \item Return the signal to the time domain, giving the deterministica pat of the GAD. The residual is the random part.
+    \item Return the signal to the time domain, giving the deterministic part of the GAD. The residual is the random part.
 \end{enumerate}
 
-The authors then tested this method in 3 different case studies: for a simulated signal, for a signal acquired in a laboratory experiment and for a real-world signal acquired from a  industrial printing machine. For the sake of simplicity, it is shown only the results for the printing machine. Figure \ref{fig:Urbanek-Results-1} 
+The authors then tested this method in 3 different case studies: for a simulated signal, for a signal acquired in a laboratory experiment and for a real-world signal acquired from a  industrial printing machine. For the sake of simplicity, it is shown only the results for the printing machine. Figure \ref{fig:Urbanek-Results-1-b} shows the increase of the RPM of the machine during the measurement, while Figure \ref{fig:Urbanek-Results-1-a} shows the results of the proposed procedure applied to the measured signal, where is possible to see that the model was able to remove the dominant random components from the signal. This result is more evident in Figure \ref{fig:Urbanek-Results-2}, where it is shown the spectrograms of the signal. Looking at the zoomed view of the graphs, it is noticeable that the proposed method was able to remove noise components that were masking the GAD components relevant to the analysis of the signal. 
 
 \begin{figure}[H]
     \centering
@@ -913,10 +913,70 @@ The authors then tested this method in 3 different case studies: for a simulated
         \label{fig:Urbanek-Results-1-b}
     \end{subfigure}
     \caption{The results of the proposed method for a real-world signal acquired from an industrial printing machine. \textbf{(a)} shows the original acceleration signal measured (blue) and the reconstructed GAD (green) and residual (red). \textbf{(b)} shows the rotational speed of the shaft during the measurement \cite{URBANEK201713}.}
-
     \label{fig:Urbanek-Results-1}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{Cap2_LitReview/Signal_normalization/Urbanek/Spectogram.png}
+    \caption{Spectrograms of the original signal, at the top, the reconstructed GAD, at the middle, and the residual, at the bottom. On the right side is shown a zoomed view of the spectrogram, where is it easier to see the effects of the application of the proposed method \cite{URBANEK201713}.}
+    \label{fig:Urbanek-Results-2}
+\end{figure}
+
+In Schmidt and Heyns \cite{SCHMIDT2020106964}, the authors proposed a method to normalise the amplitude modulation caused by time-varying operating conditions, which masks incipient damage and makes condition indicators sensitive to changes in the operating conditions. They assumed that the signal $y(t)$ can be decomposed as:
+\begin{equation}
+    y(t) = M\left(\omega(t), l(t)\right) \cdot x(t)
+\end{equation}
+where $M$ is a strictly positive and slowly varying modulation function, that depends only on the operating conditions, such as the rotational speed $\omega(t)$ and the load $l(t)$, and $x(t)$ is the stationary or cyclostationary vibration signal. The goal is then to estimate the $M$ function and normalize the signal using this estimation:
+\begin{equation}
+    \hat{x}(t) = \frac{y(t)}{N(t)}
+\end{equation}
+where $N(t)$ is the estimate of $M(t)$. The authors named this class of procedures Normalisation of the Amplitude Modulation caused by Varying Operating Conditions (NAMVOC).
+
+They first discussed the Load Demodulation Normalisation (LDN) method, described in Stander et al. \cite{STANDER20021005}, and showed that it is equivalent to estimating $|M(t)|^2$ with the localised mean square of the signal:
+\begin{equation}
+    e_y(t;t_0, T_0) = \frac{1}{T_0}\int_{t - T_0/2}^{t + T_0/2} |y(t)|^2 dt
+\end{equation}
+They demonstrated that, when an impulse caused by a fault falls inside the integration window, the bias of this estimator becomes dependent on the magnitude and duration of the impulse. Consequently, the LDN removes part of the signal that are important for defect identification. To deal with this problem, the authors proposed replacing the mean with the median, which is robust to the presence of outlier:
+\begin{equation}
+    N^2(t_k) = \underset{\tau \in \left[t_k - \Delta T_w/2, \, t_k + \Delta T_w/2\right]}{\text{median}} \left(|y(\tau)|^2\right)
+\end{equation}
+where $\Delta T_w$ is the window length. They argue that the window must be longer than the longest period of the signal components, so that important cyclostationary statistics of the signal are not estimated, but, at the same time, it needs to be short enough for the modulation function to be approximately constant within it. To select it, the authors proposed computing, for each candidate window length, the cost function:
+\begin{equation}
+    J(\Delta T_w) = \text{Var}\left(\text{MAD}\left(\hat{x}(t)\right)\right)
+\end{equation}
+where $\text{MAD}$ is the Median Absolute Deviation (MAD) and $\text{Var}$ is the variance of the normalised signal, and choosing the local minimum with the shortest window length. In practice, the authors found that $\Delta T_w = 1$ s worked well for most signals. Finally, since the windowing process reduces the amount of data, the authors propose to linearly interpolate the result to return it to the original sampling rate. The full procedure is then:
+\begin{enumerate}
+    \item Compute the squared signal $|y(t)|^2$;
+    \item Apply a moving median window of length $\Delta T_w$ with an overlap of $0.9 \cdot \Delta T_w$;
+    \item Linearly interpolate the result at the time steps of the original signal to obtain the normalisation function $N(t)$;
+    \item Divide the measured signal $y(t)$ by $N(t)$ to obtain the normalised signal $\hat{x}(t)$.
+\end{enumerate}
+
+The authors then tested this method in 2 different case studies: for a numerical signal generated with a gearbox model, and for a signal acquired in a laboratory experiment. Only the results for the laboratory experiment will be shown. In this experiment, a gear corroded for approximately 1.5 years was operated in a gearbox under four different speed and load profiles. Figure \ref{fig:Schmidt-Results-1} shows the result of the method applied to one of the measurements, where it is possible to see that the amplitude modulation present in the raw signal was removed in the normalised signal. The authors also compared the results of the proposed method with the LDN and the Cepstrum Pre-Whitening (CPW) method, described in Borghesani et al. \cite{BORGHESANI2013370}, for the RMS and the kurtosis statistics. Figure \ref{fig:Schmidt-Results-2} shows this comparison. The RMS of the raw signal is very sensitive to the operating conditions, while the RMS of the LDN and CPW signals are insensitive to the condition of the gear. In contrast, the RMS of the normalised signal obtained with the proposed method is robust to the operating conditions and sensitive to the damage.
+
+Finally, the authors used the RMS and kurtosis as features to train a k-means model for novelty detection, using only the first measurements of the experiment and leaving the data of one operating condition out of the training set. Figure \ref{fig:Schmidt-Results-3} shows the resulting novelty scores, where it is possible to see that only the model trained with the features of the proposed method was able to clearly detect the tooth breakage at measurement 148, while the models trained with the raw and LDN features only detected the event at measurement 280.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm]{Cap2_LitReview/Signal_normalization/Schmidt/Normalisation.png}
+    \caption{The raw signal $y(t)$, at the top, the estimated normalisation function $N(t)$, at the middle, and the normalised signal $\hat{x}(t)$, at the bottom, for one of the operating conditions of the laboratory experiment \cite{SCHMIDT2020106964}.}
+    \label{fig:Schmidt-Results-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{Cap2_LitReview/Signal_normalization/Schmidt/RMS_Kurtosis.png}
+    \caption{RMS and kurtosis of the raw signal, of the signals normalised with the LDN and with the proposed method, and of the CPW signal, computed for each measurement of the laboratory experiment \cite{SCHMIDT2020106964}.}
+    \label{fig:Schmidt-Results-2}
+\end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=16cm]{Cap2_LitReview/Signal_normalization/Schmidt/Novelty_score.png}
+%     \caption{Novelty scores and thresholds obtained with the features of the raw signal and of the signals normalised with the LDN and with the proposed method. On the right side is shown a zoomed view around measurement 148, where one of the gear teeth broke \cite{SCHMIDT2020106964}.}
+%     \label{fig:Schmidt-Results-3}
+% \end{figure}
 
 \section{Assessing Track Irregularities from Acceleration Data} \label{sec-track-quality-accel}
 

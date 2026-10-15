@@ -798,3 +798,46 @@ author = {Jérôme Antoni},
 keywords = {Blind source separation, Vibration signals, Periodic/random separation, Stationary/nonstationary separation, Spectral kurtosis, Short-time Fourier transform},
 abstract = {Blind source separation is the issue of recovering the various independent sources exciting a system given only the measurements of the outputs of that system. It has recently become the focus of intensive research work due to its high potential in many applications. However when it comes to vibration signals, blind source separation faces a number of difficulties which seriously hinder its feasibility. In this paper we first draw a list of these difficulties. We then propose to somehow lessen the ambitions of BSS to more realistic goals, and in particular to separate vibration signal into contributions of (1) periodic, (2) random stationary, and (3) random nonstationary sources. Although not ideal, such a separation can provide substantial information in many practical cases of interest. Towards this aim we propose two robust separation techniques based on the short-time Fourier transform. They are perfectly suited to handle convolutive mixtures of sources and they lead to fast and efficient implementation.}
 }
+
+@article{SCHMIDT2020106964,
+title = {Normalisation of the amplitude modulation caused by time-varying operating conditions for condition monitoring},
+journal = {Measurement},
+volume = {149},
+pages = {106964},
+year = {2020},
+issn = {0263-2241},
+doi = {https://doi.org/10.1016/j.measurement.2019.106964},
+url = {https://www.sciencedirect.com/science/article/pii/S0263224119308309},
+author = {Stephan Schmidt and P. Stephan Heyns},
+keywords = {Amplitude modulation normalisation, Condition monitoring, Gearbox diagnostics, Time-varying operating conditions},
+abstract = {Performing condition monitoring under time-varying operating conditions is challenging. The time-varying operating conditions result in amplitude and frequency modulation which mask the presence of incipient damage and make it difficult to distinguish between changes in the condition of the machine and changes in its operating conditions. In this work, the benefits of normalising the amplitude modulation caused by the varying operating conditions for condition monitoring are illustrated and a method is proposed to perform this normalisation. It is shown that the proposed method can be used as a pre-processing methodology for deterministic-random separation, it can be used to detect incipient damage and it can be used to reliably estimate the severity of the damage under time-varying operating conditions as well. The proposed method is investigated on numerical gearbox data and experimental gearbox data, where its benefits for condition monitoring under time-varying operating conditions are shown.}
+}
+
+@article{STANDER20021005,
+title = {USING VIBRATION MONITORING FOR LOCAL FAULT DETECTION ON GEARS OPERATING UNDER FLUCTUATING LOAD CONDITIONS},
+journal = {Mechanical Systems and Signal Processing},
+volume = {16},
+number = {6},
+pages = {1005-1024},
+year = {2002},
+issn = {0888-3270},
+doi = {https://doi.org/10.1006/mssp.2002.1479},
+url = {https://www.sciencedirect.com/science/article/pii/S0888327002914792},
+author = {C.J. STANDER and P.S. HEYNS and W. SCHOOMBIE},
+abstract = {Gearboxes often operate under fluctuating load conditions during service. Conventional techniques for monitoring vibration are based on the assumption that changes in the measured structural response are caused by deterioration in the condition of the gearbox. However, this assumption is not valid for fluctuating load conditions. To find a methodology that could deal with such conditions, experiments were conducted on a gearbox test rig with different levels of tooth damage severity and the capability of applying fluctuating loads to the gear system. Different levels of fluctuation in constant loads as well as in sinusoidal, step and chirp loads were considered. The test data were order tracked and time synchronously averaged with the rotation of the shaft in order to compensate for the variation in rotational speed induced by the fluctuating loads. A pseudo-Wigner–Ville distribution was then applied to the test data, in order to identify the influence of the fluctuating load conditions. In this work, a vibration waveform normalisation approach is presented, which enables the use of the pseudo-Wigner–Ville distribution to indicate deteriorating fault conditions under fluctuating load conditions. Statistical parameters and various other features were extracted from the distribution in order to indicate the linear separation of the values for various fault conditions, after applying the vibration waveform normalisation approach. Feature vectors were compiled for the various fault and load conditions. Mahalanobis distances were calculated between the various feature vectors and an average feature vector was compiled from data measured on the undamaged gearbox. It was proved that the Mahalanobis distance could be used as a single parameter, which can readily be monotonically trended to indicate the progression of a fault condition under fluctuating load conditions. It was shown that a single layer perceptron network could be trained with the perceptron learning rule within a finite number of iterations.}
+}
+
+@article{BORGHESANI2013370,
+title = {Application of cepstrum pre-whitening for the diagnosis of bearing faults under variable speed conditions},
+journal = {Mechanical Systems and Signal Processing},
+volume = {36},
+number = {2},
+pages = {370-384},
+year = {2013},
+issn = {0888-3270},
+doi = {https://doi.org/10.1016/j.ymssp.2012.11.001},
+url = {https://www.sciencedirect.com/science/article/pii/S0888327012003950},
+author = {P. Borghesani and P. Pennacchi and R.B. Randall and N. Sawalhi and R. Ricci},
+keywords = {Cepstrum, Whitening, Bearing diagnostics, Deterministic/random separation},
+abstract = {Diagnostics of rolling element bearings involves a combination of different techniques of signal enhancing and analysis. The most common procedure presents a first step of order tracking and synchronous averaging, able to remove the undesired components, synchronous with the shaft harmonics, from the signal, and a final step of envelope analysis to obtain the squared envelope spectrum. This indicator has been studied thoroughly, and statistically based criteria have been obtained, in order to identify damaged bearings. The statistical thresholds are valid only if all the deterministic components in the signal have been removed. Unfortunately, in various industrial applications, characterized by heterogeneous vibration sources, the first step of synchronous averaging is not sufficient to eliminate completely the deterministic components and an additional step of pre-whitening is needed before the envelope analysis. Different techniques have been proposed in the past with this aim: The most widely spread are linear prediction filters and spectral kurtosis. Recently, a new technique for pre-whitening has been proposed, based on cepstral analysis: the so-called cepstrum pre-whitening. Owing to its low computational requirements and its simplicity, it seems a good candidate to perform the intermediate pre-whitening step in an automatic damage recognition algorithm. In this paper, the effectiveness of the new technique will be tested on the data measured on a full-scale industrial bearing test-rig, able to reproduce the harsh conditions of operation. A benchmark comparison with the traditional pre-whitening techniques will be made, as a final step for the verification of the potentiality of the cepstrum pre-whitening.}
+}
