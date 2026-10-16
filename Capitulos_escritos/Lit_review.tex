@@ -753,7 +753,34 @@ As stated in Section \ref{sec-FRA-Standard}, track irregularities are modeled as
     r(\chi) = \sum_{i=1}^{N} A_i \cos(\Omega_i \chi + \phi_i)
     \label{eq:track_irregularity}
 \end{equation}
-where $\chi$ is the spatial coordinate, $A_i = \sqrt{2 S(\Omega_i) \Delta \Omega}$ is the amplitude of the i-th cosine wave, $\Omega_i$ is the spatial frequency, $\phi_i \sim \mathcal{U}(0, 2\pi)$ is a pseudo-random phase, and $S(\Omega_i)$ is the PSD function evaluated at $\Omega_i$. 
+where $\chi$ is the spatial coordinate, $A_i = \sqrt{2 S(\Omega_i) \Delta \Omega}$ is the amplitude of the i-th cosine wave, $\Omega_i$ is the spatial frequency, $\phi_i \sim \mathcal{U}(0, 2\pi)$ is a pseudo-random phase, and $S(\Omega_i)$ is the PSD function evaluated at $\Omega_i$. Figure \ref{fig:track-irregularities} shows this process applied to the vertical FRA PSD function for track class 4. 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.98\textwidth}
+        \centering
+        \includegraphics[width=0.98\textwidth]{Cap2_LitReview/PSD_to_track/PSD_data_points.png}
+        \caption{}
+        \label{fig:track-irregularities-a}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.98\textwidth}
+        \centering
+        \includegraphics[width=0.98\textwidth]{Cap2_LitReview/PSD_to_track/Individual_waves.png}
+        \caption{}
+        \label{fig:track-irregularities-b}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.98\textwidth}
+        \centering
+        \includegraphics[width=0.98\textwidth]{Cap2_LitReview/PSD_to_track/Final_track.png}
+        \caption{}
+        \label{fig:track-irregularities-c}
+    \end{subfigure}
+    \caption{Example of track irregularity profiles generated from the FRA PSD functions. \textbf{(a)} The vertical FRA PSD function for wavelenghts between 0.1 and 3 m, plotted in blue, and the discrete points used to generate the track irregularity profile, plotted in red. \textbf{(b)} The individual cosine waves generated from the points in \textbf{(a)}. \textbf{(c)} The final track irregularity profile obtained by summing the individual cosine waves using the Equation \ref{eq:track_irregularity}.}
+    \label{fig:track-irregularities}
+\end{figure}
+
 
 \section{Assessing Railway Track Condition} \label{sec-assessing-railway-track}
 
