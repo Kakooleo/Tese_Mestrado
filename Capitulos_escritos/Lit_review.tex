@@ -980,9 +980,9 @@ where $\text{MAD}$ is the Median Absolute Deviation (MAD) and $\text{Var}$ is th
     \item Divide the measured signal $y(t)$ by $N(t)$ to obtain the normalised signal $\hat{x}(t)$.
 \end{enumerate}
 
-The authors then tested this method in 2 different case studies: for a numerical signal generated with a gearbox model, and for a signal acquired in a laboratory experiment. Only the results for the laboratory experiment will be shown. In this experiment, a gear corroded for approximately 1.5 years was operated in a gearbox under four different speed and load profiles. Figure \ref{fig:Schmidt-Results-1} shows the result of the method applied to one of the measurements, where it is possible to see that the amplitude modulation present in the raw signal was removed in the normalised signal. The authors also compared the results of the proposed method with the LDN and the Cepstrum Pre-Whitening (CPW) method, described in Borghesani et al. \cite{BORGHESANI2013370}, for the RMS and the kurtosis statistics. Figure \ref{fig:Schmidt-Results-2} shows this comparison. The RMS of the raw signal is very sensitive to the operating conditions, while the RMS of the LDN and CPW signals are insensitive to the condition of the gear. In contrast, the RMS of the normalised signal obtained with the proposed method is robust to the operating conditions and sensitive to the damage.
+The authors then tested this method in 2 different case studies: for a numerical signal generated with a gearbox model, and for a signal acquired in a laboratory experiment. Only the results for the laboratory experiment will be shown. In this experiment, a gear corroded for approximately 1.5 years was operated in a gearbox under four different speed and load profiles. Figure \ref{fig:Schmidt-Results-1} shows the result of the method applied to one of the measurements, where it is possible to see that the amplitude modulation present in the raw signal was removed in the normalised signal. The authors also compared the results of the proposed method with the LDN and the Cepstrum Pre-Whitening (CPW) method, described in Borghesani et al. \cite{BORGHESANI2013370}, for the RMS and the kurtosis statistics. Figure \ref{fig:Schmidt-Results-2} shows this comparison. They argue that the RMS is sensitive to the operational conditions, while not being sensitive to the fault, even when applying the LDN and CPW normalization methods (Figures \ref{fig:Schmidt-Results-2}(i),(iii) and (v)). However, by using the method proposed by the authors (Figure \ref{fig:Schmidt-Results-2}(vii)), the RMS statistic became sensitive to the fault, while being insensitive to the operational conditions. The kurtosis statistic, on the other hand, is sensitive to the fault, while being less sensitive to the operational conditions, even when using the raw signal (Figures \ref{fig:Schmidt-Results-2}(ii), (iv) and (viii)). However, using the CPW method (Figure \ref{fig:Schmidt-Results-2}(vi)), caused the kurtosis to become sensitive to the operational conditions and nonsensitive to the fault. 
 
-Finally, the authors used the RMS and kurtosis as features to train a k-means model for novelty detection, using only the first measurements of the experiment and leaving the data of one operating condition out of the training set. Figure \ref{fig:Schmidt-Results-3} shows the resulting novelty scores, where it is possible to see that only the model trained with the features of the proposed method was able to clearly detect the tooth breakage at measurement 148, while the models trained with the raw and LDN features only detected the event at measurement 280.
+Finally, the authors used the RMS and kurtosis as features to train a k-means model for novelty detection, but these results are outside the scope of this work.
 
 \begin{figure}[H]
     \centering
@@ -1004,6 +1004,92 @@ Finally, the authors used the RMS and kurtosis as features to train a k-means mo
 %     \caption{Novelty scores and thresholds obtained with the features of the raw signal and of the signals normalised with the LDN and with the proposed method. On the right side is shown a zoomed view around measurement 148, where one of the gear teeth broke \cite{SCHMIDT2020106964}.}
 %     \label{fig:Schmidt-Results-3}
 % \end{figure}
+
+In Rao et al. \cite{RAO2024111751}, the authors proposed a method to estimate and remove the amplitude modulation caused by speed variation, called Piecewise Power Fitting (PPF). They argued that normalization methods fall into two groups. The first consists of envelope-based methods, such as the one proposed by Schmidt and Heyns \cite{SCHMIDT2020106964}, which estimate the normalization function from the envelope of the signal itself. The second group, on the other hand, consists of speed-related methods, which model the amplitude as an explicit function of the rotational speed, for example by assuming it is proportional to the square of the speed. 
+
+According to Rao et al., envelope-based methods may overestimate the contribution of speed variations because the signal envelope also contains fault-induced amplitude modulation. Consequently, normalization may remove part of the fault-related information. On the other hand, speed-related methods may underestimate the influence of speed when the assumed amplitude–speed relationship fails to capture local nonlinearities, such as those associated with structural resonances.
+
+In their method, they split the healthy data into two sets: Set I, used to learn the normalization function, and Set II, used to evaluate it. For the signals in Set I, they computed the moving RMS of the vibration, $\mathbf{y}$, and the moving average of the normalized speed, that is, the speed profile divided by its maximum, $\mathbf{v}$. The authors suggest a window length between $0.01$ and $0.1$ times the sampling frequency, so that the RMS estimate is robust while the speed remains approximately constant inside the window, and an overlap between $0$ and $0.5$ times the window length. The speed range is then divided into $P$ intervals of equal length, with nodes $v_1, v_2, \dots, v_{P+1}$, and a power function is fitted to the features inside each interval:
+\begin{equation}
+    f_p^e(v) = a_p v^{b_p}, \quad v \in [v_p, v_{p+1}), \quad p = 1, 2, \dots, P
+\end{equation}
+where $a_p$ and $b_p$ are . Since this function has no constant term and is not continuous at the nodes, a linear correction is fitted over it in each interval:
+\begin{equation}
+    f_p^l(u) = c_p u + d_p, \quad u = f_p^e(v)
+\end{equation}
+subject to continuity constraints at the nodes:
+\begin{equation}
+    c_p f_p^e(v_{p+1}) + d_p = c_{p+1} f_{p+1}^e(v_{p+1}) + d_{p+1}, \quad p = 1, 2, \dots, P - 1
+\end{equation}
+The combination of both steps results in the normalization function:
+\begin{equation}
+    N(t) = A_p \left(\frac{s(t)}{s_{max}}\right)^{B_p} + C_p, \quad s(t) \in [s_p, s_{p+1})
+\end{equation}
+where $s(t)$ is the rotational speed in rpm, $s_{max}$ is the maximum speed in Set I, $A_p = a_p c_p$, $B_p = b_p$ and $C_p = d_p$. The authors split the fitting into two steps because fitting this function directly, with the continuity constraints, is difficult numerically, while each of the two steps is a linear fitting problem.
+
+To select the number of intervals $P$, the signals in Set II are normalized with the learned function, and the Pearson correlation coefficient $\rho_P$ between the RMS of the normalized signal and the speed is computed. The rationale is that, if the amplitude modulation caused by the speed was well removed, the RMS should be independent of the speed. This is repeated for $P = 1, 2, \dots, M$, and the number of intervals is chosen as:
+\begin{equation}
+    P^* = \underset{P = 1, \dots, M}{\text{argmin}} \; \rho_P
+\end{equation}
+The full procedure is then:
+\begin{enumerate}
+    \item Acquire synchronized vibration and speed signals under healthy conditions, covering the whole operating speed range, and split them into Set I and Set II;
+    \item Compute the moving RMS of the vibration and the moving average of the normalized speed of the signals in Set I;
+    \item For a given $P$, fit a power function in each speed interval;
+    \item Fit a linear correction over the power functions, with continuity constraints at the nodes, to obtain the normalization function;
+    \item Normalize the signals in Set II and compute the correlation coefficient between the RMS of the normalized signals and the speed;
+    \item Repeat steps 3 to 5 for $P = 1, 2, \dots, M$ and select the $P$ with the lowest correlation coefficient;
+    \item Divide any new signal $y(t)$ by $N(t)$, evaluated at its measured speed, to obtain the normalized signal $\hat{x}(t)$.
+\end{enumerate}
+
+The authors tested this method in 2 different case studies: a planetary gearbox test rig, and a public bearing dataset from the University of Ottawa. Only the results for the planetary gearbox will be shown. In this experiment, the speed varied continuously between 300 rpm and 1500 rpm, and 16 health states were tested, with the planet gear tooth root crack, the weakest fault in the dataset, used as the faulty condition. Approximately 300 s of healthy data was used to learn the normalization function, with a window length of 0.05 s and no overlap, and the selected number of intervals was $P^* = 14$. Figure \ref{fig:Rao-Results-1} shows the learned normalization function, where it is possible to see that the resonances around 700 rpm and 1350 rpm were captured. The authors then compared the proposed method with four other methods, including the one proposed by Schmidt and Heyns \cite{SCHMIDT2020106964}. Figure \ref{fig:Rao-Results-2} shows the RMS of the healthy and faulty signals as a function of the speed for each method. They argue that the method of Schmidt and Heyns removes the dependence on the speed, but also makes the healthy and faulty signals indistinguishable (Figure \ref{fig:Rao-Results-2}(b)), while the other methods preserve the fault information but do not completely remove the effect of speed (Figures \ref{fig:Rao-Results-2}(c)--(e)). With the proposed method (Figure \ref{fig:Rao-Results-2}(f)), the RMS of the healthy signals became approximately constant with respect to the speed, while the RMS of the faulty signals remained higher. Quantitatively, the correlation between the RMS and the speed decreased from 0.834 for the raw signal to 0.342 with the proposed method (0.136 with the method of Schmidt and Heyns), and the ratio between the median RMS of the faulty and healthy signals was 1.880 with the proposed method, against 1.013 with the method of Schmidt and Heyns.
+
+Finally, the authors used the normalized signals to train an AE with healthy data only, using the RMS of the reconstruction error as the fault indicator. For the planetary gearbox, the area under the ROC curve (AUC) increased from 0.686 with the raw signal to 0.997 with the proposed method, while the method of Schmidt and Heyns reduced it to 0.599. Similar results were obtained for the bearing dataset, with AUC values of 0.927 for the raw signal, 0.751 for the method of Schmidt and Heyns and 0.996 for the proposed method. The details of the AE model are outside the scope of this work. The authors also pointed out that the method requires healthy data distributed evenly across the speed range, is not guaranteed to work outside the speed range used for training, and does not consider the effect of load variations.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{Cap2_LitReview/Signal_normalization/Rao/Normalization_function.png}
+    \caption{RMS of the healthy vibration signals as a function of the rotational speed, and the normalization function learned with the PPF method for the planetary gearbox dataset \cite{RAO2024111751}.}
+    \label{fig:Rao-Results-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Rao/RMS_raw.png}
+        \caption{}
+        \label{fig:Rao-Results-2-a}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Rao/RMS_Schmidt.png}
+        \caption{}
+        \label{fig:Rao-Results-2-b}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Rao/RMS_Yang.png}
+        \caption{}
+        \label{fig:Rao-Results-2-c}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Rao/RMS_Wei.png}
+        \caption{}
+        \label{fig:Rao-Results-2-d}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Rao/RMS_Schmidt_et_al.png}
+        \caption{}
+        \label{fig:Rao-Results-2-e}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Rao/RMS_PPF.png}
+        \caption{}
+        \label{fig:Rao-Results-2-f}
+    \end{subfigure}
+    \caption{RMS of the healthy and faulty signals as a function of the rotational speed for the planetary gearbox dataset: (a) raw signal, and signals normalized with the methods of (b) Schmidt and Heyns \cite{SCHMIDT2020106964}, (c) Yang et al. \cite{YANG20223072}, (d) Wei et al. \cite{wei2019convolutional}, (e) Schmidt et al. \cite{SCHMIDT201940}, and (f) the proposed PPF method \cite{RAO2024111751}.}
+    \label{fig:Rao-Results-2}
+\end{figure}
 
 \section{Assessing Track Irregularities from Acceleration Data} \label{sec-track-quality-accel}
 

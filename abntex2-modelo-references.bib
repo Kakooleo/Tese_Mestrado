@@ -841,3 +841,66 @@ author = {P. Borghesani and P. Pennacchi and R.B. Randall and N. Sawalhi and R. 
 keywords = {Cepstrum, Whitening, Bearing diagnostics, Deterministic/random separation},
 abstract = {Diagnostics of rolling element bearings involves a combination of different techniques of signal enhancing and analysis. The most common procedure presents a first step of order tracking and synchronous averaging, able to remove the undesired components, synchronous with the shaft harmonics, from the signal, and a final step of envelope analysis to obtain the squared envelope spectrum. This indicator has been studied thoroughly, and statistically based criteria have been obtained, in order to identify damaged bearings. The statistical thresholds are valid only if all the deterministic components in the signal have been removed. Unfortunately, in various industrial applications, characterized by heterogeneous vibration sources, the first step of synchronous averaging is not sufficient to eliminate completely the deterministic components and an additional step of pre-whitening is needed before the envelope analysis. Different techniques have been proposed in the past with this aim: The most widely spread are linear prediction filters and spectral kurtosis. Recently, a new technique for pre-whitening has been proposed, based on cepstral analysis: the so-called cepstrum pre-whitening. Owing to its low computational requirements and its simplicity, it seems a good candidate to perform the intermediate pre-whitening step in an automatic damage recognition algorithm. In this paper, the effectiveness of the new technique will be tested on the data measured on a full-scale industrial bearing test-rig, able to reproduce the harsh conditions of operation. A benchmark comparison with the traditional pre-whitening techniques will be made, as a final step for the verification of the potentiality of the cepstrum pre-whitening.}
 }
+
+@article{RAO2024111751,
+title = {Normalizing vibration signals with a novel piecewise power fitting method for intelligent fault detection of rotating machinery},
+journal = {Mechanical Systems and Signal Processing},
+volume = {221},
+pages = {111751},
+year = {2024},
+issn = {0888-3270},
+doi = {https://doi.org/10.1016/j.ymssp.2024.111751},
+url = {https://www.sciencedirect.com/science/article/pii/S0888327024006496},
+author = {Meng Rao and Xingkai Yang and Zheng Cao and Ming J. Zuo and Fulei Chu},
+keywords = {Rotating machinery, Varying speed condition, Amplitude modulation estimation, Autoencoder, Fault detection},
+abstract = {The rotational speed of a rotating machine in industrial applications often varies over time. Examples include the motor of an elevator, gearbox of a wind turbine and motor of a robot arm. Speed variation induces additional amplitude modulation (AM) effects to vibration signals, and such AM effects overlap with those induced by faults. It is necessary to normalize vibration signals, i.e., accurately estimate the speed-variation-induced AM effects and sufficiently remove them from vibration signals, otherwise would result in missing alarms and/or false alerts in fault detection. Existing methods for estimating the speed-variation-induced AM effects are either not able to grasp all the effects such as resonance property or have the fault-induced AM effects included. To address this problem, this paper proposes a new method for estimating the speed-variation-induced AM effects through a piecewise power fitting (PPF) manner. The proposed method can well capture the resonance property without being influenced by the fault signatures. The estimated speed-variation-induced AM effects are then removed from vibration signals through a normalization method. The normalized vibration signals are employed by a deep autoencoder (AE) for intelligent fault detection. The effectiveness of the proposed PPF method and its contribution to intelligent fault detection is validated with two experimental datasets and compared with several state-of-the-art methods.}
+}
+
+@article{YANG20223072,
+author = {Yang, Xingkai and Zhou, Peng and Zuo, Ming J. and Tian, Zhigang},
+title = {Normalization of gearbox vibration signal for tooth crack diagnosis under variable speed conditions},
+journal = {Quality and Reliability Engineering International},
+volume = {38},
+number = {6},
+pages = {3072-3098},
+keywords = {crack induced impulses, gearbox, removal of amplitude modulation, tooth crack severity progression, variable speed condition},
+doi = {https://doi.org/10.1002/qre.3029},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/qre.3029},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/qre.3029},
+abstract = {Abstract Variable speed conditions introduce Amplitude Modulation (AM) and Frequency Modulation (FM) effects into gearbox vibration signals, which makes it difficult to distinguish between changes of tooth crack severity and speed changes. To overcome this problem, the AM and FM effects caused by speed variation need to be removed. Order tracking techniques are used to remove the FM effect. Some methods have been reported to reduce the AM effect. However, they attenuated crack information since they focused on the entire vibration signal. Besides, the performance of the reported methods on removing the AM effect was not quantitatively evaluated. In this study, a novel normalization method focusing on the Crack Induced Impulses (CII) is proposed to remove the AM effect without attenuating the tooth crack information. A modified Adaptive Chirp Mode Decomposition method is developed to obtain the CII under variable speed conditions. The peak envelope of the CII is determined using spline interpolation of its envelope peaks and is employed to remove the AM effect of the CII by normalization. Two metrics are introduced to quantitatively evaluate the performance of the proposed normalization method on removing the AM effect and preserving the tooth crack information. The effectiveness of the proposed normalization method is demonstrated using simulated gearbox signals and experimental gearbox datasets. The proposed method benefits tracking tooth crack severity progression under variable speed conditions.},
+year = {2022}
+}
+
+@InProceedings{wei2019convolutional,
+author="Wei, Dongdong
+and Wang, KeSheng
+and Heyns, Stephan
+and Zuo, Ming J.",
+editor="Fernandez Del Rincon, Alfonso
+and Viadero Rueda, Fernando
+and Chaari, Fakher
+and Zimroz, Radoslaw
+and Haddar, Mohamed",
+title="Convolutional Neural Networks for Fault Diagnosis Using Rotating Speed Normalized Vibration",
+booktitle="Advances in Condition Monitoring of Machinery in Non-Stationary Operations",
+year="2019",
+publisher="Springer International Publishing",
+address="Cham",
+pages="67--76",
+abstract="Fault diagnosis is vital for the health management of rotating machinery. The non-stationary working conditions is one of the major challenges in this field. The key is to extract working-condition-invariant but fault-discriminative features. Traditional methods use expert knowledge on the machines and signal processing to extract fault features from vibration signals manually. This paper regards this issue as a domain adaption problem and utilizes deep learning technique to learn fault discriminative features automatically. We teach deep Convolutional Neural Networks to pronounce diagnostic results from raw vibration data and propose a Rotating Speed Normalization method to improve the domain adaption ability of the neural network models. A case study of rotor crack diagnosis under non-stationary and ever-changing rotating speeds is presented. Using 95600 signal segments, we compare the diagnostic performance of ours and reported Convolutional Neural Network models. The results show that our model gives solid diagnostic accuracy from non-stationary vibration signals, and the proposed Rotating Speed Normalization method can successfully boost the performance of all investigated CNN models.",
+isbn="978-3-030-11220-2"
+}
+
+@article{SCHMIDT201940,
+title = {A discrepancy analysis methodology for rolling element bearing diagnostics under variable speed conditions},
+journal = {Mechanical Systems and Signal Processing},
+volume = {116},
+pages = {40-61},
+year = {2019},
+issn = {0888-3270},
+doi = {https://doi.org/10.1016/j.ymssp.2018.06.026},
+url = {https://www.sciencedirect.com/science/article/pii/S0888327018303583},
+author = {Stephan Schmidt and P. Stephan Heyns and Konstantinos C. Gryllias},
+keywords = {Bearing diagnostics, Time variable speed conditions, Novelty detection, Discrepancy analysis, Probabilistic approach},
+abstract = {Performing condition monitoring on critical machines such as gearboxes is essential to ensure that the machines operate reliably. However, many gearboxes are exposed to variable operating conditions which impede the condition inference task. Rolling element bearing component failures are important causes of gearbox failures and therefore robust bearing diagnostic techniques are required. In this paper, a rolling element bearing diagnostic methodology based on novelty detection is proposed for machines operating under variable speed conditions. The methodology uses the wavelet packet transform, order tracking and a feature modelling approach to generate a diagnostic metric in the form of a discrepancy measure. The probability distribution of the diagnostic metric, statistically conditioned on the corresponding operating conditions is estimated, whereafter the condition of the rolling bearing element is inferred. The rolling element bearing diagnostic methodology is validated on data from a phenomenological gearbox model and two experimental datasets.}
+}
