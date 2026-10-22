@@ -1107,25 +1107,25 @@ Finally, the authors used the normalized signals to train an AE with healthy dat
     \label{tab:Rao-Results}
 \end{table}
 
-In Fang et al. \cite{fang2025amplitude}, the authors proposed a method to estimate and remove the amplitude modulation caused by speed variation based on Support Vector Regression (SVR). Similarly to Rao et al. \cite{RAO2024111751}, they argue that envelope-based methods may remove fault-induced amplitude modulation together with the speed-induced one, since both are contained in the signal envelope. They also point out that these methods rely on a single amplitude metric, which may not fully characterize the amplitude modulation, and that the envelope must be extracted for each signal individually, which is computationally expensive for large-scale monitoring. Regarding speed-related methods, they argue that simple functional forms, such as the quadratic function of Wei et al. \cite{wei2019convolutional} or the piecewise power functions of Rao et al. \cite{RAO2024111751}, lack the flexibility to represent local nonlinearities and, in the case of the PPF, are sensitive to noise and perform poorly near the boundaries of the intervals. Deep learning approaches, on the other hand, require large training datasets and high computational cost, and have limited interpretability. The authors therefore treat the estimation of the speed-induced amplitude modulation as a nonlinear regression problem, combining a multi-feature description of the amplitude modulation with an SVR model.
+In Fang et al. \cite{FANG2025}, the authors proposed a method to estimate and remove the amplitude modulation caused by speed variation based on Support Vector Regression (SVR). They argue that envelope-based methods may remove fault-induced amplitude modulation together with the speed-induced one, since both are contained in the signal envelope. They also point out that these methods rely on a single amplitude metric, which may not fully characterize the amplitude modulation, and that the envelope must be extracted for each signal individually, which is computationally expensive for large-scale monitoring. They also argue that speed-related methods lack the flexibility to represent local nonlinearities and, in the case of the PPF, are sensitive to noise and perform poorly near the boundaries of the intervals.
 
-Following Schmidt and Heyns \cite{SCHMIDT2020106964}, the vibration signal is modeled as the product of a stationary component $r(t)$, which contains the fault information, and a modulation function $M(t)$ that depends only on the rotational speed $\omega(t)$:
+Following Schmidt and Heyns \cite{SCHMIDT2020106964} approach, they modeled the vibration signal as the product of a stationary component $r(t)$ and a modulation function $M(t)$ that depends only on the rotational speed $\omega(t)$:
 \begin{equation}
     x(t) = r(t) \cdot M(t) = r(t) \cdot f(\omega(t))
 \end{equation}
-Other sources of modulation, such as load and sensor transmission, are assumed to be constant. As in the PPF method, the function $f$ is learned using only healthy data, so that it does not capture fault-related amplitude variations.
+Other sources of modulation, such as load, are assumed to be constant.
 
-Instead of using only the RMS to describe the amplitude modulation, the authors computed four time-domain features of the vibration signals with a sliding window: the median, RMS, peak-to-peak value and kurtosis, resulting in the feature vectors $\mathbf{y}_1, \mathbf{y}_2, \mathbf{y}_3$ and $\mathbf{y}_4$. The moving average of the speed, $\mathbf{s}$, is computed with the same window configuration. The authors suggest a window length of $1/500$ of the total signal duration, so that the window is long enough to capture the amplitude fluctuations while the speed remains approximately constant inside it. The features are then preprocessed with outlier removal, imputation of missing values and phase compensation between the vibration and speed signals, and scaled to the range $[0, 1]$ with min--max normalization. To select which features are representative of the speed-induced amplitude modulation, the authors computed the Pearson correlation coefficient between each feature and the speed, which they call Feature--Speed Pearson Correlation (FSPC):
+Instead of using only the RMS to describe the amplitude modulation, the authors proposed to use a combination of different features of the vibration signal. Using a sliding window they computed the median, RMS, peak-to-peak value and kurtosis, resulting in the feature vectors $\mathbf{y}_1, \mathbf{y}_2, \mathbf{y}_3$ and $\mathbf{y}_4$. The moving average of the speed, $\mathbf{s}$, is computed with the same window configuration. The authors suggested a window length of $1/500$ of the total signal duration. The features are then preprocessed with outlier removal, imputation of missing values and phase compensation, and, at the end, scaled to the range $[0, 1]$ with the min--max normalization. To select the features that are more representative of the speed-induced effect, the authors computed the Pearson correlation coefficient between each of them and the speed, which they call Feature--Speed Pearson Correlation (FSPC):
 \begin{equation}
-    \text{FSPC}_i = \frac{\sum_k (s_k - \bar{s})(y_{i,k} - \bar{y}_i)}{\sqrt{\sum_k (s_k - \bar{s})^2 \sum_k (y_{i,k} - \bar{y}_i)^2}}
+    \text{FSPC}_{\mathbf{y}_i} = corr(\mathbf{s}, \mathbf{y}_i) = \frac{\sum (\mathbf{s} - \bar{\mathbf{s}})(\mathbf{y}_i - \bar{\mathbf{y}}_i)}{\sqrt{\sum (\mathbf{s} - \bar{\mathbf{s}})^2 \sum (\mathbf{y}_i - \bar{\mathbf{y}}_i)^2}}
 \end{equation}
-Only features with $\text{FSPC}_i > 0.5$ are retained. Features with negative correlation are also discarded, since the vibration amplitude is expected to increase with speed. The retained features are combined into a single feature vector, with weights proportional to their FSPC:
+where $\bar{\mathbf{s}}$ and $\bar{\mathbf{y}}_i$ are the mean values of the speed and feature vectors, respectively. They kept only the features with $\text{FSPC}_{\mathbf{y}_i} > 0.5$. Features with negative correlation are also discarded, since the vibration amplitude is expected to increase with speed. The features that satisfy the criteria are then combined into a single feature vector, with weights proportional to their FSPC:
 \begin{equation}
-    \mathbf{y} = \sum_{i=1}^{N} w_i \mathbf{y}_i, \quad w_i = \frac{\text{FSPC}_i}{\sum_{j=1}^{N} \text{FSPC}_j}
+    \mathbf{y} = \sum_{i=1}^{N} w_i \mathbf{y}_i, \quad w_i = \frac{\text{FSPC}_{\mathbf{y}_i}}{\sum_{j=1}^{N} \text{FSPC}_{\mathbf{y}_j}}
 \end{equation}
-where $N$ is the number of retained features. In this way, features more strongly correlated with the speed have a greater influence on the description of the amplitude modulation.
+where $N$ is the number of retained features. In this way, features more linearly correlated to the speed have a greater influence on the description of the amplitude modulation.
 
-The feature vector $\mathbf{y}$ is then used as the target output of an $\varepsilon$-SVR model, with the speed vector $\mathbf{s}$ as input. The SVR parameters are obtained by solving:
+The feature vector $\mathbf{y}$ is then used as the target output of a SVR model, with the speed vector $\mathbf{s}$ as input. The SVR parameters are obtained by solving:
 \begin{equation}
     \begin{aligned}
         \min_{\mathbf{w}, b, \xi, \xi^*} \quad & \frac{1}{2}\|\mathbf{w}\|^2 + C \sum_{k=1}^{n} (\xi_k + \xi_k^*) \\
@@ -1134,13 +1134,13 @@ The feature vector $\mathbf{y}$ is then used as the target output of an $\vareps
         & \xi_k, \xi_k^* \geq 0
     \end{aligned}
 \end{equation}
-where $C$ is the regularization parameter, $\varepsilon$ is the width of the insensitive margin, and $\xi_k$ and $\xi_k^*$ are slack variables. Solving the dual problem with a radial basis function (RBF) kernel results in the normalization function:
+where $C$ is the regularization parameter, $\varepsilon$ is the maximum permited regression error, and $\xi_k$ and $\xi_k^*$ are relaxed variables. Solving the dual problem with a radial basis function (RBF) kernel results in the normalization function:
 \begin{equation}
     f(s) = \sum_{k=1}^{n} (\alpha_k - \alpha_k^*) \exp\left(-\gamma (s_k - s)^2\right) + b
 \end{equation}
-where $\alpha_k$ and $\alpha_k^*$ are Lagrange multipliers and $\gamma$ is the width of the kernel. The hyperparameters $C$, $\gamma$ and $\varepsilon$ are selected with a grid search, minimizing the mean squared error between $f(s_k)$ and $y_k$, over the values $C \in \{0.1, 1, 10, 100\}$, $\gamma \in \{0.1, 1, 10\}$ and $\varepsilon \in \{0.01, 0.1, 1\}$. The full procedure is then:
+where $\alpha_k$ and $\alpha_k^*$ are Lagrange multipliers and $\gamma$ is the width of the kernel. The authors used a grid search to select the hyperparameters $C$, $\gamma$ and $\varepsilon$, choosing the values that minimize the MSE between $f(s_k)$ and $y_k$, over the values $C \in \{0.1, 1, 10, 100\}$, $\gamma \in \{0.1, 1, 10\}$ and $\varepsilon \in \{0.01, 0.1, 1\}$. The full procedure is then:
 \begin{enumerate}
-    \item Collect synchronized vibration and speed signals under healthy conditions, covering the full operating speed range;
+    \item Collect vibration and speed signals under healthy conditions;
     \item Compute the windowed median, RMS, peak-to-peak value and kurtosis of the vibration, and the moving average of the speed;
     \item Preprocess the features with outlier removal, imputation of missing values, phase compensation and min--max scaling;
     \item Compute the FSPC of each feature, discard the features with $\text{FSPC} \leq 0.5$, and combine the remaining ones into the weighted feature vector $\mathbf{y}$;
@@ -1162,12 +1162,12 @@ Finally, the authors used the normalized signals as input to an AE-based model f
 \end{figure}
 
 \begin{figure}[H]
-    \centering
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Fang/RMS_raw.png}
         \caption{}
         \label{fig:Fang-Results-2-a}
     \end{subfigure}
+    \hspace{0.5cm}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Fang/RMS_Schmidt.png}
         \caption{}
@@ -1179,6 +1179,7 @@ Finally, the authors used the normalized signals as input to an AE-based model f
         \caption{}
         \label{fig:Fang-Results-2-c}
     \end{subfigure}
+    \hspace{0.5cm}
     \begin{subfigure}{0.45\textwidth}
         \includegraphics[width=8cm]{Cap2_LitReview/Signal_normalization/Fang/RMS_Wei.png}
         \caption{}
