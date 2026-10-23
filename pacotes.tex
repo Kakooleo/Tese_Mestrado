@@ -1,3 +1,4 @@
+% !TEX root = trabalho.tex
 % Aqui você pode adicionar seus pacotes específicos para uso em seu trabalho.
 % Em PACOTES PESSOAIS insira os pacotes que desejar.
 % ----------------------------------------------------------
@@ -50,15 +51,72 @@
 % \usepackage{amssymb}			% para os símbolos mais antigos
 % \usepackage{amstext}			% para fragmentos tipo texto em modo matemático
 \usepackage{amsthm}			% para teoremas
+\usepackage{subcaption}
 \usepackage{hyperref}			% Amplo suporte para hipertexto em LaTeX
-\usepackage[brazilian]{cleveref}			% Referência cruzada inteligente
+
+% Cleveref configuration
+\usepackage[english,capitalise,noabbrev,sort]{cleveref} % Referência cruzada inteligente
+
+% Names used by \cref and \Cref
+\crefname{figure}{Figure}{Figures}
+\Crefname{figure}{Figure}{Figures}
+
+\crefname{subfigure}{Figure}{Figures}
+\Crefname{subfigure}{Figure}{Figures}
+
+% Two figures: Figure numbers separated by a comma
+\AtBeginDocument{%
+  \renewcommand{\crefpairconjunction}{, }%
+  \renewcommand{\crefmiddleconjunction}{, }%
+  \renewcommand{\creflastconjunction}{ and~}%
+}
+
+\ExplSyntaxOn
+
+\clist_new:N \l__figpanels_labels_clist
+\int_new:N \l__figpanels_index_int
+
+\NewDocumentCommand{\figpanels}{m m}
+  {
+    \group_begin:
+    \clist_set:Nn \l__figpanels_labels_clist {#2}
+    \int_zero:N \l__figpanels_index_int
+
+    \int_compare:nNnTF
+      {\clist_count:N \l__figpanels_labels_clist} = {1}
+      {Figure}
+      {Figures}
+    \nobreakspace\ref{#1}
+
+    \clist_map_inline:Nn \l__figpanels_labels_clist
+      {
+        \int_incr:N \l__figpanels_index_int
+        \int_compare:nNnT {\l__figpanels_index_int} > {1}
+          {
+            \int_compare:nNnTF
+              {\l__figpanels_index_int}
+              =
+              {\clist_count:N \l__figpanels_labels_clist}
+              {~and~}
+              {,~}
+          }
+        \subref{##1}
+      }
+    \group_end:
+  }
+
+\ExplSyntaxOff
+
+% Parentheses when using \subref
+\captionsetup{subrefformat=simple}
+
 \usepackage{dsfont}			% para o estilo de conjuntos de números $\mathds{R}$
 % \usepackage{ifthen}			% comandos de condição em LaTeX
 \usepackage{listings}           	% para inserir códigos de outras linguagens de programação
 % \usepackage{lscape}             	% para imprimir alguma página no formato paisagem
 % \usepackage{mathrsfs}			% suporte para fontes RSFS
 % \usepackage{pdfpages}           	% para inserir páginas PDF no texto
-
+\usepackage{tikz}
 % \usepackage{verbatim}
 % ----------------------------------------------------------
 \usepackage{lastpage}
@@ -154,7 +212,6 @@ Citado #1 vezes nas páginas #2.
 % Permite incluir listagens de código com o comando \lstinputlisting{}.
 \usepackage{listings}
 \usepackage{caption}
-\usepackage{subcaption}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
@@ -219,7 +276,6 @@ Citado #1 vezes nas páginas #2.
     %\usepackage{paralist}
     
     \usepackage{caption}
-    \usepackage{subcaption}
     
     
     \usepackage{media9}
